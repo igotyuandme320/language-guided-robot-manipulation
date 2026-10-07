@@ -94,6 +94,9 @@ if __name__ == "__main__":
     exit_code = 0
     try:
         main()
+    except KeyboardInterrupt:
+        print("[INFO] Interrupted by user.", flush=True)
+        exit_code = 130
     except Exception:
         traceback.print_exc()
         exit_code = 1

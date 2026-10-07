@@ -16,6 +16,8 @@ Current progress:
   gripper control, and WebRTC streaming.
 - [Day 2: custom scene](docs/day2.md) — Panda, table, movable red cube,
   and fixed green platform.
+- [Day 3: pick and place](docs/day3.md) — position-based skills connected
+  to differential IK and the gripper, with observed object-state checks.
 
 ![Custom manipulation scene](docs/images/day2_scene.png)
 
@@ -35,3 +37,9 @@ uv run --no-sync python \
 See the daily notes for bounded checks, screenshots, and limitations.
 This is currently a simulation demo with known object poses; it has no
 learned perception or language model yet.
+
+To run the full pick-and-place demo, replace `day2_scene.py` above with
+`day3_pick.py` and add `--place --keep_open`. Omit `--keep_open` for a
+bounded attempt that returns a failure code on timeout or interruption.
+
+![Cube placed on the green platform](docs/images/day3_place.png)
