@@ -1,4 +1,4 @@
-"""Day 4: a rule-based language command -> goal -> plan -> verified Franka skills."""
+"""Language command -> goal -> verified skills; rules default, optional Day 6 model."""
 
 import argparse
 import json
@@ -16,6 +16,8 @@ from planning.symbolic import WorldState, plan_goal
 
 parser = argparse.ArgumentParser(description="Execute a supported English/Chinese tabletop instruction.")
 parser.add_argument("--instruction", required=True, help="A supported pick or place request.")
+parser.add_argument("--language_backend", choices=("rules", "llm"), default="rules")
+parser.add_argument("--llm_timeout", type=float, default=120.0, help="CPU model worker deadline in seconds.")
 parser.add_argument("--dry_run", action="store_true", help="Print goal/plan JSON for a fresh table scene; do not launch Kit.")
 parser.add_argument("--max_steps", type=int, help="Attempt timeout: default 3000 for pick, 6000 for place.")
 parser.add_argument("--cube_x", type=float, default=0.5)
@@ -24,29 +26,41 @@ parser.add_argument("--screenshot", type=Path, help="Save the viewport after ver
 parser.add_argument("--keep_open", action="store_true", help="Hold the final arm pose until the app is closed.")
 AppLauncher.add_app_launcher_args(parser)
 args_cli = parser.parse_args()
-try:
-    goal = parse_instruction(args_cli.instruction)
-except ValueError as error:
-    parser.error(str(error))
-if args_cli.max_steps is None:
-    args_cli.max_steps = 6000 if goal.action == "place" else 3000
-if args_cli.max_steps <= 0:
+if args_cli.max_steps is not None and args_cli.max_steps <= 0:
     parser.error("--max_steps must be positive")
+if not math.isfinite(args_cli.llm_timeout) or args_cli.llm_timeout <= 0:
+    parser.error("--llm_timeout must be positive and finite")
 if not (math.isfinite(args_cli.cube_x) and math.isfinite(args_cli.cube_y)):
     parser.error("cube positions must be finite")
 if not (0.35 <= args_cli.cube_x <= 0.65 and -0.15 <= args_cli.cube_y <= 0.15):
     parser.error("cube position must be inside the allowed tabletop region: x=[0.35,0.65], y=[-0.15,0.15]")
+language_metadata = None
+try:
+    if args_cli.language_backend == "llm":
+        from planning.llm import infer_goal
+        goal, language_metadata = infer_goal(args_cli.instruction, args_cli.llm_timeout)
+    else:
+        goal = parse_instruction(args_cli.instruction)
+except ValueError as error:
+    parser.error(str(error))
+if args_cli.max_steps is None:
+    args_cli.max_steps = 6000 if goal.action == "place" else 3000
 
 if args_cli.dry_run:
     assumed_state = WorldState("table")
-    print(json.dumps({
+    preview = {
         "instruction": args_cli.instruction,
         "goal": goal.to_dict(),
         "assumed_state": assumed_state.to_dict(),
         "plan": [call.to_dict() for call in plan_goal(goal, assumed_state)],
-    }, ensure_ascii=False, indent=2))
+    }
+    if language_metadata is not None:
+        preview["language_model"] = language_metadata
+    print(json.dumps(preview, ensure_ascii=False, indent=2))
     raise SystemExit(0)
 
+if language_metadata is not None:
+    print(f"[LANGUAGE] {json.dumps(language_metadata, ensure_ascii=False)}", flush=True)
 print(f"[GOAL] {json.dumps(goal.to_dict())}", flush=True)
 app_launcher = AppLauncher(args_cli)
 simulation_app = app_launcher.app

@@ -42,6 +42,19 @@ class LanguageCliTests(unittest.TestCase):
         self.assertEqual(result.returncode, 2, result.stderr)
         self.assertIn("--max_steps must be positive", result.stderr)
 
+    def test_llm_deadline_exits_before_simulator_start(self):
+        result = self.run_cli("Could you move the red cube onto the green platform?",
+                              "--language_backend", "llm", "--llm_timeout", "0.01", "--dry_run")
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertIn("inference timed out", result.stderr)
+        self.assertNotIn("[ext:", result.stdout)
+        self.assertNotIn("AppLauncher is deprecated", result.stderr)
+
+    def test_invalid_llm_deadline_is_rejected(self):
+        result = self.run_cli("pick up the red cube", "--llm_timeout", "nan", "--dry_run")
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertIn("positive and finite", result.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()

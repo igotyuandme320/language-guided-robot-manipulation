@@ -10,9 +10,10 @@ Current baseline pipeline:
 natural language → structured goal → task planner → skills → IK/controller → simulation
 ```
 
-The language parser uses a few explicit templates. Object poses come from
-the simulator. This is a runnable learning baseline, with no LLM or
-learned perception yet.
+The default language parser uses explicit templates. An optional local
+Qwen model front end is experimental and can misunderstand requests;
+its initial language check scored 15/24 versus 16/24 for the rules.
+Object poses come from the simulator; there is no learned perception.
 
 Current progress:
 
@@ -27,6 +28,8 @@ Current progress:
   Symbolic effects are recorded after physical success checks.
 - [Day 5: fixed-position evaluation](docs/day5.md) — a repeatable grid
   protocol with structured results and failure accounting.
+- [Day 6: local model experiment](docs/day6.md) — optional CPU inference,
+  strict goal validation, and a comparison that retains model errors.
 
 ![Custom manipulation scene](docs/images/day2_scene.png)
 
