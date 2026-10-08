@@ -1,34 +1,23 @@
-name: Python Package using Conda
+name: Python planning checks
 
 on: [push]
 
 jobs:
-  build-linux:
+  planning-tests:
     runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 5
 
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python 3.10
+    - name: Set up Python 3.12
       uses: actions/setup-python@v3
       with:
-        python-version: '3.10'
-    - name: Add conda to system path
+        python-version: '3.12'
+    - name: Check Python syntax
       run: |
-        # $CONDA is an environment variable pointing to the root of the miniconda directory
-        echo $CONDA/bin >> $GITHUB_PATH
-    - name: Install dependencies
+        python -m compileall -q planning execution scenes scripts skills tests
+    - name: Test the pure-Python language and planning modules
       run: |
-        conda env update --file environment.yml --name base
-    - name: Lint with flake8
-      run: |
-        conda install flake8
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Test with pytest
-      run: |
-        conda install pytest
-        pytest
+        python -m unittest discover -s tests -p 'test_language.py' -v
+        python -m unittest discover -s tests -p 'test_symbolic.py' -v
+        python -m unittest discover -s tests -p 'test_grounding.py' -v
+    # GPU simulation, torch skills, and the Isaac Lab CLI are checked locally.

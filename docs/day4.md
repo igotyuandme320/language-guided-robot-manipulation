@@ -97,6 +97,11 @@ Day 4 interruption, and Day 4 timeout without a false symbolic effect.
 Interruptions exit with code `130`; execution timeouts exit with code `1`.
 Test commands are listed in [Day 3](day3.md#running-the-demo).
 
+The GitHub workflow runs syntax checks and the 20 pure-Python parser,
+planner, and initial-state tests. It does not run the Torch skills or
+launch Isaac Sim. I adjusted the incoming Conda workflow because it
+referenced an `environment.yml` that this repository does not have.
+
 ## Running it
 
 ```bash
