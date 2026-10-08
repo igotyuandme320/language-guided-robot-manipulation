@@ -9,6 +9,20 @@ SCRIPT = Path(__file__).resolve().parents[1] / "scripts/day4_language.py"
 
 
 class LanguageCliTests(unittest.TestCase):
+    def test_guarded_negation_is_blocked_before_model_or_app(self):
+        result = self.run_cli("Do not lift the red cube.", "--language_backend", "guarded", "--llm_timeout", "0.01")
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertIn("Negated", result.stderr)
+        self.assertNotIn("timed out", result.stderr)
+        self.assertNotIn("[ext:", result.stdout)
+
+    def test_guarded_template_preview_records_rule_source(self):
+        result = self.run_cli("pick up the red cube", "--language_backend", "guarded", "--llm_timeout", "0.01", "--dry_run")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        preview = json.loads(result.stdout)
+        self.assertEqual(preview["language_frontend"], {"backend": "guarded", "source": "rules"})
+        self.assertEqual(preview["goal"]["action"], "pick")
+
     def run_cli(self, instruction, *extra):
         return subprocess.run(
             [sys.executable, str(SCRIPT), "--instruction", instruction, *extra],

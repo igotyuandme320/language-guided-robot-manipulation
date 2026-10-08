@@ -2,7 +2,7 @@
 
 import unittest
 
-from scripts.day6_evaluate import score_model_output
+from scripts.day6_evaluate import score_guarded_output, score_model_output
 
 PICK = {"action": "pick", "object": "red_cube", "target": None}
 PLACE = {"action": "place", "object": "red_cube", "target": "green_platform"}
@@ -10,6 +10,24 @@ PICK_OUTPUT = '{"status":"ok","goal":{"action":"pick","object":"red_cube","targe
 
 
 class LanguageEvaluationTests(unittest.TestCase):
+    def test_guard_blocks_negation_even_when_model_accepts(self):
+        row = score_guarded_output("Do not lift the red cube.", PICK_OUTPUT, None)
+        self.assertEqual((row["status"], row["source"], row["correct"]), ("rejected", "guard", True))
+
+    def test_guard_does_not_rewrite_wrong_final_action(self):
+        row = score_guarded_output("Move the red cube onto the green platform.", PICK_OUTPUT, PLACE)
+        self.assertEqual(row["status"], "rejected")
+        self.assertFalse(row["correct"])
+
+    def test_known_template_uses_rules_without_claiming_model_credit(self):
+        row = score_guarded_output("pick up the red cube", "not JSON", PICK)
+        self.assertEqual((row["source"], row["goal"], row["correct"]), ("rules", PICK, True))
+
+    def test_novel_supported_request_still_needs_valid_model_output(self):
+        row = score_guarded_output("Please hold the red cube.", "not JSON", PICK)
+        self.assertEqual(row["status"], "invalid_output")
+        self.assertFalse(row["correct"])
+
     def test_correct_goal_is_scored_against_expected_intent(self):
         self.assertTrue(score_model_output(PICK_OUTPUT, PICK)["correct"])
         self.assertFalse(score_model_output(PICK_OUTPUT, PLACE)["correct"])

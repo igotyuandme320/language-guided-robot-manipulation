@@ -13,6 +13,8 @@ natural language → structured goal → task planner → skills → IK/controll
 The default language parser uses explicit templates. An optional local
 Qwen model front end is experimental and can misunderstand requests;
 its initial language check scored 15/24 versus 16/24 for the rules.
+An optional `guarded` entry adds conservative literal checks and explicit
+rules/model attribution; it still rejects some valid requests.
 Object poses come from the simulator; there is no learned perception.
 
 Current progress:
@@ -30,6 +32,8 @@ Current progress:
   protocol with structured results and failure accounting.
 - [Day 6: local model experiment](docs/day6.md) — optional CPU inference,
   strict goal validation, and a comparison that retains model errors.
+- [Day 7: request checks](docs/day7.md) — explicit entity/action checks,
+  model-conflict rejection, and a second small language comparison.
 
 ![Custom manipulation scene](docs/images/day2_scene.png)
 

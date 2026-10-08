@@ -1,4 +1,4 @@
-"""Language command -> goal -> verified skills; rules default, optional Day 6 model."""
+"""Language command -> goal -> verified skills; rules, model, or guarded model."""
 
 import argparse
 import json
@@ -16,7 +16,7 @@ from planning.symbolic import WorldState, plan_goal
 
 parser = argparse.ArgumentParser(description="Execute a supported English/Chinese tabletop instruction.")
 parser.add_argument("--instruction", required=True, help="A supported pick or place request.")
-parser.add_argument("--language_backend", choices=("rules", "llm"), default="rules")
+parser.add_argument("--language_backend", choices=("rules", "llm", "guarded"), default="rules")
 parser.add_argument("--llm_timeout", type=float, default=120.0, help="CPU model worker deadline in seconds.")
 parser.add_argument("--dry_run", action="store_true", help="Print goal/plan JSON for a fresh table scene; do not launch Kit.")
 parser.add_argument("--max_steps", type=int, help="Attempt timeout: default 3000 for pick, 6000 for place.")
@@ -39,6 +39,9 @@ try:
     if args_cli.language_backend == "llm":
         from planning.llm import infer_goal
         goal, language_metadata = infer_goal(args_cli.instruction, args_cli.llm_timeout)
+    elif args_cli.language_backend == "guarded":
+        from planning.guarded_language import infer_guarded
+        goal, language_metadata = infer_guarded(args_cli.instruction, args_cli.llm_timeout)
     else:
         goal = parse_instruction(args_cli.instruction)
 except ValueError as error:
@@ -55,7 +58,7 @@ if args_cli.dry_run:
         "plan": [call.to_dict() for call in plan_goal(goal, assumed_state)],
     }
     if language_metadata is not None:
-        preview["language_model"] = language_metadata
+        preview["language_frontend" if args_cli.language_backend == "guarded" else "language_model"] = language_metadata
     print(json.dumps(preview, ensure_ascii=False, indent=2))
     raise SystemExit(0)
 

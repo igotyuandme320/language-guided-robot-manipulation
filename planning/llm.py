@@ -41,7 +41,7 @@ EXAMPLES = (
 
 
 class RejectedInstruction(ValueError):
-    """A well-formed model refusal, rather than an invalid model response."""
+    """An explicit model/guard refusal, rather than an invalid model response."""
 
 
 def _unique_object(pairs):

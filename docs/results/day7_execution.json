@@ -1,0 +1,124 @@
+{
+  "description": "Selected actual guarded CLI executions; not a physical robustness benchmark.",
+  "positive_runs": [
+    {
+      "instruction": "Please hold the red cube in your gripper.",
+      "backend": "guarded",
+      "exit_code": 0,
+      "language": {
+        "backend": "guarded",
+        "source": "llm",
+        "model": {
+          "model_id": "Qwen/Qwen2.5-1.5B-Instruct",
+          "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+          "device": "cpu",
+          "raw_output": "{\"status\":\"ok\",\"goal\":{\"action\":\"pick\",\"object\":\"red_cube\",\"target\":null}}",
+          "inference_wall_time_s": 9.929693900005077
+        }
+      },
+      "result": {
+        "goal": {
+          "action": "pick",
+          "object": "red_cube",
+          "target": null
+        },
+        "plan": [
+          {
+            "skill": "pick",
+            "object": "red_cube",
+            "target": null
+          }
+        ],
+        "final_state": {
+          "cube_location": "gripper"
+        },
+        "initial_cube_position_m": [
+          0.49999943375587463,
+          1.1288061614322942e-06,
+          0.016999615356326103
+        ],
+        "final_cube_position_m": [
+          0.4995110332965851,
+          -0.000283542467514053,
+          0.21553432941436768
+        ],
+        "steps": 1813,
+        "physics_dt_s": 0.01,
+        "cube_rise_m": 0.19853471405804157,
+        "stable_hold_s": 0.5000000000000002
+      }
+    },
+    {
+      "instruction": "Please relocate the red cube onto the green target.",
+      "backend": "guarded",
+      "exit_code": 0,
+      "language": {
+        "backend": "guarded",
+        "source": "llm",
+        "model": {
+          "model_id": "Qwen/Qwen2.5-1.5B-Instruct",
+          "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+          "device": "cpu",
+          "raw_output": "{\"status\":\"ok\",\"goal\":{\"action\":\"place\",\"object\":\"red_cube\",\"target\":\"green_platform\"}}",
+          "inference_wall_time_s": 9.170233523997013
+        }
+      },
+      "result": {
+        "goal": {
+          "action": "place",
+          "object": "red_cube",
+          "target": "green_platform"
+        },
+        "plan": [
+          {
+            "skill": "pick",
+            "object": "red_cube",
+            "target": null
+          },
+          {
+            "skill": "place",
+            "object": "red_cube",
+            "target": "green_platform"
+          }
+        ],
+        "final_state": {
+          "cube_location": "green_platform"
+        },
+        "initial_cube_position_m": [
+          0.49999943375587463,
+          1.1288061614322942e-06,
+          0.016999615356326103
+        ],
+        "final_cube_position_m": [
+          0.5001770257949829,
+          -0.2194831520318985,
+          0.03999961540102959
+        ],
+        "steps": 2554,
+        "physics_dt_s": 0.01,
+        "cube_rise_m": 0.19853471405804157,
+        "stable_hold_s": 0.5000000000000002
+      }
+    }
+  ],
+  "rejected_runs": [
+    {
+      "instruction": "Do not lift the red cube.",
+      "exit_code": 2,
+      "reason": "day4_language.py: error: Negated or action-forbidding requests are unsupported.",
+      "simulator_started": false
+    },
+    {
+      "instruction": "Put that thing over there.",
+      "exit_code": 2,
+      "reason": "day4_language.py: error: Name the red cube explicitly; references are not resolved.",
+      "simulator_started": false
+    },
+    {
+      "instruction": "请先抓起红色方块，然后把它放到绿色平台上。",
+      "exit_code": 2,
+      "reason": "day4_language.py: error: Proposed action 'pick' conflicts with explicit 'place' request.",
+      "simulator_started": false
+    }
+  ]
+}
