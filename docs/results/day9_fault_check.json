@@ -1,0 +1,147 @@
+{
+  "description": "One normal control and two simulated stuck-open fault cases at the same starting cube pose; not a general robustness benchmark.",
+  "language_backend": "rules",
+  "fault_test_passed": true,
+  "control": {
+    "instruction": "pick up the red cube",
+    "exit_code": 0,
+    "result": {
+      "goal": {
+        "action": "pick",
+        "object": "red_cube",
+        "target": null
+      },
+      "plan": [
+        {
+          "skill": "pick",
+          "object": "red_cube",
+          "target": null
+        }
+      ],
+      "final_state": {
+        "cube_location": "gripper"
+      },
+      "initial_cube_position_m": [
+        0.49999943375587463,
+        1.1288061614322942e-06,
+        0.016999615356326103
+      ],
+      "final_cube_position_m": [
+        0.4995110332965851,
+        -0.000283542467514053,
+        0.21553432941436768
+      ],
+      "steps": 1813,
+      "physics_dt_s": 0.01,
+      "cube_rise_m": 0.19853471405804157,
+      "stable_hold_s": 0.5000000000000002
+    }
+  },
+  "fault_trials": [
+    {
+      "instruction": "pick up the red cube",
+      "exit_code_verified_by_test": 1,
+      "failure": {
+        "goal": {
+          "action": "pick",
+          "object": "red_cube",
+          "target": null
+        },
+        "plan": [
+          {
+            "skill": "pick",
+            "object": "red_cube",
+            "target": null
+          }
+        ],
+        "reason": "step_limit",
+        "last_verified_state": {
+          "cube_location": "table"
+        },
+        "active_skill": "pick",
+        "phase": "LIFT",
+        "attempted_steps": 3000,
+        "max_steps": 3000,
+        "physics_dt_s": 0.01,
+        "injected_fault": {
+          "gripper_stuck_open": true
+        },
+        "initial_cube_position_m": [
+          0.49999943375587463,
+          1.1288061614322942e-06,
+          0.016999615356326103
+        ],
+        "observed_cube_position_m": [
+          0.49999940395355225,
+          1.1229042229388142e-06,
+          0.016999639570713043
+        ],
+        "cube_rise_m": 2.421438694000244e-08,
+        "tcp_position_m": [
+          0.49998781085014343,
+          4.5197521103546023e-07,
+          0.216986745595932
+        ],
+        "finger_joint_position_m": 0.039999958127737045,
+        "stable_hold_s": 0.0
+      },
+      "success_result_emitted": false,
+      "place_skill_started": false
+    },
+    {
+      "instruction": "put the red cube on the green platform",
+      "exit_code_verified_by_test": 1,
+      "failure": {
+        "goal": {
+          "action": "place",
+          "object": "red_cube",
+          "target": "green_platform"
+        },
+        "plan": [
+          {
+            "skill": "pick",
+            "object": "red_cube",
+            "target": null
+          },
+          {
+            "skill": "place",
+            "object": "red_cube",
+            "target": "green_platform"
+          }
+        ],
+        "reason": "step_limit",
+        "last_verified_state": {
+          "cube_location": "table"
+        },
+        "active_skill": "pick",
+        "phase": "LIFT",
+        "attempted_steps": 3000,
+        "max_steps": 3000,
+        "physics_dt_s": 0.01,
+        "injected_fault": {
+          "gripper_stuck_open": true
+        },
+        "initial_cube_position_m": [
+          0.49999943375587463,
+          1.1288061614322942e-06,
+          0.016999615356326103
+        ],
+        "observed_cube_position_m": [
+          0.49999940395355225,
+          1.1229042229388142e-06,
+          0.016999639570713043
+        ],
+        "cube_rise_m": 2.421438694000244e-08,
+        "tcp_position_m": [
+          0.49998781085014343,
+          4.5197521103546023e-07,
+          0.216986745595932
+        ],
+        "finger_joint_position_m": 0.039999958127737045,
+        "stable_hold_s": 0.0
+      },
+      "success_result_emitted": false,
+      "place_skill_started": false
+    }
+  ]
+}

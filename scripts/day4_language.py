@@ -25,6 +25,7 @@ parser.add_argument("--cube_x", type=float, default=0.5)
 parser.add_argument("--cube_y", type=float, default=0.0)
 parser.add_argument("--screenshot", type=Path, help="Save the viewport after verified task success.")
 parser.add_argument("--record_gif", type=Path, help="New project-local GIF and JSON of real viewport frames after success.")
+parser.add_argument("--gripper_stuck_open", action="store_true", help="Inject a simulated open-gripper fault to check failure detection.")
 parser.add_argument("--keep_open", action="store_true", help="Hold the final arm pose until the app is closed.")
 AppLauncher.add_app_launcher_args(parser)
 args_cli = parser.parse_args()
@@ -71,6 +72,8 @@ if args_cli.dry_run:
     }
     if language_metadata is not None:
         preview["language_frontend" if args_cli.language_backend == "guarded" else "language_model"] = language_metadata
+    if args_cli.gripper_stuck_open:
+        preview["injected_fault"] = {"gripper_stuck_open": True}
     print(json.dumps(preview, ensure_ascii=False, indent=2))
     raise SystemExit(0)
 

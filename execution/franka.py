@@ -84,6 +84,10 @@ def execute_goal(goal: Goal, args_cli, simulation_app):
     success = False
     reached_step = 0
     pick_rise = 0.0
+    attempted_steps = 0
+    stuck_open = getattr(args_cli, "gripper_stuck_open", False)
+    if stuck_open:
+        print('[FAULT] {"gripper_stuck_open": true}', flush=True)
     print(f"[INFO] Starting cube position: {initial_cube_position.tolist()}", flush=True)
     recorder = None
     if getattr(args_cli, "record_gif", None):
@@ -130,12 +134,13 @@ def execute_goal(goal: Goal, args_cli, simulation_app):
             limits = robot.data.soft_joint_pos_limits.torch[:, arm_ids]
             desired_joints = torch.maximum(torch.minimum(desired_joints, limits[:, :, 1]), limits[:, :, 0])
             robot.actuators.target_command.set_position_index(value=desired_joints, joint_ids=arm_ids)
-            finger_command.fill_(0.0 if closed else 0.04)
+            finger_command.fill_(0.0 if closed and not stuck_open else 0.04)
             # The second finger is a passive mimic joint on the current Panda asset.
             robot.actuators.target_command.set_position_index(value=finger_command, joint_ids=finger_ids)
             scene.write_data_to_sim()
             sim.step()
             scene.update(dt)
+            attempted_steps = step + 1
             if active_skill.phase != phase:
                 print(f"[PHASE] {step * dt:.2f}s: {phase.name} -> {active_skill.phase.name}", flush=True)
             if recorder is not None and (step + 1) % 50 == 0:
@@ -190,6 +195,22 @@ def execute_goal(goal: Goal, args_cli, simulation_app):
 
     if not success:
         failed_phase = skills[plan[plan_index].skill].phase.name
+        observed_cube = cube.data.root_pos_w.torch[0]
+        failure = {
+            "goal": goal.to_dict(), "plan": [call.to_dict() for call in plan],
+            "reason": "step_limit" if attempted_steps == args_cli.max_steps else "app_closed",
+            "last_verified_state": state.to_dict(),
+            "active_skill": plan[plan_index].skill, "phase": failed_phase,
+            "attempted_steps": attempted_steps, "max_steps": args_cli.max_steps,
+            "physics_dt_s": dt, "injected_fault": {"gripper_stuck_open": stuck_open},
+            "initial_cube_position_m": initial_cube_position.tolist(),
+            "observed_cube_position_m": observed_cube.tolist(),
+            "cube_rise_m": observed_cube[2].item() - initial_cube_position[2].item(),
+            "tcp_position_m": tcp_after[0].tolist() if attempted_steps else None,
+            "finger_joint_position_m": robot.data.joint_pos.torch[0, finger_ids[0]].item(),
+            "stable_hold_s": stable_time,
+        }
+        print("[FAILURE] " + json.dumps(failure, allow_nan=False), flush=True)
         task = "Pick/place" if goal.action == "place" else "Pick"
         raise RuntimeError(
             f"{task} failed within {args_cli.max_steps} steps or was interrupted: phase={failed_phase}, "
@@ -209,6 +230,8 @@ def execute_goal(goal: Goal, args_cli, simulation_app):
         "cube_rise_m": pick_rise,
         "stable_hold_s": stable_time,
     }
+    if stuck_open:
+        result["injected_fault"] = {"gripper_stuck_open": True}
     if recorder is not None:
         recorder.capture(reached_step, f"{plan[-1].skill}:VERIFIED")
         recorder.finish(result, simulation_app)

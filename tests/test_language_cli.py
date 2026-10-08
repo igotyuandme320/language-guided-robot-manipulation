@@ -10,6 +10,13 @@ SCRIPT = Path(__file__).resolve().parents[1] / "scripts/day4_language.py"
 
 
 class LanguageCliTests(unittest.TestCase):
+    def test_fault_is_visible_in_preview_without_changing_the_goal(self):
+        result = self.run_cli("pick up the red cube", "--gripper_stuck_open", "--dry_run")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        preview = json.loads(result.stdout)
+        self.assertEqual(preview["goal"]["action"], "pick")
+        self.assertEqual(preview["injected_fault"], {"gripper_stuck_open": True})
+
     def test_recording_requires_renderer_before_model_inference(self):
         result = self.run_cli("Please hold the red cube.", "--language_backend", "llm", "--llm_timeout", "0.01",
                               "--record_gif", str(SCRIPT.parents[1] / ".cache/day8/preview.gif"))

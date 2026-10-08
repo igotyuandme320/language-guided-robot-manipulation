@@ -41,6 +41,8 @@ Current progress:
   model-conflict rejection, and a second small language comparison.
 - [Day 8: demo recording](docs/day8.md) — real motion frames and a
   reproducible GIF recording command, with the execution result retained.
+- [Day 9: failed grasp check](docs/day9.md) — an injected open-gripper
+  fault verifies that motion alone cannot commit a successful skill effect.
 
 Tested environment: Ubuntu 26.04, RTX 3080 10GB, Isaac Lab develop
 (`VERSION` 3.0.0), and Isaac Sim 6.1. Commands use the existing Isaac Lab
