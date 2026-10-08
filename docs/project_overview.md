@@ -51,9 +51,11 @@ model is pretrained; the project does not train a policy or language model.
 [second language comparison](results/day7_new_language.json), and
 [failed-grasp records](results/day9_fault_check.json) retain the actual
 outcomes, including errors. The small model is unreliable on these checks.
-The guarded entry blocked the labeled rejection cases but also failed on
+The guarded entry blocked the Day 7 labeled rejection cases but also failed on
 some supported requests. Its literal patterns are not general intent
-understanding or a safety guarantee.
+understanding or a safety guarantee. A later [constraint diagnostic](day11.md)
+found three false acceptances in 16 requests, including ignored handover
+and waiting requirements.
 
 Object positions come directly from the simulator. The project currently
 has no visual grounding, learned skills, collision-aware motion planner,

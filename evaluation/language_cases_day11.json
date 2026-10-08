@@ -1,0 +1,114 @@
+[
+  {
+    "id": "control_pick",
+    "instruction": "pick up the red cube",
+    "expected_goal": {
+      "action": "pick",
+      "object": "red_cube",
+      "target": null
+    },
+    "label_reason": null
+  },
+  {
+    "id": "control_place_zh",
+    "instruction": "把红色方块放到绿色平台上",
+    "expected_goal": {
+      "action": "place",
+      "object": "red_cube",
+      "target": "green_platform"
+    },
+    "label_reason": null
+  },
+  {
+    "id": "control_raise",
+    "instruction": "Could you raise the red cube from the table and hold it?",
+    "expected_goal": {
+      "action": "pick",
+      "object": "red_cube",
+      "target": null
+    },
+    "label_reason": null
+  },
+  {
+    "id": "control_move_zh",
+    "instruction": "请把红色小方块搬到绿色平台上。",
+    "expected_goal": {
+      "action": "place",
+      "object": "red_cube",
+      "target": "green_platform"
+    },
+    "label_reason": null
+  },
+  {
+    "id": "height_en",
+    "instruction": "Please lift the red cube exactly five centimeters.",
+    "expected_goal": null,
+    "label_reason": "The goal/controller does not support a requested five-centimeter lift."
+  },
+  {
+    "id": "height_zh",
+    "instruction": "请把红色方块举高五厘米。",
+    "expected_goal": null,
+    "label_reason": "A custom lift height is unsupported."
+  },
+  {
+    "id": "above_en",
+    "instruction": "Place the red cube thirty centimeters above the green platform.",
+    "expected_goal": null,
+    "label_reason": "The supported place skill releases on the platform, not in midair."
+  },
+  {
+    "id": "above_zh",
+    "instruction": "把红色方块放到绿色平台上方十厘米处。",
+    "expected_goal": null,
+    "label_reason": "Placement above the platform is unsupported."
+  },
+  {
+    "id": "place_and_hold",
+    "instruction": "Place the red cube on the green platform and keep holding it.",
+    "expected_goal": null,
+    "label_reason": "The place skill releases and retracts; it cannot satisfy continued holding."
+  },
+  {
+    "id": "left_edge",
+    "instruction": "Put the red cube on the left edge of the green platform.",
+    "expected_goal": null,
+    "label_reason": "The controller uses the platform center; edge placement is not a supported target."
+  },
+  {
+    "id": "handover",
+    "instruction": "Pick up the red cube and hand it to me.",
+    "expected_goal": null,
+    "label_reason": "Handover and a human receiving pose are unsupported."
+  },
+  {
+    "id": "left_arm",
+    "instruction": "Grab the red cube using your left arm.",
+    "expected_goal": null,
+    "label_reason": "There is only one Panda and no left-arm selector."
+  },
+  {
+    "id": "door_condition",
+    "instruction": "Place the red cube on the green platform after the door opens.",
+    "expected_goal": null,
+    "label_reason": "There is no door observation or conditional execution."
+  },
+  {
+    "id": "blue_condition",
+    "instruction": "Lift the red cube only if the blue cube is present.",
+    "expected_goal": null,
+    "label_reason": "The blue cube and conditional observation are unavailable."
+  },
+  {
+    "id": "roll_control",
+    "instruction": "Roll the red cube onto the green platform, please.",
+    "expected_goal": null,
+    "label_reason": "Rolling is an unsupported action."
+  },
+  {
+    "id": "negation_control",
+    "instruction": "Please never hold the red cube.",
+    "expected_goal": null,
+    "label_reason": "The hold action is negated."
+  }
+]
