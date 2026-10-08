@@ -9,6 +9,31 @@ from planning.symbolic import Goal
 
 
 class GuardedLanguageTests(unittest.TestCase):
+    def test_handover_and_unavailable_conditions_are_rejected(self):
+        for text in ("Pick up the red cube and hand it to me.", "拿起红色方块，然后递给我。",
+                     "Place the red cube on the green platform after the door opens.",
+                     "如果门打开，把红色方块放到绿色平台上。"):
+            with self.subTest(text=text):
+                with self.assertRaises(RejectedInstruction):
+                    check_request(text)
+
+    def test_placement_cannot_keep_holding_or_choose_an_edge(self):
+        for text in ("Place the red cube on the green platform and keep holding it.",
+                     "Put the red cube on the green platform and continue gripping it.",
+                     "把红色方块放到绿色平台上，但一直夹住它。",
+                     "Put the red cube on the left edge of the green platform."):
+            with self.subTest(text=text):
+                with self.assertRaises(RejectedInstruction):
+                    check_request(text)
+
+    def test_holding_in_hand_and_pick_then_place_remain_supported_hints(self):
+        self.assertEqual(check_goal(check_request("Please hold the red cube in your hand."),
+                                    Goal("pick", "red_cube")), Goal("pick", "red_cube"))
+        goal = Goal("place", "red_cube", "green_platform")
+        self.assertEqual(check_goal(check_request("Pick up the red cube and then place it on the green platform."), goal), goal)
+        self.assertEqual(check_goal(check_request("Hold the red cube in your hand for me."),
+                                    Goal("pick", "red_cube")), Goal("pick", "red_cube"))
+
     def test_novel_request_keeps_the_actual_model_goal_and_metadata(self):
         goal = Goal("pick", "red_cube")
         with patch("planning.guarded_language.infer_goal", return_value=(goal, {"raw_output": "actual response"})) as model:

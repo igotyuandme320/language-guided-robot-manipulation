@@ -55,7 +55,9 @@ The guarded entry blocked the Day 7 labeled rejection cases but also failed on
 some supported requests. Its literal patterns are not general intent
 understanding or a safety guarantee. A later [constraint diagnostic](day11.md)
 found three false acceptances in 16 requests, including ignored handover
-and waiting requirements.
+and waiting requirements. [Day 12](day12.md) adds explicit checks for
+those known categories; its saved-response replay is not an independent
+evaluation of generalization.
 
 Object positions come directly from the simulator. The project currently
 has no visual grounding, learned skills, collision-aware motion planner,

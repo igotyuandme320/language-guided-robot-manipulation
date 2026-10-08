@@ -28,6 +28,10 @@ def check_request(instruction: str) -> RequestHints:
         raise RejectedInstruction("The named object or destination is not in this scene.")
     if re.search(r"\b(?:roll|throw|push|rotate|open|close|drawer|stack|swap)\b|推|滚|扔|旋转|抽屉|堆叠", text):
         raise RejectedInstruction("An unsupported action or object is named.")
+    if re.search(r"\b(?:hand|give|pass)\s+(?:it|(?:the )?red (?:cube|block)|me|you)\b|\bhandover\b|\bhand over\b|递给|交给", text):
+        raise RejectedInstruction("Handover is not a supported skill.")
+    if re.search(r"\b(?:door|if|unless|until)\b|如果|除非|直到|开门|关门|门打开", text):
+        raise RejectedInstruction("Conditional execution and door observations are unsupported.")
     if re.search(r"\b(?:beside|near|under|behind|between)\b|旁边|下面|附近|后面", text):
         raise RejectedInstruction("Only placement on the green platform is supported.")
     if not re.search(r"\bred (?:small |little )?(?:cube|block)\b|红色(?:小)?方块", text):
@@ -38,6 +42,10 @@ def check_request(instruction: str) -> RequestHints:
         raise RejectedInstruction("No supported pick or place action is explicit.")
     if placement and not re.search(r"\bgreen (?:platform|target)\b|绿色平台", text):
         raise RejectedInstruction("Name the green platform explicitly for placement.")
+    if placement and re.search(r"\b(?:keep|continue)\b.*\b(?:holding|hold|gripping)\b|(?:继续|一直|保持).*(?:握|抓|拿|夹)", text):
+        raise RejectedInstruction("The place skill releases the cube; continued holding is unsupported.")
+    if placement and re.search(r"\b(?:edge|corner)\b|边缘|角落", text):
+        raise RejectedInstruction("The place skill targets the platform center, not an edge or corner.")
     return RequestHints(placement_requested=placement)
 
 

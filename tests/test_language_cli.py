@@ -10,6 +10,17 @@ SCRIPT = Path(__file__).resolve().parents[1] / "scripts/day4_language.py"
 
 
 class LanguageCliTests(unittest.TestCase):
+    def test_unsupported_followups_exit_before_model_and_app(self):
+        for instruction, message in (("Pick up the red cube and hand it to me.", "Handover"),
+                                     ("Place the red cube on the green platform and keep holding it.", "place skill releases"),
+                                     ("Place the red cube on the green platform after the door opens.", "Conditional execution")):
+            with self.subTest(instruction=instruction):
+                result = self.run_cli(instruction, "--language_backend", "guarded", "--llm_timeout", "0.01")
+                self.assertEqual(result.returncode, 2, result.stderr)
+                self.assertIn(message, result.stderr)
+                self.assertNotIn("timed out", result.stderr)
+                self.assertNotIn("[ext:", result.stdout)
+
     def test_fault_is_visible_in_preview_without_changing_the_goal(self):
         result = self.run_cli("pick up the red cube", "--gripper_stuck_open", "--dry_run")
         self.assertEqual(result.returncode, 0, result.stderr)

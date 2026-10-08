@@ -50,6 +50,8 @@ Current progress:
   an internship inquiry draft grounded in the actual project scope.
 - [Day 11: constraint diagnostic](docs/day11.md) — extra requirements
   expose false acceptances that the initial request checks missed.
+- [Day 12: known constraint checks](docs/day12.md) — explicit refusals
+  and a saved-response replay that preserves the original failures.
 
 Tested environment: Ubuntu 26.04, RTX 3080 10GB, Isaac Lab develop
 (`VERSION` 3.0.0), and Isaac Sim 6.1. Commands use the existing Isaac Lab

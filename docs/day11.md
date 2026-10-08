@@ -66,7 +66,7 @@ wrong if continued holding or a waiting condition was requested. These
 examples give concrete failure categories for the next request-check
 revision, while leaving the original results available for comparison.
 
-## Reproduce the language-only check
+## Run the language-only check
 
 ```bash
 conda activate robot-demo
@@ -76,6 +76,10 @@ uv run --no-sync python \
   --guarded \
   --cases ../language-guided-robot-manipulation/evaluation/language_cases_day11.json
 ```
+
+The stored baseline used commit `7bc4550`, before the [Day 12](day12.md)
+guard revision. To reproduce that baseline use that code version; running
+the command with current code evaluates the revised checks.
 
 The runner writes a new project-local report. It does not launch Kit or
 change controller behavior. Raw output and incorrect rows are retained.
