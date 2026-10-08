@@ -66,6 +66,8 @@ Current progress:
   configured initial yaw and the unchanged grasp controller.
 - [Day 18: grasp-loss monitoring](docs/day18.md) — a sustained separation
   check during placement, tested with a post-pick release and normal controls.
+- [Day 19: failure reporting](docs/day19.md) — structured diagnostic
+  retention and rejection of contradictory single-attempt success records.
 
 Tested environment: Ubuntu 26.04, RTX 3080 10GB, Isaac Lab develop
 (`VERSION` 3.0.0), and Isaac Sim 6.1. Commands use the existing Isaac Lab

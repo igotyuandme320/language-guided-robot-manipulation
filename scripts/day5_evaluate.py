@@ -25,14 +25,48 @@ INSTRUCTIONS = (
 )
 
 
+def parse_failure_record(text: str, expected_goal: dict) -> dict:
+    """Check diagnostic metadata; this does not re-observe a physical failure."""
+    candidate = json.loads(text)
+    if not isinstance(candidate, dict) or candidate.get("goal") != expected_goal:
+        raise ValueError("Unexpected failure goal.")
+    expected_plan = [call.to_dict() for call in plan_goal(Goal(**expected_goal), WorldState("table"))]
+    if candidate.get("plan") != expected_plan:
+        raise ValueError("Unexpected failure plan.")
+    if candidate.get("reason") not in ("step_limit", "app_closed", "lost_grasp"):
+        raise ValueError("Unknown execution failure reason.")
+    if candidate.get("active_skill") not in ("pick", "place") or not isinstance(candidate.get("phase"), str) or not candidate["phase"]:
+        raise ValueError("Invalid failure stage.")
+    WorldState(**candidate["last_verified_state"])
+    attempted, maximum = candidate["attempted_steps"], candidate["max_steps"]
+    if type(attempted) is not int or type(maximum) is not int or maximum <= 0 or not 0 <= attempted <= maximum:
+        raise ValueError("Invalid failure step counts.")
+    dt = candidate["physics_dt_s"]
+    if type(dt) not in (int, float) or not math.isfinite(dt) or dt <= 0:
+        raise ValueError("Invalid failure physics timestep.")
+    position = candidate["observed_cube_position_m"]
+    if len(position) != 3 or not all(type(value) in (int, float) and math.isfinite(value) for value in position):
+        raise ValueError("Invalid failure cube coordinates.")
+    # Extensions are retained, but cannot make the saved report non-JSON.
+    json.dumps(candidate, allow_nan=False)
+    return candidate
+
+
 def summarize_output(output: str, returncode: int | None, expected_goal: dict) -> dict:
     """An exit code alone is not proof of a completed manipulation attempt."""
     lines = output.splitlines()
     trace = [line for line in lines if line.startswith((
-        "[GOAL]", "[PLAN]", "[WORLD]", "[CHECK]", "[RESULT]", "[SUCCESS]", "[PHASE]", "[STATE]",
+        "[GOAL]", "[PLAN]", "[WORLD]", "[CHECK]", "[RESULT]", "[FAILURE]", "[SUCCESS]", "[PHASE]", "[STATE]",
         "RuntimeError:", "ValueError:",
     ))]
     result = None
+    failure = None
+    failure_lines = [line.removeprefix("[FAILURE]").lstrip() for line in lines if line.startswith("[FAILURE]")]
+    if len(failure_lines) == 1:
+        try:
+            failure = parse_failure_record(failure_lines[0], expected_goal)
+        except (KeyError, TypeError, ValueError, OverflowError):
+            pass  # Preserve the raw trace, but do not label malformed metadata as checked.
     reason = "Missing or invalid verified result."
     result_lines = [line.removeprefix("[RESULT] ") for line in lines if line.startswith("[RESULT] ")]
     if len(result_lines) == 1:
@@ -67,10 +101,19 @@ def summarize_output(output: str, returncode: int | None, expected_goal: dict) -
     elif returncode != 0:
         status = "failure"
         errors = [line for line in trace if line.startswith(("RuntimeError:", "ValueError:"))]
-        reason = errors[-1] if errors else f"Simulation process exited with code {returncode}."
+        if failure is not None:
+            reason = f"Simulation reported {failure['reason']} during {failure['active_skill']} ({failure['phase']})."
+        else:
+            reason = errors[-1] if errors else f"Simulation process exited with code {returncode}."
+    elif failure_lines:
+        status, result = "failure", None
+        reason = "A reported failure prevents a clean completion claim, despite exit code zero."
     else:
         status = "success" if result is not None else "failure"
-    return {"status": status, "returncode": returncode, "reason": reason, "result": result, "trace": trace}
+    trial = {"status": status, "returncode": returncode, "reason": reason, "result": result, "trace": trace}
+    if failure_lines:
+        trial["failure"] = failure
+    return trial
 
 
 def summarize_results(trials: list[dict], planned_count: int) -> dict:

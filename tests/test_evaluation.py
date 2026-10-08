@@ -27,6 +27,14 @@ RESULT = {
     "cube_rise_m": 0.1985,
     "stable_hold_s": 0.5,
 }
+FAILURE = {
+    "goal": GOAL, "plan": RESULT["plan"], "reason": "lost_grasp",
+    "last_verified_state": {"cube_location": "gripper"},
+    "active_skill": "place", "phase": "TRANSIT", "attempted_steps": 1833,
+    "max_steps": 6000, "physics_dt_s": 0.01,
+    "observed_cube_position_m": [0.498, 0.00015, 0.0235],
+    "cube_tcp_distance_m": 0.18, "grasp_loss_duration_s": 0.10,
+}
 PROJECT = Path(__file__).resolve().parents[1]
 SCRIPT = PROJECT / "scripts/day5_evaluate.py"
 CACHE = PROJECT / ".cache" / "evaluation_tests"
@@ -37,6 +45,47 @@ def result_output(result):
 
 
 class EvaluationTests(unittest.TestCase):
+    def test_structured_failure_preserves_cause_and_history(self):
+        line = "[FAILURE] " + json.dumps(FAILURE)
+        trial = summarize_output(line + "\nRuntimeError: placement failed", 1, GOAL)
+        self.assertEqual(trial["status"], "failure")
+        self.assertEqual(trial.get("failure"), FAILURE)
+        self.assertIn("lost_grasp", trial["reason"])
+        self.assertIn(line, trial["trace"])
+        self.assertIsNone(trial["result"])
+
+    def test_failure_record_prevents_success_despite_zero_exit(self):
+        output = "[FAILURE] " + json.dumps(FAILURE) + "\n" + result_output(RESULT)
+        trial = summarize_output(output, 0, GOAL)
+        self.assertEqual(trial["status"], "failure")
+        self.assertEqual(trial.get("failure"), FAILURE)
+        self.assertIsNone(trial["result"])
+
+    def test_invalid_failure_records_still_prevent_clean_success(self):
+        for candidate in ([], {**FAILURE, "goal": {"action": "pick"}},
+                          {**FAILURE, "reason": "invented"}, {**FAILURE, "attempted_steps": True},
+                          {**FAILURE, "attempted_steps": 6001}, {**FAILURE, "cube_tcp_distance_m": float("nan")}):
+            with self.subTest(candidate=candidate):
+                line = "[FAILURE] " + json.dumps(candidate)
+                trial = summarize_output(line + "\n" + result_output(RESULT), 0, GOAL)
+                self.assertEqual(trial["status"], "failure")
+                self.assertIsNone(trial.get("failure"))
+                self.assertIn(line, trial["trace"])
+
+    def test_malformed_failure_markers_prevent_success(self):
+        for line in ("[FAILURE]", "[FAILURE]{invalid}", "[FAILURE]\t" + json.dumps(FAILURE)):
+            with self.subTest(line=line):
+                trial = summarize_output(line + "\n" + result_output(RESULT), 0, GOAL)
+                self.assertEqual(trial["status"], "failure")
+                self.assertIsNone(trial["result"])
+                self.assertIn(line, trial["trace"])
+
+    def test_timeout_preserves_reported_failure_but_stays_incomplete(self):
+        trial = summarize_output("[FAILURE] " + json.dumps(FAILURE), None, GOAL)
+        self.assertEqual(trial["status"], "timeout")
+        self.assertEqual(trial.get("failure"), FAILURE)
+        self.assertIsNone(trial["returncode"])
+
     def test_complete_verified_result_is_collected(self):
         trial = summarize_output(result_output(RESULT), 0, GOAL)
         self.assertEqual(trial["status"], "success")
