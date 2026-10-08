@@ -1,0 +1,1538 @@
+{
+  "schema_version": 1,
+  "protocol": {
+    "cases": [
+      {
+        "case_id": "pose01_en",
+        "cube_x": 0.4,
+        "cube_y": -0.1,
+        "instruction": "put the red cube on the green platform"
+      },
+      {
+        "case_id": "pose01_zh",
+        "cube_x": 0.4,
+        "cube_y": -0.1,
+        "instruction": "把红色方块放到绿色平台上"
+      },
+      {
+        "case_id": "pose02_en",
+        "cube_x": 0.4,
+        "cube_y": 0.0,
+        "instruction": "put the red cube on the green platform"
+      },
+      {
+        "case_id": "pose02_zh",
+        "cube_x": 0.4,
+        "cube_y": 0.0,
+        "instruction": "把红色方块放到绿色平台上"
+      },
+      {
+        "case_id": "pose03_en",
+        "cube_x": 0.4,
+        "cube_y": 0.1,
+        "instruction": "put the red cube on the green platform"
+      },
+      {
+        "case_id": "pose03_zh",
+        "cube_x": 0.4,
+        "cube_y": 0.1,
+        "instruction": "把红色方块放到绿色平台上"
+      },
+      {
+        "case_id": "pose04_en",
+        "cube_x": 0.5,
+        "cube_y": -0.1,
+        "instruction": "put the red cube on the green platform"
+      },
+      {
+        "case_id": "pose04_zh",
+        "cube_x": 0.5,
+        "cube_y": -0.1,
+        "instruction": "把红色方块放到绿色平台上"
+      },
+      {
+        "case_id": "pose05_en",
+        "cube_x": 0.5,
+        "cube_y": 0.0,
+        "instruction": "put the red cube on the green platform"
+      },
+      {
+        "case_id": "pose05_zh",
+        "cube_x": 0.5,
+        "cube_y": 0.0,
+        "instruction": "把红色方块放到绿色平台上"
+      },
+      {
+        "case_id": "pose06_en",
+        "cube_x": 0.5,
+        "cube_y": 0.1,
+        "instruction": "put the red cube on the green platform"
+      },
+      {
+        "case_id": "pose06_zh",
+        "cube_x": 0.5,
+        "cube_y": 0.1,
+        "instruction": "把红色方块放到绿色平台上"
+      },
+      {
+        "case_id": "pose07_en",
+        "cube_x": 0.6,
+        "cube_y": -0.1,
+        "instruction": "put the red cube on the green platform"
+      },
+      {
+        "case_id": "pose07_zh",
+        "cube_x": 0.6,
+        "cube_y": -0.1,
+        "instruction": "把红色方块放到绿色平台上"
+      },
+      {
+        "case_id": "pose08_en",
+        "cube_x": 0.6,
+        "cube_y": 0.0,
+        "instruction": "put the red cube on the green platform"
+      },
+      {
+        "case_id": "pose08_zh",
+        "cube_x": 0.6,
+        "cube_y": 0.0,
+        "instruction": "把红色方块放到绿色平台上"
+      },
+      {
+        "case_id": "pose09_en",
+        "cube_x": 0.6,
+        "cube_y": 0.1,
+        "instruction": "put the red cube on the green platform"
+      },
+      {
+        "case_id": "pose09_zh",
+        "cube_x": 0.6,
+        "cube_y": 0.1,
+        "instruction": "把红色方块放到绿色平台上"
+      }
+    ],
+    "max_steps": 6000,
+    "process_timeout_s": 120.0,
+    "rendering": "disabled"
+  },
+  "started_at_utc": "2026-10-08T04:21:34.906962+00:00",
+  "python_version": "3.12.15",
+  "interrupted": false,
+  "trials": [
+    {
+      "status": "success",
+      "returncode": 0,
+      "reason": "Verified goal and clean process exit.",
+      "result": {
+        "goal": {
+          "action": "place",
+          "object": "red_cube",
+          "target": "green_platform"
+        },
+        "plan": [
+          {
+            "skill": "pick",
+            "object": "red_cube",
+            "target": null
+          },
+          {
+            "skill": "place",
+            "object": "red_cube",
+            "target": "green_platform"
+          }
+        ],
+        "final_state": {
+          "cube_location": "green_platform"
+        },
+        "initial_cube_position_m": [
+          0.3999994695186615,
+          -0.09999886900186539,
+          0.01699952408671379
+        ],
+        "final_cube_position_m": [
+          0.4997861683368683,
+          -0.21940553188323975,
+          0.039999619126319885
+        ],
+        "steps": 2780,
+        "physics_dt_s": 0.01,
+        "cube_rise_m": 0.19852245226502419,
+        "stable_hold_s": 0.5000000000000002
+      },
+      "trace": [
+        "[GOAL] {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}",
+        "[WORLD] {\"cube_location\": \"table\"}",
+        "[PLAN] [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}]",
+        "[STATE] step=0, phase=REST, cube_z=0.0170",
+        "[PHASE] 0.19s: REST -> APPROACH_ABOVE",
+        "[STATE] step=200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=400, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=600, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=800, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1000, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[PHASE] 12.42s: APPROACH_ABOVE -> APPROACH_OBJECT",
+        "[STATE] step=1400, phase=APPROACH_OBJECT, cube_z=0.0170",
+        "[PHASE] 14.88s: APPROACH_OBJECT -> GRASP",
+        "[PHASE] 15.18s: GRASP -> LIFT",
+        "[STATE] step=1600, phase=LIFT, cube_z=0.0515",
+        "[STATE] step=1800, phase=LIFT, cube_z=0.1519",
+        "[CHECK] Pick verified: cube_rise=0.1985m; hold=0.50s",
+        "[WORLD] {\"cube_location\": \"gripper\"}",
+        "[STATE] step=2000, phase=TRANSIT, cube_z=0.1919",
+        "[STATE] step=2200, phase=TRANSIT, cube_z=0.1856",
+        "[PHASE] 22.42s: TRANSIT -> LOWER",
+        "[STATE] step=2400, phase=LOWER, cube_z=0.0636",
+        "[PHASE] 24.64s: LOWER -> RELEASE",
+        "[PHASE] 25.24s: RELEASE -> RETRACT",
+        "[STATE] step=2600, phase=RETRACT, cube_z=0.0400",
+        "[PHASE] 27.30s: RETRACT -> DONE",
+        "[WORLD] {\"cube_location\": \"green_platform\"}",
+        "[RESULT] {\"goal\": {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}, \"plan\": [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}], \"final_state\": {\"cube_location\": \"green_platform\"}, \"initial_cube_position_m\": [0.3999994695186615, -0.09999886900186539, 0.01699952408671379], \"final_cube_position_m\": [0.4997861683368683, -0.21940553188323975, 0.039999619126319885], \"steps\": 2780, \"physics_dt_s\": 0.01, \"cube_rise_m\": 0.19852245226502419, \"stable_hold_s\": 0.5000000000000002}",
+        "[SUCCESS] task=pick_place; cube_rise=0.1985m; stable_hold=0.50s; steps=2780; cube=[0.4997861683368683, -0.21940553188323975, 0.039999619126319885]"
+      ],
+      "case_id": "pose01_en",
+      "cube_x": 0.4,
+      "cube_y": -0.1,
+      "instruction": "put the red cube on the green platform",
+      "wall_time_s": 19.15072028899158
+    },
+    {
+      "status": "success",
+      "returncode": 0,
+      "reason": "Verified goal and clean process exit.",
+      "result": {
+        "goal": {
+          "action": "place",
+          "object": "red_cube",
+          "target": "green_platform"
+        },
+        "plan": [
+          {
+            "skill": "pick",
+            "object": "red_cube",
+            "target": null
+          },
+          {
+            "skill": "place",
+            "object": "red_cube",
+            "target": "green_platform"
+          }
+        ],
+        "final_state": {
+          "cube_location": "green_platform"
+        },
+        "initial_cube_position_m": [
+          0.3999994695186615,
+          -0.09999886900186539,
+          0.01699952408671379
+        ],
+        "final_cube_position_m": [
+          0.4997861683368683,
+          -0.21940553188323975,
+          0.039999619126319885
+        ],
+        "steps": 2780,
+        "physics_dt_s": 0.01,
+        "cube_rise_m": 0.19852245226502419,
+        "stable_hold_s": 0.5000000000000002
+      },
+      "trace": [
+        "[GOAL] {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}",
+        "[WORLD] {\"cube_location\": \"table\"}",
+        "[PLAN] [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}]",
+        "[STATE] step=0, phase=REST, cube_z=0.0170",
+        "[PHASE] 0.19s: REST -> APPROACH_ABOVE",
+        "[STATE] step=200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=400, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=600, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=800, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1000, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[PHASE] 12.42s: APPROACH_ABOVE -> APPROACH_OBJECT",
+        "[STATE] step=1400, phase=APPROACH_OBJECT, cube_z=0.0170",
+        "[PHASE] 14.88s: APPROACH_OBJECT -> GRASP",
+        "[PHASE] 15.18s: GRASP -> LIFT",
+        "[STATE] step=1600, phase=LIFT, cube_z=0.0515",
+        "[STATE] step=1800, phase=LIFT, cube_z=0.1519",
+        "[CHECK] Pick verified: cube_rise=0.1985m; hold=0.50s",
+        "[WORLD] {\"cube_location\": \"gripper\"}",
+        "[STATE] step=2000, phase=TRANSIT, cube_z=0.1919",
+        "[STATE] step=2200, phase=TRANSIT, cube_z=0.1856",
+        "[PHASE] 22.42s: TRANSIT -> LOWER",
+        "[STATE] step=2400, phase=LOWER, cube_z=0.0636",
+        "[PHASE] 24.64s: LOWER -> RELEASE",
+        "[PHASE] 25.24s: RELEASE -> RETRACT",
+        "[STATE] step=2600, phase=RETRACT, cube_z=0.0400",
+        "[PHASE] 27.30s: RETRACT -> DONE",
+        "[WORLD] {\"cube_location\": \"green_platform\"}",
+        "[RESULT] {\"goal\": {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}, \"plan\": [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}], \"final_state\": {\"cube_location\": \"green_platform\"}, \"initial_cube_position_m\": [0.3999994695186615, -0.09999886900186539, 0.01699952408671379], \"final_cube_position_m\": [0.4997861683368683, -0.21940553188323975, 0.039999619126319885], \"steps\": 2780, \"physics_dt_s\": 0.01, \"cube_rise_m\": 0.19852245226502419, \"stable_hold_s\": 0.5000000000000002}",
+        "[SUCCESS] task=pick_place; cube_rise=0.1985m; stable_hold=0.50s; steps=2780; cube=[0.4997861683368683, -0.21940553188323975, 0.039999619126319885]"
+      ],
+      "case_id": "pose01_zh",
+      "cube_x": 0.4,
+      "cube_y": -0.1,
+      "instruction": "把红色方块放到绿色平台上",
+      "wall_time_s": 18.545810391995474
+    },
+    {
+      "status": "success",
+      "returncode": 0,
+      "reason": "Verified goal and clean process exit.",
+      "result": {
+        "goal": {
+          "action": "place",
+          "object": "red_cube",
+          "target": "green_platform"
+        },
+        "plan": [
+          {
+            "skill": "pick",
+            "object": "red_cube",
+            "target": null
+          },
+          {
+            "skill": "place",
+            "object": "red_cube",
+            "target": "green_platform"
+          }
+        ],
+        "final_state": {
+          "cube_location": "green_platform"
+        },
+        "initial_cube_position_m": [
+          0.3999994397163391,
+          1.121669356507482e-06,
+          0.01699964888393879
+        ],
+        "final_cube_position_m": [
+          0.4996735155582428,
+          -0.21945820748806,
+          0.03999961540102959
+        ],
+        "steps": 2771,
+        "physics_dt_s": 0.01,
+        "cube_rise_m": 0.19848151318728924,
+        "stable_hold_s": 0.5000000000000002
+      },
+      "trace": [
+        "[GOAL] {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}",
+        "[WORLD] {\"cube_location\": \"table\"}",
+        "[PLAN] [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}]",
+        "[STATE] step=0, phase=REST, cube_z=0.0170",
+        "[PHASE] 0.19s: REST -> APPROACH_ABOVE",
+        "[STATE] step=200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=400, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=600, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=800, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1000, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[PHASE] 11.95s: APPROACH_ABOVE -> APPROACH_OBJECT",
+        "[STATE] step=1200, phase=APPROACH_OBJECT, cube_z=0.0170",
+        "[STATE] step=1400, phase=APPROACH_OBJECT, cube_z=0.0170",
+        "[PHASE] 14.46s: APPROACH_OBJECT -> GRASP",
+        "[PHASE] 14.76s: GRASP -> LIFT",
+        "[STATE] step=1600, phase=LIFT, cube_z=0.0659",
+        "[STATE] step=1800, phase=LIFT, cube_z=0.1708",
+        "[CHECK] Pick verified: cube_rise=0.1985m; hold=0.50s",
+        "[WORLD] {\"cube_location\": \"gripper\"}",
+        "[STATE] step=2000, phase=TRANSIT, cube_z=0.1726",
+        "[STATE] step=2200, phase=TRANSIT, cube_z=0.1878",
+        "[PHASE] 22.39s: TRANSIT -> LOWER",
+        "[STATE] step=2400, phase=LOWER, cube_z=0.0596",
+        "[PHASE] 24.58s: LOWER -> RELEASE",
+        "[PHASE] 25.18s: RELEASE -> RETRACT",
+        "[STATE] step=2600, phase=RETRACT, cube_z=0.0400",
+        "[PHASE] 27.21s: RETRACT -> DONE",
+        "[WORLD] {\"cube_location\": \"green_platform\"}",
+        "[RESULT] {\"goal\": {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}, \"plan\": [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}], \"final_state\": {\"cube_location\": \"green_platform\"}, \"initial_cube_position_m\": [0.3999994397163391, 1.121669356507482e-06, 0.01699964888393879], \"final_cube_position_m\": [0.4996735155582428, -0.21945820748806, 0.03999961540102959], \"steps\": 2771, \"physics_dt_s\": 0.01, \"cube_rise_m\": 0.19848151318728924, \"stable_hold_s\": 0.5000000000000002}",
+        "[SUCCESS] task=pick_place; cube_rise=0.1985m; stable_hold=0.50s; steps=2771; cube=[0.4996735155582428, -0.21945820748806, 0.03999961540102959]"
+      ],
+      "case_id": "pose02_en",
+      "cube_x": 0.4,
+      "cube_y": 0.0,
+      "instruction": "put the red cube on the green platform",
+      "wall_time_s": 20.302118718012935
+    },
+    {
+      "status": "success",
+      "returncode": 0,
+      "reason": "Verified goal and clean process exit.",
+      "result": {
+        "goal": {
+          "action": "place",
+          "object": "red_cube",
+          "target": "green_platform"
+        },
+        "plan": [
+          {
+            "skill": "pick",
+            "object": "red_cube",
+            "target": null
+          },
+          {
+            "skill": "place",
+            "object": "red_cube",
+            "target": "green_platform"
+          }
+        ],
+        "final_state": {
+          "cube_location": "green_platform"
+        },
+        "initial_cube_position_m": [
+          0.3999994397163391,
+          1.121669356507482e-06,
+          0.01699964888393879
+        ],
+        "final_cube_position_m": [
+          0.4996735155582428,
+          -0.21945820748806,
+          0.03999961540102959
+        ],
+        "steps": 2771,
+        "physics_dt_s": 0.01,
+        "cube_rise_m": 0.19848151318728924,
+        "stable_hold_s": 0.5000000000000002
+      },
+      "trace": [
+        "[GOAL] {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}",
+        "[WORLD] {\"cube_location\": \"table\"}",
+        "[PLAN] [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}]",
+        "[STATE] step=0, phase=REST, cube_z=0.0170",
+        "[PHASE] 0.19s: REST -> APPROACH_ABOVE",
+        "[STATE] step=200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=400, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=600, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=800, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1000, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[PHASE] 11.95s: APPROACH_ABOVE -> APPROACH_OBJECT",
+        "[STATE] step=1200, phase=APPROACH_OBJECT, cube_z=0.0170",
+        "[STATE] step=1400, phase=APPROACH_OBJECT, cube_z=0.0170",
+        "[PHASE] 14.46s: APPROACH_OBJECT -> GRASP",
+        "[PHASE] 14.76s: GRASP -> LIFT",
+        "[STATE] step=1600, phase=LIFT, cube_z=0.0659",
+        "[STATE] step=1800, phase=LIFT, cube_z=0.1708",
+        "[CHECK] Pick verified: cube_rise=0.1985m; hold=0.50s",
+        "[WORLD] {\"cube_location\": \"gripper\"}",
+        "[STATE] step=2000, phase=TRANSIT, cube_z=0.1726",
+        "[STATE] step=2200, phase=TRANSIT, cube_z=0.1878",
+        "[PHASE] 22.39s: TRANSIT -> LOWER",
+        "[STATE] step=2400, phase=LOWER, cube_z=0.0596",
+        "[PHASE] 24.58s: LOWER -> RELEASE",
+        "[PHASE] 25.18s: RELEASE -> RETRACT",
+        "[STATE] step=2600, phase=RETRACT, cube_z=0.0400",
+        "[PHASE] 27.21s: RETRACT -> DONE",
+        "[WORLD] {\"cube_location\": \"green_platform\"}",
+        "[RESULT] {\"goal\": {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}, \"plan\": [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}], \"final_state\": {\"cube_location\": \"green_platform\"}, \"initial_cube_position_m\": [0.3999994397163391, 1.121669356507482e-06, 0.01699964888393879], \"final_cube_position_m\": [0.4996735155582428, -0.21945820748806, 0.03999961540102959], \"steps\": 2771, \"physics_dt_s\": 0.01, \"cube_rise_m\": 0.19848151318728924, \"stable_hold_s\": 0.5000000000000002}",
+        "[SUCCESS] task=pick_place; cube_rise=0.1985m; stable_hold=0.50s; steps=2771; cube=[0.4996735155582428, -0.21945820748806, 0.03999961540102959]"
+      ],
+      "case_id": "pose02_zh",
+      "cube_x": 0.4,
+      "cube_y": 0.0,
+      "instruction": "把红色方块放到绿色平台上",
+      "wall_time_s": 19.54863808999653
+    },
+    {
+      "status": "success",
+      "returncode": 0,
+      "reason": "Verified goal and clean process exit.",
+      "result": {
+        "goal": {
+          "action": "place",
+          "object": "red_cube",
+          "target": "green_platform"
+        },
+        "plan": [
+          {
+            "skill": "pick",
+            "object": "red_cube",
+            "target": null
+          },
+          {
+            "skill": "place",
+            "object": "red_cube",
+            "target": "green_platform"
+          }
+        ],
+        "final_state": {
+          "cube_location": "green_platform"
+        },
+        "initial_cube_position_m": [
+          0.3999994397163391,
+          0.10000112652778625,
+          0.016999606043100357
+        ],
+        "final_cube_position_m": [
+          0.5031393766403198,
+          -0.21944938600063324,
+          0.039999619126319885
+        ],
+        "steps": 2766,
+        "physics_dt_s": 0.01,
+        "cube_rise_m": 0.19887759909033775,
+        "stable_hold_s": 0.5000000000000002
+      },
+      "trace": [
+        "[GOAL] {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}",
+        "[WORLD] {\"cube_location\": \"table\"}",
+        "[PLAN] [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}]",
+        "[STATE] step=0, phase=REST, cube_z=0.0170",
+        "[PHASE] 0.19s: REST -> APPROACH_ABOVE",
+        "[STATE] step=200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=400, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=600, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=800, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1000, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[PHASE] 10.20s: APPROACH_ABOVE -> APPROACH_OBJECT",
+        "[STATE] step=1200, phase=APPROACH_OBJECT, cube_z=0.0170",
+        "[PHASE] 13.52s: APPROACH_OBJECT -> GRASP",
+        "[PHASE] 13.82s: GRASP -> LIFT",
+        "[STATE] step=1400, phase=LIFT, cube_z=0.0198",
+        "[STATE] step=1600, phase=LIFT, cube_z=0.0986",
+        "[STATE] step=1800, phase=LIFT, cube_z=0.2101",
+        "[CHECK] Pick verified: cube_rise=0.1989m; hold=0.50s",
+        "[WORLD] {\"cube_location\": \"gripper\"}",
+        "[STATE] step=2000, phase=TRANSIT, cube_z=0.2047",
+        "[PHASE] 21.68s: TRANSIT -> LOWER",
+        "[STATE] step=2200, phase=LOWER, cube_z=0.1545",
+        "[STATE] step=2400, phase=LOWER, cube_z=0.0463",
+        "[PHASE] 24.21s: LOWER -> RELEASE",
+        "[PHASE] 24.81s: RELEASE -> RETRACT",
+        "[STATE] step=2600, phase=RETRACT, cube_z=0.0400",
+        "[PHASE] 27.16s: RETRACT -> DONE",
+        "[WORLD] {\"cube_location\": \"green_platform\"}",
+        "[RESULT] {\"goal\": {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}, \"plan\": [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}], \"final_state\": {\"cube_location\": \"green_platform\"}, \"initial_cube_position_m\": [0.3999994397163391, 0.10000112652778625, 0.016999606043100357], \"final_cube_position_m\": [0.5031393766403198, -0.21944938600063324, 0.039999619126319885], \"steps\": 2766, \"physics_dt_s\": 0.01, \"cube_rise_m\": 0.19887759909033775, \"stable_hold_s\": 0.5000000000000002}",
+        "[SUCCESS] task=pick_place; cube_rise=0.1989m; stable_hold=0.50s; steps=2766; cube=[0.5031393766403198, -0.21944938600063324, 0.039999619126319885]"
+      ],
+      "case_id": "pose03_en",
+      "cube_x": 0.4,
+      "cube_y": 0.1,
+      "instruction": "put the red cube on the green platform",
+      "wall_time_s": 18.04349764098879
+    },
+    {
+      "status": "success",
+      "returncode": 0,
+      "reason": "Verified goal and clean process exit.",
+      "result": {
+        "goal": {
+          "action": "place",
+          "object": "red_cube",
+          "target": "green_platform"
+        },
+        "plan": [
+          {
+            "skill": "pick",
+            "object": "red_cube",
+            "target": null
+          },
+          {
+            "skill": "place",
+            "object": "red_cube",
+            "target": "green_platform"
+          }
+        ],
+        "final_state": {
+          "cube_location": "green_platform"
+        },
+        "initial_cube_position_m": [
+          0.3999994397163391,
+          0.10000112652778625,
+          0.016999606043100357
+        ],
+        "final_cube_position_m": [
+          0.5031393766403198,
+          -0.21944938600063324,
+          0.039999619126319885
+        ],
+        "steps": 2766,
+        "physics_dt_s": 0.01,
+        "cube_rise_m": 0.19887759909033775,
+        "stable_hold_s": 0.5000000000000002
+      },
+      "trace": [
+        "[GOAL] {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}",
+        "[WORLD] {\"cube_location\": \"table\"}",
+        "[PLAN] [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}]",
+        "[STATE] step=0, phase=REST, cube_z=0.0170",
+        "[PHASE] 0.19s: REST -> APPROACH_ABOVE",
+        "[STATE] step=200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=400, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=600, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=800, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1000, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[PHASE] 10.20s: APPROACH_ABOVE -> APPROACH_OBJECT",
+        "[STATE] step=1200, phase=APPROACH_OBJECT, cube_z=0.0170",
+        "[PHASE] 13.52s: APPROACH_OBJECT -> GRASP",
+        "[PHASE] 13.82s: GRASP -> LIFT",
+        "[STATE] step=1400, phase=LIFT, cube_z=0.0198",
+        "[STATE] step=1600, phase=LIFT, cube_z=0.0986",
+        "[STATE] step=1800, phase=LIFT, cube_z=0.2101",
+        "[CHECK] Pick verified: cube_rise=0.1989m; hold=0.50s",
+        "[WORLD] {\"cube_location\": \"gripper\"}",
+        "[STATE] step=2000, phase=TRANSIT, cube_z=0.2047",
+        "[PHASE] 21.68s: TRANSIT -> LOWER",
+        "[STATE] step=2200, phase=LOWER, cube_z=0.1545",
+        "[STATE] step=2400, phase=LOWER, cube_z=0.0463",
+        "[PHASE] 24.21s: LOWER -> RELEASE",
+        "[PHASE] 24.81s: RELEASE -> RETRACT",
+        "[STATE] step=2600, phase=RETRACT, cube_z=0.0400",
+        "[PHASE] 27.16s: RETRACT -> DONE",
+        "[WORLD] {\"cube_location\": \"green_platform\"}",
+        "[RESULT] {\"goal\": {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}, \"plan\": [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}], \"final_state\": {\"cube_location\": \"green_platform\"}, \"initial_cube_position_m\": [0.3999994397163391, 0.10000112652778625, 0.016999606043100357], \"final_cube_position_m\": [0.5031393766403198, -0.21944938600063324, 0.039999619126319885], \"steps\": 2766, \"physics_dt_s\": 0.01, \"cube_rise_m\": 0.19887759909033775, \"stable_hold_s\": 0.5000000000000002}",
+        "[SUCCESS] task=pick_place; cube_rise=0.1989m; stable_hold=0.50s; steps=2766; cube=[0.5031393766403198, -0.21944938600063324, 0.039999619126319885]"
+      ],
+      "case_id": "pose03_zh",
+      "cube_x": 0.4,
+      "cube_y": 0.1,
+      "instruction": "把红色方块放到绿色平台上",
+      "wall_time_s": 19.14677930700418
+    },
+    {
+      "status": "success",
+      "returncode": 0,
+      "reason": "Verified goal and clean process exit.",
+      "result": {
+        "goal": {
+          "action": "place",
+          "object": "red_cube",
+          "target": "green_platform"
+        },
+        "plan": [
+          {
+            "skill": "pick",
+            "object": "red_cube",
+            "target": null
+          },
+          {
+            "skill": "place",
+            "object": "red_cube",
+            "target": "green_platform"
+          }
+        ],
+        "final_state": {
+          "cube_location": "green_platform"
+        },
+        "initial_cube_position_m": [
+          0.49999940395355225,
+          -0.09999887645244598,
+          0.016999615356326103
+        ],
+        "final_cube_position_m": [
+          0.502104640007019,
+          -0.21855875849723816,
+          0.039999619126319885
+        ],
+        "steps": 2490,
+        "physics_dt_s": 0.01,
+        "cube_rise_m": 0.1905772853642702,
+        "stable_hold_s": 0.5000000000000002
+      },
+      "trace": [
+        "[GOAL] {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}",
+        "[WORLD] {\"cube_location\": \"table\"}",
+        "[PLAN] [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}]",
+        "[STATE] step=0, phase=REST, cube_z=0.0170",
+        "[PHASE] 0.19s: REST -> APPROACH_ABOVE",
+        "[STATE] step=200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=400, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=600, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=800, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1000, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[PHASE] 13.08s: APPROACH_ABOVE -> APPROACH_OBJECT",
+        "[STATE] step=1400, phase=APPROACH_OBJECT, cube_z=0.0170",
+        "[PHASE] 15.02s: APPROACH_OBJECT -> GRASP",
+        "[PHASE] 15.32s: GRASP -> LIFT",
+        "[STATE] step=1600, phase=LIFT, cube_z=0.0617",
+        "[STATE] step=1800, phase=LIFT, cube_z=0.1984",
+        "[CHECK] Pick verified: cube_rise=0.1906m; hold=0.50s",
+        "[WORLD] {\"cube_location\": \"gripper\"}",
+        "[PHASE] 19.54s: TRANSIT -> LOWER",
+        "[STATE] step=2000, phase=LOWER, cube_z=0.1419",
+        "[PHASE] 21.75s: LOWER -> RELEASE",
+        "[STATE] step=2200, phase=RELEASE, cube_z=0.0400",
+        "[PHASE] 22.35s: RELEASE -> RETRACT",
+        "[STATE] step=2400, phase=RETRACT, cube_z=0.0400",
+        "[PHASE] 24.40s: RETRACT -> DONE",
+        "[WORLD] {\"cube_location\": \"green_platform\"}",
+        "[RESULT] {\"goal\": {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}, \"plan\": [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}], \"final_state\": {\"cube_location\": \"green_platform\"}, \"initial_cube_position_m\": [0.49999940395355225, -0.09999887645244598, 0.016999615356326103], \"final_cube_position_m\": [0.502104640007019, -0.21855875849723816, 0.039999619126319885], \"steps\": 2490, \"physics_dt_s\": 0.01, \"cube_rise_m\": 0.1905772853642702, \"stable_hold_s\": 0.5000000000000002}",
+        "[SUCCESS] task=pick_place; cube_rise=0.1906m; stable_hold=0.50s; steps=2490; cube=[0.502104640007019, -0.21855875849723816, 0.039999619126319885]"
+      ],
+      "case_id": "pose04_en",
+      "cube_x": 0.5,
+      "cube_y": -0.1,
+      "instruction": "put the red cube on the green platform",
+      "wall_time_s": 18.191923317004694
+    },
+    {
+      "status": "success",
+      "returncode": 0,
+      "reason": "Verified goal and clean process exit.",
+      "result": {
+        "goal": {
+          "action": "place",
+          "object": "red_cube",
+          "target": "green_platform"
+        },
+        "plan": [
+          {
+            "skill": "pick",
+            "object": "red_cube",
+            "target": null
+          },
+          {
+            "skill": "place",
+            "object": "red_cube",
+            "target": "green_platform"
+          }
+        ],
+        "final_state": {
+          "cube_location": "green_platform"
+        },
+        "initial_cube_position_m": [
+          0.49999940395355225,
+          -0.09999887645244598,
+          0.016999615356326103
+        ],
+        "final_cube_position_m": [
+          0.502104640007019,
+          -0.21855875849723816,
+          0.039999619126319885
+        ],
+        "steps": 2490,
+        "physics_dt_s": 0.01,
+        "cube_rise_m": 0.1905772853642702,
+        "stable_hold_s": 0.5000000000000002
+      },
+      "trace": [
+        "[GOAL] {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}",
+        "[WORLD] {\"cube_location\": \"table\"}",
+        "[PLAN] [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}]",
+        "[STATE] step=0, phase=REST, cube_z=0.0170",
+        "[PHASE] 0.19s: REST -> APPROACH_ABOVE",
+        "[STATE] step=200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=400, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=600, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=800, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1000, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[PHASE] 13.08s: APPROACH_ABOVE -> APPROACH_OBJECT",
+        "[STATE] step=1400, phase=APPROACH_OBJECT, cube_z=0.0170",
+        "[PHASE] 15.02s: APPROACH_OBJECT -> GRASP",
+        "[PHASE] 15.32s: GRASP -> LIFT",
+        "[STATE] step=1600, phase=LIFT, cube_z=0.0617",
+        "[STATE] step=1800, phase=LIFT, cube_z=0.1984",
+        "[CHECK] Pick verified: cube_rise=0.1906m; hold=0.50s",
+        "[WORLD] {\"cube_location\": \"gripper\"}",
+        "[PHASE] 19.54s: TRANSIT -> LOWER",
+        "[STATE] step=2000, phase=LOWER, cube_z=0.1419",
+        "[PHASE] 21.75s: LOWER -> RELEASE",
+        "[STATE] step=2200, phase=RELEASE, cube_z=0.0400",
+        "[PHASE] 22.35s: RELEASE -> RETRACT",
+        "[STATE] step=2400, phase=RETRACT, cube_z=0.0400",
+        "[PHASE] 24.40s: RETRACT -> DONE",
+        "[WORLD] {\"cube_location\": \"green_platform\"}",
+        "[RESULT] {\"goal\": {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}, \"plan\": [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}], \"final_state\": {\"cube_location\": \"green_platform\"}, \"initial_cube_position_m\": [0.49999940395355225, -0.09999887645244598, 0.016999615356326103], \"final_cube_position_m\": [0.502104640007019, -0.21855875849723816, 0.039999619126319885], \"steps\": 2490, \"physics_dt_s\": 0.01, \"cube_rise_m\": 0.1905772853642702, \"stable_hold_s\": 0.5000000000000002}",
+        "[SUCCESS] task=pick_place; cube_rise=0.1906m; stable_hold=0.50s; steps=2490; cube=[0.502104640007019, -0.21855875849723816, 0.039999619126319885]"
+      ],
+      "case_id": "pose04_zh",
+      "cube_x": 0.5,
+      "cube_y": -0.1,
+      "instruction": "把红色方块放到绿色平台上",
+      "wall_time_s": 16.54288643099426
+    },
+    {
+      "status": "success",
+      "returncode": 0,
+      "reason": "Verified goal and clean process exit.",
+      "result": {
+        "goal": {
+          "action": "place",
+          "object": "red_cube",
+          "target": "green_platform"
+        },
+        "plan": [
+          {
+            "skill": "pick",
+            "object": "red_cube",
+            "target": null
+          },
+          {
+            "skill": "place",
+            "object": "red_cube",
+            "target": "green_platform"
+          }
+        ],
+        "final_state": {
+          "cube_location": "green_platform"
+        },
+        "initial_cube_position_m": [
+          0.49999943375587463,
+          1.1288061614322942e-06,
+          0.016999615356326103
+        ],
+        "final_cube_position_m": [
+          0.5001770257949829,
+          -0.2194831520318985,
+          0.03999961540102959
+        ],
+        "steps": 2554,
+        "physics_dt_s": 0.01,
+        "cube_rise_m": 0.19853471405804157,
+        "stable_hold_s": 0.5000000000000002
+      },
+      "trace": [
+        "[GOAL] {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}",
+        "[WORLD] {\"cube_location\": \"table\"}",
+        "[PLAN] [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}]",
+        "[STATE] step=0, phase=REST, cube_z=0.0170",
+        "[PHASE] 0.19s: REST -> APPROACH_ABOVE",
+        "[STATE] step=200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=400, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=600, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=800, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1000, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[PHASE] 12.55s: APPROACH_ABOVE -> APPROACH_OBJECT",
+        "[STATE] step=1400, phase=APPROACH_OBJECT, cube_z=0.0170",
+        "[PHASE] 14.51s: APPROACH_OBJECT -> GRASP",
+        "[PHASE] 14.81s: GRASP -> LIFT",
+        "[STATE] step=1600, phase=LIFT, cube_z=0.0937",
+        "[STATE] step=1800, phase=LIFT, cube_z=0.2147",
+        "[CHECK] Pick verified: cube_rise=0.1985m; hold=0.50s",
+        "[WORLD] {\"cube_location\": \"gripper\"}",
+        "[STATE] step=2000, phase=TRANSIT, cube_z=0.1893",
+        "[PHASE] 20.21s: TRANSIT -> LOWER",
+        "[STATE] step=2200, phase=LOWER, cube_z=0.0499",
+        "[PHASE] 22.41s: LOWER -> RELEASE",
+        "[PHASE] 23.01s: RELEASE -> RETRACT",
+        "[STATE] step=2400, phase=RETRACT, cube_z=0.0400",
+        "[PHASE] 25.04s: RETRACT -> DONE",
+        "[WORLD] {\"cube_location\": \"green_platform\"}",
+        "[RESULT] {\"goal\": {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}, \"plan\": [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}], \"final_state\": {\"cube_location\": \"green_platform\"}, \"initial_cube_position_m\": [0.49999943375587463, 1.1288061614322942e-06, 0.016999615356326103], \"final_cube_position_m\": [0.5001770257949829, -0.2194831520318985, 0.03999961540102959], \"steps\": 2554, \"physics_dt_s\": 0.01, \"cube_rise_m\": 0.19853471405804157, \"stable_hold_s\": 0.5000000000000002}",
+        "[SUCCESS] task=pick_place; cube_rise=0.1985m; stable_hold=0.50s; steps=2554; cube=[0.5001770257949829, -0.2194831520318985, 0.03999961540102959]"
+      ],
+      "case_id": "pose05_en",
+      "cube_x": 0.5,
+      "cube_y": 0.0,
+      "instruction": "put the red cube on the green platform",
+      "wall_time_s": 17.643026974998065
+    },
+    {
+      "status": "success",
+      "returncode": 0,
+      "reason": "Verified goal and clean process exit.",
+      "result": {
+        "goal": {
+          "action": "place",
+          "object": "red_cube",
+          "target": "green_platform"
+        },
+        "plan": [
+          {
+            "skill": "pick",
+            "object": "red_cube",
+            "target": null
+          },
+          {
+            "skill": "place",
+            "object": "red_cube",
+            "target": "green_platform"
+          }
+        ],
+        "final_state": {
+          "cube_location": "green_platform"
+        },
+        "initial_cube_position_m": [
+          0.49999943375587463,
+          1.1288061614322942e-06,
+          0.016999615356326103
+        ],
+        "final_cube_position_m": [
+          0.5001770257949829,
+          -0.2194831520318985,
+          0.03999961540102959
+        ],
+        "steps": 2554,
+        "physics_dt_s": 0.01,
+        "cube_rise_m": 0.19853471405804157,
+        "stable_hold_s": 0.5000000000000002
+      },
+      "trace": [
+        "[GOAL] {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}",
+        "[WORLD] {\"cube_location\": \"table\"}",
+        "[PLAN] [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}]",
+        "[STATE] step=0, phase=REST, cube_z=0.0170",
+        "[PHASE] 0.19s: REST -> APPROACH_ABOVE",
+        "[STATE] step=200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=400, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=600, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=800, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1000, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[PHASE] 12.55s: APPROACH_ABOVE -> APPROACH_OBJECT",
+        "[STATE] step=1400, phase=APPROACH_OBJECT, cube_z=0.0170",
+        "[PHASE] 14.51s: APPROACH_OBJECT -> GRASP",
+        "[PHASE] 14.81s: GRASP -> LIFT",
+        "[STATE] step=1600, phase=LIFT, cube_z=0.0937",
+        "[STATE] step=1800, phase=LIFT, cube_z=0.2147",
+        "[CHECK] Pick verified: cube_rise=0.1985m; hold=0.50s",
+        "[WORLD] {\"cube_location\": \"gripper\"}",
+        "[STATE] step=2000, phase=TRANSIT, cube_z=0.1893",
+        "[PHASE] 20.21s: TRANSIT -> LOWER",
+        "[STATE] step=2200, phase=LOWER, cube_z=0.0499",
+        "[PHASE] 22.41s: LOWER -> RELEASE",
+        "[PHASE] 23.01s: RELEASE -> RETRACT",
+        "[STATE] step=2400, phase=RETRACT, cube_z=0.0400",
+        "[PHASE] 25.04s: RETRACT -> DONE",
+        "[WORLD] {\"cube_location\": \"green_platform\"}",
+        "[RESULT] {\"goal\": {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}, \"plan\": [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}], \"final_state\": {\"cube_location\": \"green_platform\"}, \"initial_cube_position_m\": [0.49999943375587463, 1.1288061614322942e-06, 0.016999615356326103], \"final_cube_position_m\": [0.5001770257949829, -0.2194831520318985, 0.03999961540102959], \"steps\": 2554, \"physics_dt_s\": 0.01, \"cube_rise_m\": 0.19853471405804157, \"stable_hold_s\": 0.5000000000000002}",
+        "[SUCCESS] task=pick_place; cube_rise=0.1985m; stable_hold=0.50s; steps=2554; cube=[0.5001770257949829, -0.2194831520318985, 0.03999961540102959]"
+      ],
+      "case_id": "pose05_zh",
+      "cube_x": 0.5,
+      "cube_y": 0.0,
+      "instruction": "把红色方块放到绿色平台上",
+      "wall_time_s": 17.296729970999877
+    },
+    {
+      "status": "success",
+      "returncode": 0,
+      "reason": "Verified goal and clean process exit.",
+      "result": {
+        "goal": {
+          "action": "place",
+          "object": "red_cube",
+          "target": "green_platform"
+        },
+        "plan": [
+          {
+            "skill": "pick",
+            "object": "red_cube",
+            "target": null
+          },
+          {
+            "skill": "place",
+            "object": "red_cube",
+            "target": "green_platform"
+          }
+        ],
+        "final_state": {
+          "cube_location": "green_platform"
+        },
+        "initial_cube_position_m": [
+          0.49999943375587463,
+          0.10000112652778625,
+          0.016999639570713043
+        ],
+        "final_cube_position_m": [
+          0.4999281167984009,
+          -0.21950091421604156,
+          0.03999961540102959
+        ],
+        "steps": 2838,
+        "physics_dt_s": 0.01,
+        "cube_rise_m": 0.19861749559640884,
+        "stable_hold_s": 0.5000000000000002
+      },
+      "trace": [
+        "[GOAL] {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}",
+        "[WORLD] {\"cube_location\": \"table\"}",
+        "[PLAN] [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}]",
+        "[STATE] step=0, phase=REST, cube_z=0.0170",
+        "[PHASE] 0.19s: REST -> APPROACH_ABOVE",
+        "[STATE] step=200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=400, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=600, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=800, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1000, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[PHASE] 13.98s: APPROACH_ABOVE -> APPROACH_OBJECT",
+        "[STATE] step=1400, phase=APPROACH_OBJECT, cube_z=0.0170",
+        "[PHASE] 15.96s: APPROACH_OBJECT -> GRASP",
+        "[STATE] step=1600, phase=GRASP, cube_z=0.0170",
+        "[PHASE] 16.26s: GRASP -> LIFT",
+        "[STATE] step=1800, phase=LIFT, cube_z=0.1278",
+        "[CHECK] Pick verified: cube_rise=0.1986m; hold=0.50s",
+        "[WORLD] {\"cube_location\": \"gripper\"}",
+        "[STATE] step=2000, phase=TRANSIT, cube_z=0.2193",
+        "[STATE] step=2200, phase=TRANSIT, cube_z=0.1873",
+        "[PHASE] 23.06s: TRANSIT -> LOWER",
+        "[STATE] step=2400, phase=LOWER, cube_z=0.1124",
+        "[PHASE] 25.25s: LOWER -> RELEASE",
+        "[PHASE] 25.85s: RELEASE -> RETRACT",
+        "[STATE] step=2600, phase=RETRACT, cube_z=0.0400",
+        "[PHASE] 27.88s: RETRACT -> DONE",
+        "[STATE] step=2800, phase=DONE, cube_z=0.0400",
+        "[WORLD] {\"cube_location\": \"green_platform\"}",
+        "[RESULT] {\"goal\": {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}, \"plan\": [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}], \"final_state\": {\"cube_location\": \"green_platform\"}, \"initial_cube_position_m\": [0.49999943375587463, 0.10000112652778625, 0.016999639570713043], \"final_cube_position_m\": [0.4999281167984009, -0.21950091421604156, 0.03999961540102959], \"steps\": 2838, \"physics_dt_s\": 0.01, \"cube_rise_m\": 0.19861749559640884, \"stable_hold_s\": 0.5000000000000002}",
+        "[SUCCESS] task=pick_place; cube_rise=0.1986m; stable_hold=0.50s; steps=2838; cube=[0.4999281167984009, -0.21950091421604156, 0.03999961540102959]"
+      ],
+      "case_id": "pose06_en",
+      "cube_x": 0.5,
+      "cube_y": 0.1,
+      "instruction": "put the red cube on the green platform",
+      "wall_time_s": 18.94725360200391
+    },
+    {
+      "status": "success",
+      "returncode": 0,
+      "reason": "Verified goal and clean process exit.",
+      "result": {
+        "goal": {
+          "action": "place",
+          "object": "red_cube",
+          "target": "green_platform"
+        },
+        "plan": [
+          {
+            "skill": "pick",
+            "object": "red_cube",
+            "target": null
+          },
+          {
+            "skill": "place",
+            "object": "red_cube",
+            "target": "green_platform"
+          }
+        ],
+        "final_state": {
+          "cube_location": "green_platform"
+        },
+        "initial_cube_position_m": [
+          0.49999943375587463,
+          0.10000112652778625,
+          0.016999639570713043
+        ],
+        "final_cube_position_m": [
+          0.4999281167984009,
+          -0.21950091421604156,
+          0.03999961540102959
+        ],
+        "steps": 2838,
+        "physics_dt_s": 0.01,
+        "cube_rise_m": 0.19861749559640884,
+        "stable_hold_s": 0.5000000000000002
+      },
+      "trace": [
+        "[GOAL] {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}",
+        "[WORLD] {\"cube_location\": \"table\"}",
+        "[PLAN] [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}]",
+        "[STATE] step=0, phase=REST, cube_z=0.0170",
+        "[PHASE] 0.19s: REST -> APPROACH_ABOVE",
+        "[STATE] step=200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=400, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=600, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=800, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1000, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[PHASE] 13.98s: APPROACH_ABOVE -> APPROACH_OBJECT",
+        "[STATE] step=1400, phase=APPROACH_OBJECT, cube_z=0.0170",
+        "[PHASE] 15.96s: APPROACH_OBJECT -> GRASP",
+        "[STATE] step=1600, phase=GRASP, cube_z=0.0170",
+        "[PHASE] 16.26s: GRASP -> LIFT",
+        "[STATE] step=1800, phase=LIFT, cube_z=0.1278",
+        "[CHECK] Pick verified: cube_rise=0.1986m; hold=0.50s",
+        "[WORLD] {\"cube_location\": \"gripper\"}",
+        "[STATE] step=2000, phase=TRANSIT, cube_z=0.2193",
+        "[STATE] step=2200, phase=TRANSIT, cube_z=0.1873",
+        "[PHASE] 23.06s: TRANSIT -> LOWER",
+        "[STATE] step=2400, phase=LOWER, cube_z=0.1124",
+        "[PHASE] 25.25s: LOWER -> RELEASE",
+        "[PHASE] 25.85s: RELEASE -> RETRACT",
+        "[STATE] step=2600, phase=RETRACT, cube_z=0.0400",
+        "[PHASE] 27.88s: RETRACT -> DONE",
+        "[STATE] step=2800, phase=DONE, cube_z=0.0400",
+        "[WORLD] {\"cube_location\": \"green_platform\"}",
+        "[RESULT] {\"goal\": {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}, \"plan\": [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}], \"final_state\": {\"cube_location\": \"green_platform\"}, \"initial_cube_position_m\": [0.49999943375587463, 0.10000112652778625, 0.016999639570713043], \"final_cube_position_m\": [0.4999281167984009, -0.21950091421604156, 0.03999961540102959], \"steps\": 2838, \"physics_dt_s\": 0.01, \"cube_rise_m\": 0.19861749559640884, \"stable_hold_s\": 0.5000000000000002}",
+        "[SUCCESS] task=pick_place; cube_rise=0.1986m; stable_hold=0.50s; steps=2838; cube=[0.4999281167984009, -0.21950091421604156, 0.03999961540102959]"
+      ],
+      "case_id": "pose06_zh",
+      "cube_x": 0.5,
+      "cube_y": 0.1,
+      "instruction": "把红色方块放到绿色平台上",
+      "wall_time_s": 19.550443480999093
+    },
+    {
+      "status": "success",
+      "returncode": 0,
+      "reason": "Verified goal and clean process exit.",
+      "result": {
+        "goal": {
+          "action": "place",
+          "object": "red_cube",
+          "target": "green_platform"
+        },
+        "plan": [
+          {
+            "skill": "pick",
+            "object": "red_cube",
+            "target": null
+          },
+          {
+            "skill": "place",
+            "object": "red_cube",
+            "target": "green_platform"
+          }
+        ],
+        "final_state": {
+          "cube_location": "green_platform"
+        },
+        "initial_cube_position_m": [
+          0.5999994874000549,
+          -0.09999887645244598,
+          0.016999633982777596
+        ],
+        "final_cube_position_m": [
+          0.49970486760139465,
+          -0.21983179450035095,
+          0.039999619126319885
+        ],
+        "steps": 2610,
+        "physics_dt_s": 0.01,
+        "cube_rise_m": 0.1938080321997404,
+        "stable_hold_s": 0.5000000000000002
+      },
+      "trace": [
+        "[GOAL] {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}",
+        "[WORLD] {\"cube_location\": \"table\"}",
+        "[PLAN] [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}]",
+        "[STATE] step=0, phase=REST, cube_z=0.0170",
+        "[PHASE] 0.19s: REST -> APPROACH_ABOVE",
+        "[STATE] step=200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=400, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=600, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=800, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1000, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[PHASE] 13.55s: APPROACH_ABOVE -> APPROACH_OBJECT",
+        "[STATE] step=1400, phase=APPROACH_OBJECT, cube_z=0.0170",
+        "[PHASE] 15.11s: APPROACH_OBJECT -> GRASP",
+        "[PHASE] 15.41s: GRASP -> LIFT",
+        "[STATE] step=1600, phase=LIFT, cube_z=0.0722",
+        "[CHECK] Pick verified: cube_rise=0.1938m; hold=0.50s",
+        "[WORLD] {\"cube_location\": \"gripper\"}",
+        "[STATE] step=1800, phase=TRANSIT, cube_z=0.2157",
+        "[STATE] step=2000, phase=TRANSIT, cube_z=0.1847",
+        "[PHASE] 20.78s: TRANSIT -> LOWER",
+        "[STATE] step=2200, phase=LOWER, cube_z=0.0862",
+        "[PHASE] 22.97s: LOWER -> RELEASE",
+        "[PHASE] 23.57s: RELEASE -> RETRACT",
+        "[STATE] step=2400, phase=RETRACT, cube_z=0.0400",
+        "[PHASE] 25.60s: RETRACT -> DONE",
+        "[STATE] step=2600, phase=DONE, cube_z=0.0400",
+        "[WORLD] {\"cube_location\": \"green_platform\"}",
+        "[RESULT] {\"goal\": {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}, \"plan\": [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}], \"final_state\": {\"cube_location\": \"green_platform\"}, \"initial_cube_position_m\": [0.5999994874000549, -0.09999887645244598, 0.016999633982777596], \"final_cube_position_m\": [0.49970486760139465, -0.21983179450035095, 0.039999619126319885], \"steps\": 2610, \"physics_dt_s\": 0.01, \"cube_rise_m\": 0.1938080321997404, \"stable_hold_s\": 0.5000000000000002}",
+        "[SUCCESS] task=pick_place; cube_rise=0.1938m; stable_hold=0.50s; steps=2610; cube=[0.49970486760139465, -0.21983179450035095, 0.039999619126319885]"
+      ],
+      "case_id": "pose07_en",
+      "cube_x": 0.6,
+      "cube_y": -0.1,
+      "instruction": "put the red cube on the green platform",
+      "wall_time_s": 17.641551120002987
+    },
+    {
+      "status": "success",
+      "returncode": 0,
+      "reason": "Verified goal and clean process exit.",
+      "result": {
+        "goal": {
+          "action": "place",
+          "object": "red_cube",
+          "target": "green_platform"
+        },
+        "plan": [
+          {
+            "skill": "pick",
+            "object": "red_cube",
+            "target": null
+          },
+          {
+            "skill": "place",
+            "object": "red_cube",
+            "target": "green_platform"
+          }
+        ],
+        "final_state": {
+          "cube_location": "green_platform"
+        },
+        "initial_cube_position_m": [
+          0.5999994874000549,
+          -0.09999887645244598,
+          0.016999633982777596
+        ],
+        "final_cube_position_m": [
+          0.49970486760139465,
+          -0.21983179450035095,
+          0.039999619126319885
+        ],
+        "steps": 2610,
+        "physics_dt_s": 0.01,
+        "cube_rise_m": 0.1938080321997404,
+        "stable_hold_s": 0.5000000000000002
+      },
+      "trace": [
+        "[GOAL] {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}",
+        "[WORLD] {\"cube_location\": \"table\"}",
+        "[PLAN] [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}]",
+        "[STATE] step=0, phase=REST, cube_z=0.0170",
+        "[PHASE] 0.19s: REST -> APPROACH_ABOVE",
+        "[STATE] step=200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=400, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=600, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=800, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1000, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[PHASE] 13.55s: APPROACH_ABOVE -> APPROACH_OBJECT",
+        "[STATE] step=1400, phase=APPROACH_OBJECT, cube_z=0.0170",
+        "[PHASE] 15.11s: APPROACH_OBJECT -> GRASP",
+        "[PHASE] 15.41s: GRASP -> LIFT",
+        "[STATE] step=1600, phase=LIFT, cube_z=0.0722",
+        "[CHECK] Pick verified: cube_rise=0.1938m; hold=0.50s",
+        "[WORLD] {\"cube_location\": \"gripper\"}",
+        "[STATE] step=1800, phase=TRANSIT, cube_z=0.2157",
+        "[STATE] step=2000, phase=TRANSIT, cube_z=0.1847",
+        "[PHASE] 20.78s: TRANSIT -> LOWER",
+        "[STATE] step=2200, phase=LOWER, cube_z=0.0862",
+        "[PHASE] 22.97s: LOWER -> RELEASE",
+        "[PHASE] 23.57s: RELEASE -> RETRACT",
+        "[STATE] step=2400, phase=RETRACT, cube_z=0.0400",
+        "[PHASE] 25.60s: RETRACT -> DONE",
+        "[STATE] step=2600, phase=DONE, cube_z=0.0400",
+        "[WORLD] {\"cube_location\": \"green_platform\"}",
+        "[RESULT] {\"goal\": {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}, \"plan\": [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}], \"final_state\": {\"cube_location\": \"green_platform\"}, \"initial_cube_position_m\": [0.5999994874000549, -0.09999887645244598, 0.016999633982777596], \"final_cube_position_m\": [0.49970486760139465, -0.21983179450035095, 0.039999619126319885], \"steps\": 2610, \"physics_dt_s\": 0.01, \"cube_rise_m\": 0.1938080321997404, \"stable_hold_s\": 0.5000000000000002}",
+        "[SUCCESS] task=pick_place; cube_rise=0.1938m; stable_hold=0.50s; steps=2610; cube=[0.49970486760139465, -0.21983179450035095, 0.039999619126319885]"
+      ],
+      "case_id": "pose07_zh",
+      "cube_x": 0.6,
+      "cube_y": -0.1,
+      "instruction": "把红色方块放到绿色平台上",
+      "wall_time_s": 18.59459211298963
+    },
+    {
+      "status": "success",
+      "returncode": 0,
+      "reason": "Verified goal and clean process exit.",
+      "result": {
+        "goal": {
+          "action": "place",
+          "object": "red_cube",
+          "target": "green_platform"
+        },
+        "plan": [
+          {
+            "skill": "pick",
+            "object": "red_cube",
+            "target": null
+          },
+          {
+            "skill": "place",
+            "object": "red_cube",
+            "target": "green_platform"
+          }
+        ],
+        "final_state": {
+          "cube_location": "green_platform"
+        },
+        "initial_cube_position_m": [
+          0.5999994874000549,
+          1.1276282521066605e-06,
+          0.016999633982777596
+        ],
+        "final_cube_position_m": [
+          0.4995449185371399,
+          -0.22130683064460754,
+          0.03999961540102959
+        ],
+        "steps": 2771,
+        "physics_dt_s": 0.01,
+        "cube_rise_m": 0.19860596768558025,
+        "stable_hold_s": 0.5000000000000002
+      },
+      "trace": [
+        "[GOAL] {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}",
+        "[WORLD] {\"cube_location\": \"table\"}",
+        "[PLAN] [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}]",
+        "[STATE] step=0, phase=REST, cube_z=0.0170",
+        "[PHASE] 0.19s: REST -> APPROACH_ABOVE",
+        "[STATE] step=200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=400, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=600, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=800, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1000, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1400, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[PHASE] 14.11s: APPROACH_ABOVE -> APPROACH_OBJECT",
+        "[PHASE] 15.70s: APPROACH_OBJECT -> GRASP",
+        "[PHASE] 16.00s: GRASP -> LIFT",
+        "[STATE] step=1600, phase=LIFT, cube_z=0.0170",
+        "[STATE] step=1800, phase=LIFT, cube_z=0.2037",
+        "[CHECK] Pick verified: cube_rise=0.1986m; hold=0.50s",
+        "[WORLD] {\"cube_location\": \"gripper\"}",
+        "[STATE] step=2000, phase=TRANSIT, cube_z=0.1972",
+        "[STATE] step=2200, phase=TRANSIT, cube_z=0.1895",
+        "[PHASE] 22.21s: TRANSIT -> LOWER",
+        "[STATE] step=2400, phase=LOWER, cube_z=0.0571",
+        "[PHASE] 24.58s: LOWER -> RELEASE",
+        "[PHASE] 25.18s: RELEASE -> RETRACT",
+        "[STATE] step=2600, phase=RETRACT, cube_z=0.0400",
+        "[PHASE] 27.21s: RETRACT -> DONE",
+        "[WORLD] {\"cube_location\": \"green_platform\"}",
+        "[RESULT] {\"goal\": {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}, \"plan\": [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}], \"final_state\": {\"cube_location\": \"green_platform\"}, \"initial_cube_position_m\": [0.5999994874000549, 1.1276282521066605e-06, 0.016999633982777596], \"final_cube_position_m\": [0.4995449185371399, -0.22130683064460754, 0.03999961540102959], \"steps\": 2771, \"physics_dt_s\": 0.01, \"cube_rise_m\": 0.19860596768558025, \"stable_hold_s\": 0.5000000000000002}",
+        "[SUCCESS] task=pick_place; cube_rise=0.1986m; stable_hold=0.50s; steps=2771; cube=[0.4995449185371399, -0.22130683064460754, 0.03999961540102959]"
+      ],
+      "case_id": "pose08_en",
+      "cube_x": 0.6,
+      "cube_y": 0.0,
+      "instruction": "put the red cube on the green platform",
+      "wall_time_s": 19.249206339998636
+    },
+    {
+      "status": "success",
+      "returncode": 0,
+      "reason": "Verified goal and clean process exit.",
+      "result": {
+        "goal": {
+          "action": "place",
+          "object": "red_cube",
+          "target": "green_platform"
+        },
+        "plan": [
+          {
+            "skill": "pick",
+            "object": "red_cube",
+            "target": null
+          },
+          {
+            "skill": "place",
+            "object": "red_cube",
+            "target": "green_platform"
+          }
+        ],
+        "final_state": {
+          "cube_location": "green_platform"
+        },
+        "initial_cube_position_m": [
+          0.5999994874000549,
+          1.1276282521066605e-06,
+          0.016999633982777596
+        ],
+        "final_cube_position_m": [
+          0.4995449185371399,
+          -0.22130683064460754,
+          0.03999961540102959
+        ],
+        "steps": 2771,
+        "physics_dt_s": 0.01,
+        "cube_rise_m": 0.19860596768558025,
+        "stable_hold_s": 0.5000000000000002
+      },
+      "trace": [
+        "[GOAL] {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}",
+        "[WORLD] {\"cube_location\": \"table\"}",
+        "[PLAN] [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}]",
+        "[STATE] step=0, phase=REST, cube_z=0.0170",
+        "[PHASE] 0.19s: REST -> APPROACH_ABOVE",
+        "[STATE] step=200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=400, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=600, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=800, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1000, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1400, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[PHASE] 14.11s: APPROACH_ABOVE -> APPROACH_OBJECT",
+        "[PHASE] 15.70s: APPROACH_OBJECT -> GRASP",
+        "[PHASE] 16.00s: GRASP -> LIFT",
+        "[STATE] step=1600, phase=LIFT, cube_z=0.0170",
+        "[STATE] step=1800, phase=LIFT, cube_z=0.2037",
+        "[CHECK] Pick verified: cube_rise=0.1986m; hold=0.50s",
+        "[WORLD] {\"cube_location\": \"gripper\"}",
+        "[STATE] step=2000, phase=TRANSIT, cube_z=0.1972",
+        "[STATE] step=2200, phase=TRANSIT, cube_z=0.1895",
+        "[PHASE] 22.21s: TRANSIT -> LOWER",
+        "[STATE] step=2400, phase=LOWER, cube_z=0.0571",
+        "[PHASE] 24.58s: LOWER -> RELEASE",
+        "[PHASE] 25.18s: RELEASE -> RETRACT",
+        "[STATE] step=2600, phase=RETRACT, cube_z=0.0400",
+        "[PHASE] 27.21s: RETRACT -> DONE",
+        "[WORLD] {\"cube_location\": \"green_platform\"}",
+        "[RESULT] {\"goal\": {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}, \"plan\": [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}], \"final_state\": {\"cube_location\": \"green_platform\"}, \"initial_cube_position_m\": [0.5999994874000549, 1.1276282521066605e-06, 0.016999633982777596], \"final_cube_position_m\": [0.4995449185371399, -0.22130683064460754, 0.03999961540102959], \"steps\": 2771, \"physics_dt_s\": 0.01, \"cube_rise_m\": 0.19860596768558025, \"stable_hold_s\": 0.5000000000000002}",
+        "[SUCCESS] task=pick_place; cube_rise=0.1986m; stable_hold=0.50s; steps=2771; cube=[0.4995449185371399, -0.22130683064460754, 0.03999961540102959]"
+      ],
+      "case_id": "pose08_zh",
+      "cube_x": 0.6,
+      "cube_y": 0.0,
+      "instruction": "把红色方块放到绿色平台上",
+      "wall_time_s": 19.55053011199925
+    },
+    {
+      "status": "success",
+      "returncode": 0,
+      "reason": "Verified goal and clean process exit.",
+      "result": {
+        "goal": {
+          "action": "place",
+          "object": "red_cube",
+          "target": "green_platform"
+        },
+        "plan": [
+          {
+            "skill": "pick",
+            "object": "red_cube",
+            "target": null
+          },
+          {
+            "skill": "place",
+            "object": "red_cube",
+            "target": "green_platform"
+          }
+        ],
+        "final_state": {
+          "cube_location": "green_platform"
+        },
+        "initial_cube_position_m": [
+          0.5999994874000549,
+          0.10000114142894745,
+          0.016999540850520134
+        ],
+        "final_cube_position_m": [
+          0.4994771182537079,
+          -0.22225159406661987,
+          0.03999961540102959
+        ],
+        "steps": 3033,
+        "physics_dt_s": 0.01,
+        "cube_rise_m": 0.19859209842979908,
+        "stable_hold_s": 0.5000000000000002
+      },
+      "trace": [
+        "[GOAL] {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}",
+        "[WORLD] {\"cube_location\": \"table\"}",
+        "[PLAN] [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}]",
+        "[STATE] step=0, phase=REST, cube_z=0.0170",
+        "[PHASE] 0.19s: REST -> APPROACH_ABOVE",
+        "[STATE] step=200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=400, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=600, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=800, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1000, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1400, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[PHASE] 15.37s: APPROACH_ABOVE -> APPROACH_OBJECT",
+        "[STATE] step=1600, phase=APPROACH_OBJECT, cube_z=0.0170",
+        "[PHASE] 16.94s: APPROACH_OBJECT -> GRASP",
+        "[PHASE] 17.24s: GRASP -> LIFT",
+        "[STATE] step=1800, phase=LIFT, cube_z=0.0895",
+        "[CHECK] Pick verified: cube_rise=0.1986m; hold=0.50s",
+        "[WORLD] {\"cube_location\": \"gripper\"}",
+        "[STATE] step=2000, phase=TRANSIT, cube_z=0.2245",
+        "[STATE] step=2200, phase=TRANSIT, cube_z=0.1979",
+        "[STATE] step=2400, phase=TRANSIT, cube_z=0.1938",
+        "[PHASE] 24.47s: TRANSIT -> LOWER",
+        "[STATE] step=2600, phase=LOWER, cube_z=0.0967",
+        "[PHASE] 27.20s: LOWER -> RELEASE",
+        "[PHASE] 27.80s: RELEASE -> RETRACT",
+        "[STATE] step=2800, phase=RETRACT, cube_z=0.0400",
+        "[PHASE] 29.83s: RETRACT -> DONE",
+        "[STATE] step=3000, phase=DONE, cube_z=0.0400",
+        "[WORLD] {\"cube_location\": \"green_platform\"}",
+        "[RESULT] {\"goal\": {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}, \"plan\": [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}], \"final_state\": {\"cube_location\": \"green_platform\"}, \"initial_cube_position_m\": [0.5999994874000549, 0.10000114142894745, 0.016999540850520134], \"final_cube_position_m\": [0.4994771182537079, -0.22225159406661987, 0.03999961540102959], \"steps\": 3033, \"physics_dt_s\": 0.01, \"cube_rise_m\": 0.19859209842979908, \"stable_hold_s\": 0.5000000000000002}",
+        "[SUCCESS] task=pick_place; cube_rise=0.1986m; stable_hold=0.50s; steps=3033; cube=[0.4994771182537079, -0.22225159406661987, 0.03999961540102959]"
+      ],
+      "case_id": "pose09_en",
+      "cube_x": 0.6,
+      "cube_y": 0.1,
+      "instruction": "put the red cube on the green platform",
+      "wall_time_s": 19.15092244600237
+    },
+    {
+      "status": "success",
+      "returncode": 0,
+      "reason": "Verified goal and clean process exit.",
+      "result": {
+        "goal": {
+          "action": "place",
+          "object": "red_cube",
+          "target": "green_platform"
+        },
+        "plan": [
+          {
+            "skill": "pick",
+            "object": "red_cube",
+            "target": null
+          },
+          {
+            "skill": "place",
+            "object": "red_cube",
+            "target": "green_platform"
+          }
+        ],
+        "final_state": {
+          "cube_location": "green_platform"
+        },
+        "initial_cube_position_m": [
+          0.5999994874000549,
+          0.10000114142894745,
+          0.016999540850520134
+        ],
+        "final_cube_position_m": [
+          0.4994771182537079,
+          -0.22225159406661987,
+          0.03999961540102959
+        ],
+        "steps": 3033,
+        "physics_dt_s": 0.01,
+        "cube_rise_m": 0.19859209842979908,
+        "stable_hold_s": 0.5000000000000002
+      },
+      "trace": [
+        "[GOAL] {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}",
+        "[WORLD] {\"cube_location\": \"table\"}",
+        "[PLAN] [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}]",
+        "[STATE] step=0, phase=REST, cube_z=0.0170",
+        "[PHASE] 0.19s: REST -> APPROACH_ABOVE",
+        "[STATE] step=200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=400, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=600, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=800, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1000, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1200, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[STATE] step=1400, phase=APPROACH_ABOVE, cube_z=0.0170",
+        "[PHASE] 15.37s: APPROACH_ABOVE -> APPROACH_OBJECT",
+        "[STATE] step=1600, phase=APPROACH_OBJECT, cube_z=0.0170",
+        "[PHASE] 16.94s: APPROACH_OBJECT -> GRASP",
+        "[PHASE] 17.24s: GRASP -> LIFT",
+        "[STATE] step=1800, phase=LIFT, cube_z=0.0895",
+        "[CHECK] Pick verified: cube_rise=0.1986m; hold=0.50s",
+        "[WORLD] {\"cube_location\": \"gripper\"}",
+        "[STATE] step=2000, phase=TRANSIT, cube_z=0.2245",
+        "[STATE] step=2200, phase=TRANSIT, cube_z=0.1979",
+        "[STATE] step=2400, phase=TRANSIT, cube_z=0.1938",
+        "[PHASE] 24.47s: TRANSIT -> LOWER",
+        "[STATE] step=2600, phase=LOWER, cube_z=0.0967",
+        "[PHASE] 27.20s: LOWER -> RELEASE",
+        "[PHASE] 27.80s: RELEASE -> RETRACT",
+        "[STATE] step=2800, phase=RETRACT, cube_z=0.0400",
+        "[PHASE] 29.83s: RETRACT -> DONE",
+        "[STATE] step=3000, phase=DONE, cube_z=0.0400",
+        "[WORLD] {\"cube_location\": \"green_platform\"}",
+        "[RESULT] {\"goal\": {\"action\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}, \"plan\": [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}, {\"skill\": \"place\", \"object\": \"red_cube\", \"target\": \"green_platform\"}], \"final_state\": {\"cube_location\": \"green_platform\"}, \"initial_cube_position_m\": [0.5999994874000549, 0.10000114142894745, 0.016999540850520134], \"final_cube_position_m\": [0.4994771182537079, -0.22225159406661987, 0.03999961540102959], \"steps\": 3033, \"physics_dt_s\": 0.01, \"cube_rise_m\": 0.19859209842979908, \"stable_hold_s\": 0.5000000000000002}",
+        "[SUCCESS] task=pick_place; cube_rise=0.1986m; stable_hold=0.50s; steps=3033; cube=[0.4994771182537079, -0.22225159406661987, 0.03999961540102959]"
+      ],
+      "case_id": "pose09_zh",
+      "cube_x": 0.6,
+      "cube_y": 0.1,
+      "instruction": "把红色方块放到绿色平台上",
+      "wall_time_s": 20.646863078000024
+    }
+  ],
+  "summary": {
+    "planned": 18,
+    "attempted": 18,
+    "verified_successes": 18,
+    "failures": 0,
+    "timeouts": 0,
+    "success_rate": 1.0,
+    "complete": true
+  }
+}

@@ -20,4 +20,5 @@ jobs:
         python -m unittest discover -s tests -p 'test_language.py' -v
         python -m unittest discover -s tests -p 'test_symbolic.py' -v
         python -m unittest discover -s tests -p 'test_grounding.py' -v
+        python -m unittest discover -s tests -p 'test_evaluation.py' -v
     # GPU simulation, torch skills, and the Isaac Lab CLI are checked locally.

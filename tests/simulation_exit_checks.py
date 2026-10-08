@@ -3,6 +3,7 @@
 Run from IsaacLab with the same LD_LIBRARY_PATH as the demos:
     uv run --no-sync python ../language-guided-robot-manipulation/tests/simulation_exit_checks.py
 """
+import json
 import os
 from pathlib import Path
 import signal
@@ -15,10 +16,64 @@ import unittest
 PROJECT = Path(__file__).resolve().parents[1]
 DEMO = PROJECT / "scripts/day3_pick.py"
 LANGUAGE_DEMO = PROJECT / "scripts/day4_language.py"
+EVALUATION = PROJECT / "scripts/day5_evaluate.py"
 PLACE_INSTRUCTION = ["--instruction", "把红色方块放到绿色平台上"]
 
 
 class SimulationExitTests(unittest.TestCase):
+    def test_evaluation_step_timeouts_preserve_both_failed_trials(self):
+        cache = PROJECT / ".cache" / "simulation_checks"
+        cache.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=cache) as directory:
+            output = Path(directory) / "experiment"
+            result = subprocess.run(
+                [sys.executable, str(EVALUATION), "--output", str(output), "--limit", "2", "--max_steps", "1"],
+                stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, timeout=60,
+            )
+            self.assertEqual(result.returncode, 1, result.stdout)
+            report = json.loads((output / "report.json").read_text())
+            self.assertEqual(report["summary"]["attempted"], 2)
+            self.assertEqual(report["summary"]["failures"], 2)
+            self.assertEqual(report["summary"]["verified_successes"], 0)
+            self.assertTrue(report["summary"]["complete"])
+            self.assertTrue(all(trial["result"] is None for trial in report["trials"]))
+
+    def test_evaluation_interruption_preserves_partial_report(self):
+        cache = PROJECT / ".cache" / "simulation_checks"
+        cache.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=cache) as directory:
+            output = Path(directory) / "experiment"
+            console = Path(directory) / "console.log"
+            with console.open("w") as stream:
+                process = subprocess.Popen(
+                    [sys.executable, str(EVALUATION), "--output", str(output)],
+                    stdout=stream, stderr=subprocess.STDOUT, start_new_session=True,
+                )
+                try:
+                    deadline = time.monotonic() + 30
+                    child_log = output / "pose01_en.log"
+                    started = False
+                    while time.monotonic() < deadline and process.poll() is None:
+                        if child_log.exists() and "[INFO] Starting cube position:" in child_log.read_text():
+                            started = True
+                            break
+                        time.sleep(0.05)
+                    self.assertTrue(started, console.read_text())
+                    os.killpg(process.pid, signal.SIGINT)
+                    self.assertEqual(process.wait(timeout=15), 130, console.read_text())
+                    report = json.loads((output / "report.json").read_text())
+                    self.assertTrue(report["interrupted"])
+                    self.assertFalse(report["summary"]["complete"])
+                    self.assertEqual(report["summary"]["attempted"], 1)
+                    self.assertEqual(report["summary"]["verified_successes"], 0)
+                    self.assertEqual(report["trials"][0]["status"], "interrupted")
+                    # The parent catches Ctrl+C, so the child's actual exit code is unknown.
+                    self.assertIsNone(report["trials"][0]["returncode"])
+                finally:
+                    if process.poll() is None:
+                        os.killpg(process.pid, signal.SIGTERM)
+                        process.wait(timeout=10)
+
     def test_short_attempt_exits_with_failure(self):
         result = subprocess.run(
             [sys.executable, str(DEMO), "--max_steps", "1"],

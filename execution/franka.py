@@ -188,6 +188,17 @@ def execute_goal(goal: Goal, args_cli, simulation_app):
     if not goal_satisfied(goal, state):
         raise RuntimeError("Executed plan did not satisfy the symbolic goal.")
     final_cube = cube.data.root_pos_w.torch[0]
+    print("[RESULT] " + json.dumps({
+        "goal": goal.to_dict(),
+        "plan": [call.to_dict() for call in plan],
+        "final_state": state.to_dict(),
+        "initial_cube_position_m": initial_cube_position.tolist(),
+        "final_cube_position_m": final_cube.tolist(),
+        "steps": reached_step,
+        "physics_dt_s": dt,
+        "cube_rise_m": pick_rise,
+        "stable_hold_s": stable_time,
+    }), flush=True)
     print(
         f"[SUCCESS] task={'pick_place' if goal.action == 'place' else 'pick'}; "
         f"cube_rise={pick_rise:.4f}m; stable_hold={stable_time:.2f}s; "
