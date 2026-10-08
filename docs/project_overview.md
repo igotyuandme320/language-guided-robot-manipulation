@@ -52,6 +52,7 @@ model is pretrained; the project does not train a policy or language model.
 | New constraint diagnostic | Rules 14/16; raw model 12/16; guarded entry 14/16 with two false acceptances | Four supported and twelve unsupported hand-written requests, fixed before new inference |
 | Cube rotation check | Four verified picks at 0°, 30°, 45°, and 90° | One fixed table position; unchanged grasp pose; 90° is a cube symmetry control |
 | Post-pick release fault | Grasp loss detected at step 1833; no place effect; three normal controls passed | One command fault; simulator cube/TCP proximity monitor; no recovery |
+| Seeded placement poses | 8/8 verified attempts; maximum horizontal error about 3.07 mm | Four sampled positions/yaws, each paired with English/Chinese templates; seed 20; limited coverage |
 
 [Grid results](results/day5_grid.json),
 [original language comparison](results/day7_development_language.json),
@@ -77,6 +78,10 @@ picks. They do not establish orientation-aware grasping or placement.
 [Day 18](day18.md) adds a sustained proximity check while placement needs
 a grasp. Its release-fault test detects a later loss after a verified pick;
 it does not identify a new supported world state or replan automatically.
+[Day 20](day20.md) samples position and yaw together without tuning the
+controller. Its [full report](results/day20_seeded_poses.json) retains all
+eight attempts. This is four unique poses, with three x coordinates
+clustered near 0.581 m, rather than a workspace-wide reliability study.
 
 Object positions come directly from the simulator. The project currently
 has no visual grounding, learned skills, collision-aware motion planner,

@@ -68,6 +68,8 @@ Current progress:
   check during placement, tested with a post-pick release and normal controls.
 - [Day 19: failure reporting](docs/day19.md) — structured diagnostic
   retention and rejection of contradictory single-attempt success records.
+- [Day 20: seeded pose evaluation](docs/day20.md) — a frozen sample of
+  initial positions and yaws, paired with English/Chinese placement commands.
 
 Tested environment: Ubuntu 26.04, RTX 3080 10GB, Isaac Lab develop
 (`VERSION` 3.0.0), and Isaac Sim 6.1. Commands use the existing Isaac Lab
@@ -119,3 +121,9 @@ The recorded [Day 5 results](docs/results/day5_grid.json) passed all 18
 attempts, with a maximum horizontal placement error of about 3.19 mm.
 This covers nine fixed starting positions and two equivalent command
 templates; it is a small baseline check with no randomized repeats.
+
+For seeded position/yaw sampling, add `--random_poses 4 --seed 20` to the
+evaluation command. Preview the full case list first with `--dry_run`.
+The controller and physical checks stay the same; each sampled pose gets
+both language templates. See [Day 20](docs/day20.md) for the measured
+outcomes and the limited scope of this small sample.

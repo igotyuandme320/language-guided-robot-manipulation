@@ -45,6 +45,12 @@ def result_output(result):
 
 
 class EvaluationTests(unittest.TestCase):
+    def test_scene_observation_is_kept_with_the_execution_result(self):
+        line = '[SCENE] {"configured_cube_yaw_deg": 30, "settled_cube_quaternion_xyzw": [0, 0, 0.258819, 0.965926]}'
+        trial = summarize_output(line + "\n" + result_output(RESULT), 0, GOAL)
+        self.assertEqual(trial["status"], "success")
+        self.assertIn(line, trial["trace"])
+
     def test_structured_failure_preserves_cause_and_history(self):
         line = "[FAILURE] " + json.dumps(FAILURE)
         trial = summarize_output(line + "\nRuntimeError: placement failed", 1, GOAL)
@@ -176,6 +182,44 @@ class EvaluationRunnerTests(unittest.TestCase):
         process = self.run_cli("--dry_run", "--limit", "1")
         self.assertEqual(process.returncode, 0, process.stderr)
         self.assertEqual(len(json.loads(process.stdout)["cases"]), 1)
+
+    def test_seeded_preview_repeats_poses_and_pairs_languages(self):
+        args = ("--dry_run", "--random_poses", "4", "--seed", "20")
+        first = self.run_cli(*args)
+        self.assertEqual(first.returncode, 0, first.stderr)
+        protocol = json.loads(first.stdout)
+        self.assertEqual(protocol, json.loads(self.run_cli(*args).stdout))
+        other = self.run_cli("--dry_run", "--random_poses", "4", "--seed", "21")
+        self.assertEqual(other.returncode, 0, other.stderr)
+        cases = protocol["cases"]
+        self.assertEqual(len(cases), 8)
+        self.assertEqual(len({case["case_id"] for case in cases}), 8)
+        self.assertNotEqual(cases, json.loads(other.stdout)["cases"])
+        for index in range(0, 8, 2):
+            pair = cases[index:index + 2]
+            for field in ("cube_x", "cube_y", "cube_yaw_deg"):
+                self.assertEqual(pair[0][field], pair[1][field])
+            self.assertEqual({case["instruction"] for case in pair},
+                             {"put the red cube on the green platform", "把红色方块放到绿色平台上"})
+            self.assertTrue(0.4 <= pair[0]["cube_x"] <= 0.6)
+            self.assertTrue(-0.1 <= pair[0]["cube_y"] <= 0.1)
+            self.assertTrue(-45 <= pair[0]["cube_yaw_deg"] <= 45)
+
+    def test_random_preview_limit_keeps_the_protocol_prefix(self):
+        full = self.run_cli("--dry_run", "--random_poses", "2", "--seed", "20")
+        limited = self.run_cli("--dry_run", "--random_poses", "2", "--seed", "20", "--limit", "3")
+        self.assertEqual(full.returncode, 0, full.stderr)
+        self.assertEqual(limited.returncode, 0, limited.stderr)
+        self.assertEqual(json.loads(limited.stdout)["cases"], json.loads(full.stdout)["cases"][:3])
+        self.assertEqual(len(json.loads(limited.stdout)["cases"]), 3)
+
+    def test_invalid_sample_counts_and_limits_are_rejected(self):
+        for args in (("--random_poses", "0"), ("--random_poses", "-1"),
+                     ("--random_poses", "2", "--limit", "5"), ("--limit", "0"), ("--limit", "19")):
+            with self.subTest(args=args):
+                process = self.run_cli("--dry_run", *args)
+                self.assertEqual(process.returncode, 2, process.stderr)
+                self.assertNotIn("[TRIAL]", process.stdout)
 
     def test_invalid_timeouts_are_rejected_before_running(self):
         for args in (("--max_steps", "0"), ("--process_timeout", "nan"), ("--process_timeout", "-1")):

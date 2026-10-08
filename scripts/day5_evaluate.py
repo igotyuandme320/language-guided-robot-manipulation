@@ -1,10 +1,11 @@
-"""Evaluate the existing Day 4 demo on a fixed grid, with no controller tuning."""
+"""Evaluate the Day 4 demo on a fixed grid or seeded table poses."""
 
 import argparse
 from datetime import datetime, timezone
 import json
 import math
 from pathlib import Path
+import random
 import subprocess
 import sys
 import time
@@ -56,7 +57,7 @@ def summarize_output(output: str, returncode: int | None, expected_goal: dict) -
     """An exit code alone is not proof of a completed manipulation attempt."""
     lines = output.splitlines()
     trace = [line for line in lines if line.startswith((
-        "[GOAL]", "[PLAN]", "[WORLD]", "[CHECK]", "[RESULT]", "[FAILURE]", "[SUCCESS]", "[PHASE]", "[STATE]",
+        "[GOAL]", "[PLAN]", "[WORLD]", "[SCENE]", "[CHECK]", "[RESULT]", "[FAILURE]", "[SUCCESS]", "[PHASE]", "[STATE]",
         "RuntimeError:", "ValueError:",
     ))]
     result = None
@@ -144,23 +145,46 @@ def run_trial(command: list[str], log_path: Path, timeout: float) -> tuple[int |
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, help="New directory inside this repository for report and raw logs.")
-    parser.add_argument("--dry_run", action="store_true", help="Preview the preset cases without launching Kit.")
-    parser.add_argument("--limit", type=int, default=18, help="Run the first N cases, for a smoke check (1–18).")
+    parser.add_argument("--dry_run", action="store_true", help="Preview all selected cases without launching Kit.")
+    parser.add_argument("--random_poses", type=int, help="Sample N table poses; run both language templates at each pose.")
+    parser.add_argument("--seed", type=int, default=20, help="Seed for sampled poses; default 20.")
+    parser.add_argument("--limit", type=int, help="Run only the first N cases; default is the full selected protocol.")
     parser.add_argument("--max_steps", type=int, default=6000, help="Physics-step timeout for every placement attempt.")
     parser.add_argument("--process_timeout", type=float, default=120.0, help="Wall-clock timeout per fresh process, seconds.")
     args = parser.parse_args()
-    if args.max_steps <= 0 or not 1 <= args.limit <= 18:
-        parser.error("--max_steps must be positive and --limit must be between 1 and 18")
+    if args.max_steps <= 0:
+        parser.error("--max_steps must be positive")
+    if args.random_poses is not None and args.random_poses <= 0:
+        parser.error("--random_poses must be positive")
     if not math.isfinite(args.process_timeout) or args.process_timeout <= 0:
         parser.error("--process_timeout must be positive and finite")
-    cases = [
-        {"case_id": f"pose{index:02d}_{language}", "cube_x": x, "cube_y": y, "instruction": instruction}
-        for index, (x, y) in enumerate(((x, y) for x in (0.4, 0.5, 0.6) for y in (-0.1, 0.0, 0.1)), 1)
-        for language, instruction in INSTRUCTIONS
-    ][:args.limit]
+    sampling = None
+    if args.random_poses is None:
+        cases = [
+            {"case_id": f"pose{index:02d}_{language}", "cube_x": x, "cube_y": y, "instruction": instruction}
+            for index, (x, y) in enumerate(((x, y) for x in (0.4, 0.5, 0.6) for y in (-0.1, 0.0, 0.1)), 1)
+            for language, instruction in INSTRUCTIONS
+        ]
+    else:
+        rng = random.Random(args.seed)
+        cases = []
+        for index in range(1, args.random_poses + 1):
+            pose = {"cube_x": round(rng.uniform(0.4, 0.6), 6), "cube_y": round(rng.uniform(-0.1, 0.1), 6),
+                    "cube_yaw_deg": round(rng.uniform(-45.0, 45.0), 6)}
+            for language, instruction in INSTRUCTIONS:
+                cases.append({"case_id": f"sample{index:02d}_{language}", **pose, "instruction": instruction})
+        sampling = {"seed": args.seed, "pose_count": args.random_poses, "distribution": "independent uniform",
+                    "cube_x_bounds_m": [0.4, 0.6], "cube_y_bounds_m": [-0.1, 0.1],
+                    "cube_yaw_bounds_deg": [-45.0, 45.0], "rounding_decimal_places": 6}
+    if args.limit is not None:
+        if not 1 <= args.limit <= len(cases):
+            parser.error(f"--limit must be between 1 and {len(cases)} for this protocol")
+        cases = cases[:args.limit]
     protocol = {"cases": cases, "max_steps": args.max_steps, "process_timeout_s": args.process_timeout,
                 "rendering": "disabled", "expected_platform_cube_center_m": EXPECTED_PLATFORM_CUBE_CENTER,
                 "placement_xy_tolerance_m": PLACEMENT_XY_TOLERANCE, "placement_z_tolerance_m": PLACEMENT_Z_TOLERANCE}
+    if sampling is not None:
+        protocol["sampling"] = sampling
     if args.dry_run:
         print(json.dumps(protocol, ensure_ascii=False, indent=2))
         return 0
@@ -186,6 +210,8 @@ def main() -> int:
         command = [sys.executable, str(PROJECT / "scripts/day4_language.py"),
                    "--instruction", case["instruction"], "--cube_x", str(case["cube_x"]),
                    "--cube_y", str(case["cube_y"]), "--max_steps", str(args.max_steps)]
+        if "cube_yaw_deg" in case:
+            command.extend(["--cube_yaw_deg", str(case["cube_yaw_deg"])])
         print(f"[TRIAL] {index}/{len(cases)} {case['case_id']} x={case['cube_x']} y={case['cube_y']}", flush=True)
         start = time.monotonic()
         try:
