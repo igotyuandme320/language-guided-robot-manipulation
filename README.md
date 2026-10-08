@@ -4,6 +4,9 @@ A small learning project with a Franka Panda in Isaac Lab. I am building
 it incrementally: a custom scene, basic manipulation skills, and now a
 small English/Chinese command interface connected to symbolic goals.
 
+Start with the [project overview](docs/project_overview.md) for the scope,
+recorded results, and current limitations.
+
 Current baseline pipeline:
 
 ```text
@@ -43,6 +46,8 @@ Current progress:
   reproducible GIF recording command, with the execution result retained.
 - [Day 9: failed grasp check](docs/day9.md) — an injected open-gripper
   fault verifies that motion alone cannot commit a successful skill effect.
+- [Day 10: project presentation](docs/day10.md) — a short overview and
+  an internship inquiry draft grounded in the actual project scope.
 
 Tested environment: Ubuntu 26.04, RTX 3080 10GB, Isaac Lab develop
 (`VERSION` 3.0.0), and Isaac Sim 6.1. Commands use the existing Isaac Lab
