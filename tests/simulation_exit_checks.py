@@ -21,6 +21,41 @@ PLACE_INSTRUCTION = ["--instruction", "把红色方块放到绿色平台上"]
 
 
 class SimulationExitTests(unittest.TestCase):
+    def test_platform_start_uses_observed_state(self):
+        cache = PROJECT / ".cache/day13"
+        cache.mkdir(parents=True, exist_ok=True)
+        directory = Path(tempfile.mkdtemp(prefix="initial_state_", dir=cache))
+        print(f"[INITIAL_STATE_CHECK] Logs: {directory}", flush=True)
+        for action, instruction in (("place", "put the red cube on the green platform"),
+                                    ("pick", "pick up the red cube")):
+            with self.subTest(action=action):
+                result = subprocess.run(
+                    [sys.executable, str(LANGUAGE_DEMO), "--instruction", instruction,
+                     "--cube_start", "green_platform", "--max_steps", "3000"],
+                    stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, timeout=90,
+                )
+                (directory / f"{action}.log").write_text(result.stdout)
+                self.assertEqual(result.returncode, 0, result.stdout[-3000:])
+                lines = result.stdout.splitlines()
+                worlds = [json.loads(line.removeprefix("[WORLD] ")) for line in lines if line.startswith("[WORLD] ")]
+                self.assertEqual(worlds[0], {"cube_location": "green_platform"})
+                results = [json.loads(line.removeprefix("[RESULT] ")) for line in lines if line.startswith("[RESULT] ")]
+                self.assertEqual(len(results), 1, result.stdout[-3000:])
+                record = results[0]
+                self.assertAlmostEqual(record["initial_cube_position_m"][2], 0.04, delta=0.008)
+                if action == "place":
+                    self.assertEqual(record["plan"], [])
+                    self.assertEqual(record["steps"], 0)
+                    self.assertEqual(record["execution_status"], "already_satisfied")
+                    self.assertEqual(record["final_state"], {"cube_location": "green_platform"})
+                    self.assertEqual(record["initial_cube_position_m"], record["final_cube_position_m"])
+                    self.assertNotIn("[PHASE]", result.stdout)
+                else:
+                    self.assertEqual([call["skill"] for call in record["plan"]], ["pick"])
+                    self.assertEqual(record["final_state"], {"cube_location": "gripper"})
+                    self.assertGreaterEqual(record["cube_rise_m"], 0.10)
+                    self.assertGreaterEqual(record["stable_hold_s"], 0.5)
+
     def test_stuck_open_gripper_does_not_commit_symbolic_effects(self):
         cache = PROJECT / ".cache/day9"
         cache.mkdir(parents=True, exist_ok=True)

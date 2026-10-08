@@ -30,7 +30,11 @@ def execute_goal(goal: Goal, args_cli, simulation_app):
     sim.set_camera_view((2.0, 1.8, 1.7), (0.35, 0.0, 0.3))
     cfg = ManipulationSceneCfg(num_envs=1, env_spacing=2.0)
     cfg.robot = replace(FRANKA_PANDA_HIGH_PD_CFG, prim_path="{ENV_REGEX_NS}/Robot")
-    cfg.cube.init_state.pos = (args_cli.cube_x, args_cli.cube_y, CUBE_SIZE / 2 + 0.005)
+    if getattr(args_cli, "cube_start", "table") == "green_platform":
+        px, py, pz = cfg.platform.init_state.pos
+        cfg.cube.init_state.pos = (px, py, pz + PLATFORM_HEIGHT / 2 + CUBE_SIZE / 2 + 0.005)
+    else:
+        cfg.cube.init_state.pos = (args_cli.cube_x, args_cli.cube_y, CUBE_SIZE / 2 + 0.005)
     scene = InteractiveScene(cfg)
     sim.reset()
 
@@ -65,9 +69,24 @@ def execute_goal(goal: Goal, args_cli, simulation_app):
     print(f"[WORLD] {json.dumps(state.to_dict())}", flush=True)
     print(f"[PLAN] {json.dumps([call.to_dict() for call in plan])}", flush=True)
     if not plan:
+        # Settling and grounding established the goal; no manipulation was needed.
+        result = {
+            "goal": goal.to_dict(), "plan": [], "final_state": state.to_dict(),
+            "execution_status": "already_satisfied",
+            "initial_cube_position_m": initial_cube_position.tolist(),
+            "final_cube_position_m": initial_cube_position.tolist(),
+            "steps": 0, "physics_dt_s": dt, "cube_rise_m": 0.0, "stable_hold_s": 0.0,
+        }
+        print("[RESULT] " + json.dumps(result, allow_nan=False), flush=True)
         print(f"[SUCCESS] Goal already satisfied: {json.dumps(state.to_dict())}", flush=True)
         if args_cli.screenshot:
             save_screenshot(args_cli.screenshot, simulation_app)
+        if args_cli.keep_open:
+            print("[INFO] Holding the initial arm pose; close the app or press Ctrl+C to stop.", flush=True)
+            while simulation_app.is_running():
+                scene.write_data_to_sim()
+                sim.step()
+                scene.update(dt)
         return state
     skills = {"pick": PickSkill(position_threshold=0.01), "place": PlaceSkill()}
     plan_index = 0

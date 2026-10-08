@@ -19,10 +19,11 @@ parser = argparse.ArgumentParser(description="Execute a supported English/Chines
 parser.add_argument("--instruction", required=True, help="A supported pick or place request.")
 parser.add_argument("--language_backend", choices=("rules", "llm", "guarded"), default="rules")
 parser.add_argument("--llm_timeout", type=float, default=120.0, help="CPU model worker deadline in seconds.")
-parser.add_argument("--dry_run", action="store_true", help="Print goal/plan JSON for a fresh table scene; do not launch Kit.")
+parser.add_argument("--dry_run", action="store_true", help="Print goal/plan JSON for the selected initial scene; do not launch Kit.")
 parser.add_argument("--max_steps", type=int, help="Attempt timeout: default 3000 for pick, 6000 for place.")
-parser.add_argument("--cube_x", type=float, default=0.5)
-parser.add_argument("--cube_y", type=float, default=0.0)
+parser.add_argument("--cube_start", choices=("table", "green_platform"), default="table", help="Initial cube surface; live planning still uses settled observations.")
+parser.add_argument("--cube_x", type=float, help="Table start x coordinate; default 0.5 m.")
+parser.add_argument("--cube_y", type=float, help="Table start y coordinate; default 0 m.")
 parser.add_argument("--screenshot", type=Path, help="Save the viewport after verified task success.")
 parser.add_argument("--record_gif", type=Path, help="New project-local GIF and JSON of real viewport frames after success.")
 parser.add_argument("--gripper_stuck_open", action="store_true", help="Inject a simulated open-gripper fault to check failure detection.")
@@ -33,6 +34,10 @@ if args_cli.max_steps is not None and args_cli.max_steps <= 0:
     parser.error("--max_steps must be positive")
 if not math.isfinite(args_cli.llm_timeout) or args_cli.llm_timeout <= 0:
     parser.error("--llm_timeout must be positive and finite")
+if args_cli.cube_start == "green_platform" and (args_cli.cube_x is not None or args_cli.cube_y is not None):
+    parser.error("--cube_x and --cube_y are table coordinates; omit them for a platform start")
+args_cli.cube_x = 0.5 if args_cli.cube_x is None else args_cli.cube_x
+args_cli.cube_y = 0.0 if args_cli.cube_y is None else args_cli.cube_y
 if not (math.isfinite(args_cli.cube_x) and math.isfinite(args_cli.cube_y)):
     parser.error("cube positions must be finite")
 if not (0.35 <= args_cli.cube_x <= 0.65 and -0.15 <= args_cli.cube_y <= 0.15):
@@ -58,12 +63,14 @@ try:
         goal = parse_instruction(args_cli.instruction)
 except ValueError as error:
     parser.error(str(error))
+if args_cli.record_gif and args_cli.cube_start == "green_platform" and goal.action == "place":
+    parser.error("The placement goal is already satisfied at this start; use --screenshot instead of motion recording")
 if args_cli.max_steps is None:
     args_cli.max_steps = 6000 if goal.action == "place" else 3000
 args_cli.language_metadata = language_metadata
 
 if args_cli.dry_run:
-    assumed_state = WorldState("table")
+    assumed_state = WorldState(args_cli.cube_start)
     preview = {
         "instruction": args_cli.instruction,
         "goal": goal.to_dict(),

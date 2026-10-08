@@ -52,6 +52,8 @@ Current progress:
   expose false acceptances that the initial request checks missed.
 - [Day 12: known constraint checks](docs/day12.md) — explicit refusals
   and a saved-response replay that preserves the original failures.
+- [Day 13: another initial state](docs/day13.md) — observed platform
+  support, an already-satisfied goal, and a verified pick from the platform.
 
 Tested environment: Ubuntu 26.04, RTX 3080 10GB, Isaac Lab develop
 (`VERSION` 3.0.0), and Isaac Sim 6.1. Commands use the existing Isaac Lab
@@ -75,6 +77,11 @@ Replace the rendering flags with `--dry_run` to preview the goal and plan
 without launching Kit. Omit `--keep_open` for a bounded simulation attempt
 that returns a failure code on timeout or interruption. The old
 `day3_pick.py --place` interface still works.
+
+Use `--cube_start green_platform` to start with the cube on the target.
+A placement request then needs no manipulation; a pick request lifts
+from the platform. Live plans use settled simulator observations. Table
+coordinates `--cube_x` and `--cube_y` apply only to the default table start.
 
 See the daily notes for supported phrases, verification commands, measured
 results, and limitations.

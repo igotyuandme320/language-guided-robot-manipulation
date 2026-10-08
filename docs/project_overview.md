@@ -15,6 +15,9 @@ response, requested frame steps, and verified physical result.
 The scene contains one Panda, a table, a movable red cube, and a fixed
 green platform. A pick goal means lift and hold the cube; a place goal
 means put it on the platform. Each command starts a fresh scene.
+The cube starts on the table by default; an optional platform start checks
+how a changed observed state changes the plan, including an empty plan
+when the goal is already satisfied.
 
 ```text
 request → validated goal → symbolic planner → skills → IK/gripper → simulation
@@ -45,6 +48,7 @@ model is pretrained; the project does not train a policy or language model.
 | Original language set | Rules 16/24; raw model 15/24; guarded entry 21/24 | Twelve supported and twelve rejection cases |
 | Second language set | Rules 12/24; raw model 13/24; guarded entry 21/24 | Another small hand-written set, written before implementing the checks |
 | Simulated open-gripper fault | Both pick/place attempts rejected; no unverified skill effects | One artificial fault at one pose, with a normal pick control |
+| Platform initial state | Placement needs no manipulation; pick verified at 1933 steps | One additional initial support, with an unchanged table-placement control |
 
 [Grid results](results/day5_grid.json),
 [original language comparison](results/day7_development_language.json),
@@ -58,6 +62,10 @@ found three false acceptances in 16 requests, including ignored handover
 and waiting requirements. [Day 12](day12.md) adds explicit checks for
 those known categories; its saved-response replay is not an independent
 evaluation of generalization.
+
+[Day 13 records](results/day13_initial_state.json) retain the platform
+start and control runs. The empty-plan result counts zero manipulation
+steps; it is an already-satisfied goal rather than a completed grasp.
 
 Object positions come directly from the simulator. The project currently
 has no visual grounding, learned skills, collision-aware motion planner,

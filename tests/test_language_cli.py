@@ -10,6 +10,29 @@ SCRIPT = Path(__file__).resolve().parents[1] / "scripts/day4_language.py"
 
 
 class LanguageCliTests(unittest.TestCase):
+    def test_platform_start_changes_preview_plan(self):
+        for instruction, skills in (("put the red cube on the green platform", []),
+                                    ("pick up the red cube", ["pick"])):
+            with self.subTest(instruction=instruction):
+                result = self.run_cli(instruction, "--cube_start", "green_platform", "--dry_run")
+                self.assertEqual(result.returncode, 0, result.stderr)
+                preview = json.loads(result.stdout)
+                self.assertEqual(preview["assumed_state"], {"cube_location": "green_platform"})
+                self.assertEqual([call["skill"] for call in preview["plan"]], skills)
+
+    def test_platform_start_refuses_table_coordinates(self):
+        result = self.run_cli("pick up the red cube", "--cube_start", "green_platform", "--cube_y", "0", "--dry_run")
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertIn("table coordinates", result.stderr)
+        self.assertNotIn("[ext:", result.stdout)
+
+    def test_already_satisfied_recording_is_rejected_before_app_start(self):
+        result = self.run_cli("put the red cube on the green platform", "--cube_start", "green_platform",
+                              "--record_gif", str(SCRIPT.parents[1] / ".cache/day13/no_motion.gif"), "--viz", "kit")
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertIn("already satisfied", result.stderr)
+        self.assertNotIn("[ext:", result.stdout)
+
     def test_unsupported_followups_exit_before_model_and_app(self):
         for instruction, message in (("Pick up the red cube and hand it to me.", "Handover"),
                                      ("Place the red cube on the green platform and keep holding it.", "place skill releases"),
