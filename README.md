@@ -58,6 +58,8 @@ Current progress:
   support, an already-satisfied goal, and a verified pick from the platform.
 - [Day 14: new constraint diagnostic](docs/day14.md) — new CPU model
   responses expose remaining false acceptances after the known fixes.
+- [Day 15: model worker validation](docs/day15.md) — clear process-response
+  errors and a verified model-backed pick from the platform.
 
 Tested environment: Ubuntu 26.04, RTX 3080 10GB, Isaac Lab develop
 (`VERSION` 3.0.0), and Isaac Sim 6.1. Commands use the existing Isaac Lab

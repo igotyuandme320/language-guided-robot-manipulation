@@ -1,9 +1,74 @@
 """A model can propose a goal, but only the small validated domain is executable."""
 
 import json
+import subprocess
 import unittest
+from unittest.mock import patch
 
-from planning.llm import RejectedInstruction, parse_model_output
+from planning.llm import MODEL_ID, MODEL_REVISION, RejectedInstruction, infer_goal, parse_model_output
+
+
+class WorkerResponseTests(unittest.TestCase):
+    """Replace only subprocess I/O; exercise the real parent-side validation."""
+
+    def metadata(self):
+        return {"model_id": MODEL_ID, "revision": MODEL_REVISION, "device": "cpu",
+                "raw_output": '{"status":"ok","goal":{"action":"pick","object":"red_cube","target":null}}',
+                "inference_wall_time_s": 1.25}
+
+    def infer_from_stdout(self, stdout):
+        process = subprocess.CompletedProcess(args=["worker"], returncode=0, stdout=stdout, stderr="")
+        with patch("planning.llm.subprocess.run", return_value=process):
+            return infer_goal("pick up the red cube")
+
+    def assert_invalid_worker(self, stdout):
+        try:
+            self.infer_from_stdout(stdout)
+        except Exception as error:
+            self.assertIsInstance(error, ValueError)
+            self.assertNotIsInstance(error, RejectedInstruction)
+            self.assertIn("worker response", str(error))
+        else:
+            self.fail("Invalid worker metadata produced an executable goal")
+
+    def test_valid_worker_preserves_goal_and_metadata(self):
+        for elapsed in (0, 1.25):
+            with self.subTest(elapsed=elapsed):
+                metadata = {**self.metadata(), "inference_wall_time_s": elapsed}
+                goal, actual = self.infer_from_stdout(json.dumps(metadata))
+                self.assertEqual(goal.to_dict(), {"action": "pick", "object": "red_cube", "target": None})
+                self.assertEqual(actual, metadata)
+
+    def test_nonobject_and_missing_fields_are_worker_errors(self):
+        for metadata in (None, [], "text", {}, {"raw_output": self.metadata()["raw_output"]}):
+            with self.subTest(metadata=metadata):
+                self.assert_invalid_worker(json.dumps(metadata))
+
+    def test_unexpected_worker_fields_or_identity_are_rejected(self):
+        for change in ({"extra": True}, {"model_id": "another-model"}, {"revision": "unpinned"}, {"device": "cuda"}):
+            with self.subTest(change=change):
+                self.assert_invalid_worker(json.dumps({**self.metadata(), **change}))
+
+    def test_worker_raw_output_must_be_text(self):
+        for value in (None, {}, 7):
+            with self.subTest(value=value):
+                self.assert_invalid_worker(json.dumps({**self.metadata(), "raw_output": value}))
+
+    def test_worker_duration_must_be_finite_nonnegative_number(self):
+        for value in (True, "1.25", None, -1, float("nan"), float("inf"), 10**400):
+            with self.subTest(value=value):
+                self.assert_invalid_worker(json.dumps({**self.metadata(), "inference_wall_time_s": value}))
+
+    def test_duplicate_metadata_and_nonjson_output_are_rejected(self):
+        duplicate = json.dumps(self.metadata())[:-1] + ',"device":"cpu"}'
+        for stdout in (duplicate, "worker log\n" + json.dumps(self.metadata()), json.dumps(self.metadata()) + "{}"):
+            with self.subTest(stdout=stdout):
+                self.assert_invalid_worker(stdout)
+
+    def test_semantic_refusal_remains_distinct_from_worker_error(self):
+        metadata = {**self.metadata(), "raw_output": '{"status":"reject","reason":"No blue cube exists."}'}
+        with self.assertRaisesRegex(RejectedInstruction, "No blue cube exists"):
+            self.infer_from_stdout(json.dumps(metadata))
 
 
 class ModelOutputTests(unittest.TestCase):

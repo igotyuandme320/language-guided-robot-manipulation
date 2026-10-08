@@ -122,7 +122,25 @@ def infer_goal(instruction: str, timeout: float = 120.0) -> tuple[Goal, dict]:
     if process.returncode != 0:
         raise ValueError("Local model failed. Cache the model with scripts/day6_download_model.py first. "
                          + process.stderr[-500:])
-    metadata = json.loads(process.stdout)
+    try:
+        metadata = json.loads(process.stdout, object_pairs_hook=_unique_object, parse_constant=_reject_constant)
+    except ValueError as error:
+        raise ValueError("Invalid local model worker response: expected one strict JSON object.") from error
+    fields = {"model_id", "revision", "device", "raw_output", "inference_wall_time_s"}
+    if not isinstance(metadata, dict) or set(metadata) != fields:
+        raise ValueError("Invalid local model worker response: missing or unexpected metadata fields.")
+    if (metadata["model_id"] != MODEL_ID or metadata["revision"] != MODEL_REVISION or metadata["device"] != "cpu"):
+        raise ValueError("Invalid local model worker response: expected the pinned CPU model.")
+    if not isinstance(metadata["raw_output"], str):
+        raise ValueError("Invalid local model worker response: raw_output must be text.")
+    elapsed = metadata["inference_wall_time_s"]
+    try:
+        valid_duration = type(elapsed) in (int, float) and math.isfinite(elapsed) and elapsed >= 0
+    except OverflowError:
+        valid_duration = False
+    if not valid_duration:
+        raise ValueError("Invalid local model worker response: duration must be finite and nonnegative.")
+    # Keep a semantic refusal distinct from a malformed worker envelope.
     goal = parse_model_output(metadata["raw_output"])
     return goal, metadata
 

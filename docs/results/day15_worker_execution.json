@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-10-08T09:44:19.477118+00:00",
+  "instruction": "Would you please take the red cube into your gripper and hold it?",
+  "cube_start": "green_platform",
+  "language_backend": "guarded",
+  "language_frontend": {
+    "backend": "guarded",
+    "source": "llm",
+    "model": {
+      "model_id": "Qwen/Qwen2.5-1.5B-Instruct",
+      "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+      "device": "cpu",
+      "raw_output": "{\"status\":\"ok\",\"goal\":{\"action\":\"pick\",\"object\":\"red_cube\",\"target\":null}}",
+      "inference_wall_time_s": 9.044675218989141
+    }
+  },
+  "returncode": 0,
+  "result": {
+    "goal": {
+      "action": "pick",
+      "object": "red_cube",
+      "target": null
+    },
+    "plan": [
+      {
+        "skill": "pick",
+        "object": "red_cube",
+        "target": null
+      }
+    ],
+    "final_state": {
+      "cube_location": "gripper"
+    },
+    "initial_cube_position_m": [
+      0.49999964237213135,
+      -0.2200007438659668,
+      0.03999961540102959
+    ],
+    "final_cube_position_m": [
+      0.49961158633232117,
+      -0.22010095417499542,
+      0.23844321072101593
+    ],
+    "steps": 1933,
+    "physics_dt_s": 0.01,
+    "cube_rise_m": 0.19844359531998634,
+    "stable_hold_s": 0.5000000000000002
+  },
+  "raw_log": ".cache/day15/guarded_platform_pick.log",
+  "trace": [
+    "[LANGUAGE] {\"backend\": \"guarded\", \"source\": \"llm\", \"model\": {\"model_id\": \"Qwen/Qwen2.5-1.5B-Instruct\", \"revision\": \"989aa7980e4cf806f80c7fef2b1adb7bc71aa306\", \"device\": \"cpu\", \"raw_output\": \"{\\\"status\\\":\\\"ok\\\",\\\"goal\\\":{\\\"action\\\":\\\"pick\\\",\\\"object\\\":\\\"red_cube\\\",\\\"target\\\":null}}\", \"inference_wall_time_s\": 9.044675218989141}}",
+    "[GOAL] {\"action\": \"pick\", \"object\": \"red_cube\", \"target\": null}",
+    "[WORLD] {\"cube_location\": \"green_platform\"}",
+    "[PLAN] [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}]",
+    "[CHECK] Pick verified: cube_rise=0.1984m; hold=0.50s",
+    "[WORLD] {\"cube_location\": \"gripper\"}",
+    "[RESULT] {\"goal\": {\"action\": \"pick\", \"object\": \"red_cube\", \"target\": null}, \"plan\": [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}], \"final_state\": {\"cube_location\": \"gripper\"}, \"initial_cube_position_m\": [0.49999964237213135, -0.2200007438659668, 0.03999961540102959], \"final_cube_position_m\": [0.49961158633232117, -0.22010095417499542, 0.23844321072101593], \"steps\": 1933, \"physics_dt_s\": 0.01, \"cube_rise_m\": 0.19844359531998634, \"stable_hold_s\": 0.5000000000000002}",
+    "[SUCCESS] task=pick; cube_rise=0.1984m; stable_hold=0.50s; steps=1933; cube=[0.49961158633232117, -0.22010095417499542, 0.23844321072101593]"
+  ],
+  "scope": "One actual short-lived CPU model worker followed by a bounded physical platform pick; malformed worker tests use synthetic subprocess responses, not new model trials."
+}
