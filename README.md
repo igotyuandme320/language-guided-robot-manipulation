@@ -23,6 +23,8 @@ Qwen model front end is experimental and can misunderstand requests;
 its initial language check scored 15/24 versus 16/24 for the rules.
 An optional `guarded` entry adds conservative literal checks and explicit
 rules/model attribution; it still rejects some valid requests.
+It can also accept requests while dropping unsupported requirements;
+[Day 14](docs/day14.md) records missed timing and grasp-face constraints.
 Object poses come from the simulator; there is no learned perception.
 
 Current progress:
@@ -54,6 +56,8 @@ Current progress:
   and a saved-response replay that preserves the original failures.
 - [Day 13: another initial state](docs/day13.md) — observed platform
   support, an already-satisfied goal, and a verified pick from the platform.
+- [Day 14: new constraint diagnostic](docs/day14.md) — new CPU model
+  responses expose remaining false acceptances after the known fixes.
 
 Tested environment: Ubuntu 26.04, RTX 3080 10GB, Isaac Lab develop
 (`VERSION` 3.0.0), and Isaac Sim 6.1. Commands use the existing Isaac Lab

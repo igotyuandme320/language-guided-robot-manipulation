@@ -1,0 +1,98 @@
+[
+  {
+    "id": "control_template_pick",
+    "instruction": "lift the red block",
+    "expected_goal": {"action": "pick", "object": "red_cube", "target": null},
+    "label_reason": "Lift and hold the one supported cube."
+  },
+  {
+    "id": "control_polite_pick",
+    "instruction": "Would you please take the red cube into your gripper and hold it?",
+    "expected_goal": {"action": "pick", "object": "red_cube", "target": null},
+    "label_reason": "The ordinary pick goal already includes holding the cube."
+  },
+  {
+    "id": "control_template_place_zh",
+    "instruction": "将红色方块放在绿色平台上。",
+    "expected_goal": {"action": "place", "object": "red_cube", "target": "green_platform"},
+    "label_reason": "The supported placement target is named explicitly."
+  },
+  {
+    "id": "control_polite_place",
+    "instruction": "Could you relocate the red block onto the green platform, please?",
+    "expected_goal": {"action": "place", "object": "red_cube", "target": "green_platform"},
+    "label_reason": "Relocation onto the supported platform is the ordinary place goal."
+  },
+  {
+    "id": "handover_variant",
+    "instruction": "Take the red block and pass it to me.",
+    "expected_goal": null,
+    "label_reason": "The demo has no human receiving pose or handover skill."
+  },
+  {
+    "id": "continued_grip_zh",
+    "instruction": "把红色方块放在绿色平台上，然后一直夹住它。",
+    "expected_goal": null,
+    "label_reason": "The place skill releases the cube and retracts; continued gripping is unsupported."
+  },
+  {
+    "id": "corner_variant",
+    "instruction": "Relocate the red cube onto the far corner of the green platform.",
+    "expected_goal": null,
+    "label_reason": "The only placement pose is the platform center."
+  },
+  {
+    "id": "door_variant_zh",
+    "instruction": "等门打开后，再把红色方块搬到绿色平台上。",
+    "expected_goal": null,
+    "label_reason": "There is no door observation or event-conditioned execution."
+  },
+  {
+    "id": "spoken_start_signal",
+    "instruction": "Wait for me to say go before you lift the red cube.",
+    "expected_goal": null,
+    "label_reason": "The demo does not listen for a second instruction or wait for a start signal."
+  },
+  {
+    "id": "placement_deadline",
+    "instruction": "Put the red cube on the green platform within five seconds.",
+    "expected_goal": null,
+    "label_reason": "The goal schema and controller cannot request or guarantee a five-second deadline."
+  },
+  {
+    "id": "speed_constraint_zh",
+    "instruction": "以每秒五厘米的速度把红色方块移到绿色平台上。",
+    "expected_goal": null,
+    "label_reason": "There is no requested Cartesian speed parameter or speed tracking check."
+  },
+  {
+    "id": "repeated_pick",
+    "instruction": "Pick up the red cube three times.",
+    "expected_goal": null,
+    "label_reason": "A single final pick goal does not represent three separate grasps and returns."
+  },
+  {
+    "id": "return_to_table",
+    "instruction": "Lift the red cube, then put it back on the table.",
+    "expected_goal": null,
+    "label_reason": "The place operator only supports the green platform, not a table return."
+  },
+  {
+    "id": "route_constraint",
+    "instruction": "Carry the red cube around the green platform once before placing it on the platform.",
+    "expected_goal": null,
+    "label_reason": "The fixed transit skill cannot execute a requested circuit or intermediate route."
+  },
+  {
+    "id": "grasp_face_constraint",
+    "instruction": "Grab the red cube by its bottom face and hold it.",
+    "expected_goal": null,
+    "label_reason": "The pick skill uses a fixed downward approach and does not select a grasp face."
+  },
+  {
+    "id": "custom_lift_zh",
+    "instruction": "把红色方块拿起来，只举高两厘米。",
+    "expected_goal": null,
+    "label_reason": "The pick skill targets a fixed 20 cm rise; a requested 2 cm lift is unsupported."
+  }
+]

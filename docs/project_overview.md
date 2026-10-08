@@ -49,6 +49,7 @@ model is pretrained; the project does not train a policy or language model.
 | Second language set | Rules 12/24; raw model 13/24; guarded entry 21/24 | Another small hand-written set, written before implementing the checks |
 | Simulated open-gripper fault | Both pick/place attempts rejected; no unverified skill effects | One artificial fault at one pose, with a normal pick control |
 | Platform initial state | Placement needs no manipulation; pick verified at 1933 steps | One additional initial support, with an unchanged table-placement control |
+| New constraint diagnostic | Rules 14/16; raw model 12/16; guarded entry 14/16 with two false acceptances | Four supported and twelve unsupported hand-written requests, fixed before new inference |
 
 [Grid results](results/day5_grid.json),
 [original language comparison](results/day7_development_language.json),
@@ -62,6 +63,9 @@ found three false acceptances in 16 requests, including ignored handover
 and waiting requirements. [Day 12](day12.md) adds explicit checks for
 those known categories; its saved-response replay is not an independent
 evaluation of generalization.
+The later [Day 14 diagnostic](day14.md), with new responses and unchanged
+checks, still found ignored deadline and grasp-face requirements. Its
+[full report](results/day14_constraints.json) retains those failures.
 
 [Day 13 records](results/day13_initial_state.json) retain the platform
 start and control runs. The empty-plan result counts zero manipulation
