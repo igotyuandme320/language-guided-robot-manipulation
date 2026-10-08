@@ -1,0 +1,292 @@
+{
+  "schema_version": 1,
+  "started_at_utc": "2026-10-08T09:52:25.420383+00:00",
+  "protocol": {
+    "configured_yaws_deg": [
+      0,
+      30,
+      45,
+      90
+    ],
+    "cube_start": "table",
+    "cube_x": 0.5,
+    "cube_y": 0.0,
+    "instruction": "pick up the red cube",
+    "language_backend": "rules",
+    "max_steps": 3000,
+    "process_timeout_s": 90,
+    "controller_changed": false,
+    "fresh_scene_per_trial": true,
+    "randomized_repeats": false,
+    "recording": false
+  },
+  "trials": [
+    {
+      "configured_yaw_deg": 0,
+      "returncode": 0,
+      "status": "success",
+      "command": [
+        "/home/landern/robotics/IsaacLab/.venv/bin/python",
+        "/home/landern/robotics/language-guided-robot-manipulation/scripts/day4_language.py",
+        "--instruction",
+        "pick up the red cube",
+        "--cube_yaw_deg",
+        "0",
+        "--max_steps",
+        "3000"
+      ],
+      "raw_log": ".cache/day17/yaw_20261008T095225/yaw0.log",
+      "initial_scene_measurement": null,
+      "result": {
+        "goal": {
+          "action": "pick",
+          "object": "red_cube",
+          "target": null
+        },
+        "plan": [
+          {
+            "skill": "pick",
+            "object": "red_cube",
+            "target": null
+          }
+        ],
+        "final_state": {
+          "cube_location": "gripper"
+        },
+        "initial_cube_position_m": [
+          0.49999943375587463,
+          1.1288061614322942e-06,
+          0.016999615356326103
+        ],
+        "final_cube_position_m": [
+          0.4995110332965851,
+          -0.000283542467514053,
+          0.21553432941436768
+        ],
+        "steps": 1813,
+        "physics_dt_s": 0.01,
+        "cube_rise_m": 0.19853471405804157,
+        "stable_hold_s": 0.5000000000000002
+      },
+      "failure": null,
+      "trace": [
+        "[GOAL] {\"action\": \"pick\", \"object\": \"red_cube\", \"target\": null}",
+        "[WORLD] {\"cube_location\": \"table\"}",
+        "[PLAN] [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}]",
+        "[CHECK] Pick verified: cube_rise=0.1985m; hold=0.50s",
+        "[WORLD] {\"cube_location\": \"gripper\"}",
+        "[RESULT] {\"goal\": {\"action\": \"pick\", \"object\": \"red_cube\", \"target\": null}, \"plan\": [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}], \"final_state\": {\"cube_location\": \"gripper\"}, \"initial_cube_position_m\": [0.49999943375587463, 1.1288061614322942e-06, 0.016999615356326103], \"final_cube_position_m\": [0.4995110332965851, -0.000283542467514053, 0.21553432941436768], \"steps\": 1813, \"physics_dt_s\": 0.01, \"cube_rise_m\": 0.19853471405804157, \"stable_hold_s\": 0.5000000000000002}",
+        "[SUCCESS] task=pick; cube_rise=0.1985m; stable_hold=0.50s; steps=1813; cube=[0.4995110332965851, -0.000283542467514053, 0.21553432941436768]"
+      ]
+    },
+    {
+      "configured_yaw_deg": 30,
+      "returncode": 0,
+      "status": "success",
+      "command": [
+        "/home/landern/robotics/IsaacLab/.venv/bin/python",
+        "/home/landern/robotics/language-guided-robot-manipulation/scripts/day4_language.py",
+        "--instruction",
+        "pick up the red cube",
+        "--cube_yaw_deg",
+        "30",
+        "--max_steps",
+        "3000"
+      ],
+      "raw_log": ".cache/day17/yaw_20261008T095225/yaw30.log",
+      "initial_scene_measurement": {
+        "configured_cube_yaw_deg": 30.0,
+        "settled_cube_quaternion_xyzw": [
+          -1.5854902812861837e-05,
+          -1.3513074009097181e-05,
+          0.2588191628456116,
+          0.9659257531166077
+        ]
+      },
+      "result": {
+        "goal": {
+          "action": "pick",
+          "object": "red_cube",
+          "target": null
+        },
+        "plan": [
+          {
+            "skill": "pick",
+            "object": "red_cube",
+            "target": null
+          }
+        ],
+        "final_state": {
+          "cube_location": "gripper"
+        },
+        "initial_cube_position_m": [
+          0.4999992251396179,
+          5.662475359713426e-07,
+          0.016999557614326477
+        ],
+        "final_cube_position_m": [
+          0.49953198432922363,
+          -0.0002965718158520758,
+          0.21553489565849304
+        ],
+        "steps": 1816,
+        "physics_dt_s": 0.01,
+        "cube_rise_m": 0.19853533804416656,
+        "stable_hold_s": 0.5000000000000002
+      },
+      "failure": null,
+      "trace": [
+        "[GOAL] {\"action\": \"pick\", \"object\": \"red_cube\", \"target\": null}",
+        "[SCENE] {\"configured_cube_yaw_deg\": 30.0, \"settled_cube_quaternion_xyzw\": [-1.5854902812861837e-05, -1.3513074009097181e-05, 0.2588191628456116, 0.9659257531166077]}",
+        "[WORLD] {\"cube_location\": \"table\"}",
+        "[PLAN] [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}]",
+        "[CHECK] Pick verified: cube_rise=0.1985m; hold=0.50s",
+        "[WORLD] {\"cube_location\": \"gripper\"}",
+        "[RESULT] {\"goal\": {\"action\": \"pick\", \"object\": \"red_cube\", \"target\": null}, \"plan\": [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}], \"final_state\": {\"cube_location\": \"gripper\"}, \"initial_cube_position_m\": [0.4999992251396179, 5.662475359713426e-07, 0.016999557614326477], \"final_cube_position_m\": [0.49953198432922363, -0.0002965718158520758, 0.21553489565849304], \"steps\": 1816, \"physics_dt_s\": 0.01, \"cube_rise_m\": 0.19853533804416656, \"stable_hold_s\": 0.5000000000000002}",
+        "[SUCCESS] task=pick; cube_rise=0.1985m; stable_hold=0.50s; steps=1816; cube=[0.49953198432922363, -0.0002965718158520758, 0.21553489565849304]"
+      ]
+    },
+    {
+      "configured_yaw_deg": 45,
+      "returncode": 0,
+      "status": "success",
+      "command": [
+        "/home/landern/robotics/IsaacLab/.venv/bin/python",
+        "/home/landern/robotics/language-guided-robot-manipulation/scripts/day4_language.py",
+        "--instruction",
+        "pick up the red cube",
+        "--cube_yaw_deg",
+        "45",
+        "--max_steps",
+        "3000"
+      ],
+      "raw_log": ".cache/day17/yaw_20261008T095225/yaw45.log",
+      "initial_scene_measurement": {
+        "configured_cube_yaw_deg": 45.0,
+        "settled_cube_quaternion_xyzw": [
+          -1.3971562111692037e-05,
+          -1.5701203665230423e-05,
+          0.38268351554870605,
+          0.9238795042037964
+        ]
+      },
+      "result": {
+        "goal": {
+          "action": "pick",
+          "object": "red_cube",
+          "target": null
+        },
+        "plan": [
+          {
+            "skill": "pick",
+            "object": "red_cube",
+            "target": null
+          }
+        ],
+        "final_state": {
+          "cube_location": "gripper"
+        },
+        "initial_cube_position_m": [
+          0.49999910593032837,
+          3.285239813521912e-07,
+          0.016999637708067894
+        ],
+        "final_cube_position_m": [
+          0.49952489137649536,
+          -0.0002697644813451916,
+          0.21553687751293182
+        ],
+        "steps": 1814,
+        "physics_dt_s": 0.01,
+        "cube_rise_m": 0.19853723980486393,
+        "stable_hold_s": 0.5000000000000002
+      },
+      "failure": null,
+      "trace": [
+        "[GOAL] {\"action\": \"pick\", \"object\": \"red_cube\", \"target\": null}",
+        "[SCENE] {\"configured_cube_yaw_deg\": 45.0, \"settled_cube_quaternion_xyzw\": [-1.3971562111692037e-05, -1.5701203665230423e-05, 0.38268351554870605, 0.9238795042037964]}",
+        "[WORLD] {\"cube_location\": \"table\"}",
+        "[PLAN] [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}]",
+        "[CHECK] Pick verified: cube_rise=0.1985m; hold=0.50s",
+        "[WORLD] {\"cube_location\": \"gripper\"}",
+        "[RESULT] {\"goal\": {\"action\": \"pick\", \"object\": \"red_cube\", \"target\": null}, \"plan\": [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}], \"final_state\": {\"cube_location\": \"gripper\"}, \"initial_cube_position_m\": [0.49999910593032837, 3.285239813521912e-07, 0.016999637708067894], \"final_cube_position_m\": [0.49952489137649536, -0.0002697644813451916, 0.21553687751293182], \"steps\": 1814, \"physics_dt_s\": 0.01, \"cube_rise_m\": 0.19853723980486393, \"stable_hold_s\": 0.5000000000000002}",
+        "[SUCCESS] task=pick; cube_rise=0.1985m; stable_hold=0.50s; steps=1814; cube=[0.49952489137649536, -0.0002697644813451916, 0.21553687751293182]"
+      ]
+    },
+    {
+      "configured_yaw_deg": 90,
+      "returncode": 0,
+      "status": "success",
+      "command": [
+        "/home/landern/robotics/IsaacLab/.venv/bin/python",
+        "/home/landern/robotics/language-guided-robot-manipulation/scripts/day4_language.py",
+        "--instruction",
+        "pick up the red cube",
+        "--cube_yaw_deg",
+        "90",
+        "--max_steps",
+        "3000"
+      ],
+      "raw_log": ".cache/day17/yaw_20261008T095225/yaw90.log",
+      "initial_scene_measurement": {
+        "configured_cube_yaw_deg": 90.0,
+        "settled_cube_quaternion_xyzw": [
+          -7.020668817858677e-06,
+          -1.9684368453454226e-05,
+          0.7071066498756409,
+          0.7071068286895752
+        ]
+      },
+      "result": {
+        "goal": {
+          "action": "pick",
+          "object": "red_cube",
+          "target": null
+        },
+        "plan": [
+          {
+            "skill": "pick",
+            "object": "red_cube",
+            "target": null
+          }
+        ],
+        "final_state": {
+          "cube_location": "gripper"
+        },
+        "initial_cube_position_m": [
+          0.49999913573265076,
+          -3.9002497942419723e-07,
+          0.01699960045516491
+        ],
+        "final_cube_position_m": [
+          0.4995105564594269,
+          -0.00028546847170218825,
+          0.2155337631702423
+        ],
+        "steps": 1813,
+        "physics_dt_s": 0.01,
+        "cube_rise_m": 0.1985341627150774,
+        "stable_hold_s": 0.5000000000000002
+      },
+      "failure": null,
+      "trace": [
+        "[GOAL] {\"action\": \"pick\", \"object\": \"red_cube\", \"target\": null}",
+        "[SCENE] {\"configured_cube_yaw_deg\": 90.0, \"settled_cube_quaternion_xyzw\": [-7.020668817858677e-06, -1.9684368453454226e-05, 0.7071066498756409, 0.7071068286895752]}",
+        "[WORLD] {\"cube_location\": \"table\"}",
+        "[PLAN] [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}]",
+        "[CHECK] Pick verified: cube_rise=0.1985m; hold=0.50s",
+        "[WORLD] {\"cube_location\": \"gripper\"}",
+        "[RESULT] {\"goal\": {\"action\": \"pick\", \"object\": \"red_cube\", \"target\": null}, \"plan\": [{\"skill\": \"pick\", \"object\": \"red_cube\", \"target\": null}], \"final_state\": {\"cube_location\": \"gripper\"}, \"initial_cube_position_m\": [0.49999913573265076, -3.9002497942419723e-07, 0.01699960045516491], \"final_cube_position_m\": [0.4995105564594269, -0.00028546847170218825, 0.2155337631702423], \"steps\": 1813, \"physics_dt_s\": 0.01, \"cube_rise_m\": 0.1985341627150774, \"stable_hold_s\": 0.5000000000000002}",
+        "[SUCCESS] task=pick; cube_rise=0.1985m; stable_hold=0.50s; steps=1813; cube=[0.4995105564594269, -0.00028546847170218825, 0.2155337631702423]"
+      ]
+    }
+  ],
+  "summary": {
+    "planned": 4,
+    "attempted": 4,
+    "successes": 4,
+    "failures": 0,
+    "complete": true
+  },
+  "scope": "Four actual fresh-scene table picks at one fixed center, cube size/mass, and material. No randomized repeats or controller tuning; 90 degrees is a symmetry control for a square cube. The zero-yaw control preserves default output and has no extra SCENE quaternion record."
+}

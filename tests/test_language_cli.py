@@ -10,6 +10,24 @@ SCRIPT = Path(__file__).resolve().parents[1] / "scripts/day4_language.py"
 
 
 class LanguageCliTests(unittest.TestCase):
+    def test_rotation_preview_keeps_the_goal_and_reports_scene_setting(self):
+        result = self.run_cli("pick up the red cube", "--cube_yaw_deg", "45", "--dry_run")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        preview = json.loads(result.stdout)
+        self.assertEqual(preview["initial_cube_yaw_deg"], 45)
+        self.assertEqual(preview["goal"]["action"], "pick")
+        self.assertEqual([call["skill"] for call in preview["plan"]], ["pick"])
+
+    def test_invalid_cube_rotations_exit_before_model_or_app(self):
+        for value in ("nan", "inf", "181"):
+            with self.subTest(value=value):
+                result = self.run_cli("Please hold the red cube.", "--language_backend", "llm", "--llm_timeout", "0.01",
+                                      "--cube_yaw_deg", value)
+                self.assertEqual(result.returncode, 2, result.stderr)
+                self.assertIn("yaw must be finite", result.stderr)
+                self.assertNotIn("timed out", result.stderr)
+                self.assertNotIn("[ext:", result.stdout)
+
     def test_platform_start_changes_preview_plan(self):
         for instruction, skills in (("put the red cube on the green platform", []),
                                     ("pick up the red cube", ["pick"])):

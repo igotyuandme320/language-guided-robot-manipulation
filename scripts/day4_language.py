@@ -24,6 +24,7 @@ parser.add_argument("--max_steps", type=int, help="Attempt timeout: default 3000
 parser.add_argument("--cube_start", choices=("table", "green_platform"), default="table", help="Initial cube surface; live planning still uses settled observations.")
 parser.add_argument("--cube_x", type=float, help="Table start x coordinate; default 0.5 m.")
 parser.add_argument("--cube_y", type=float, help="Table start y coordinate; default 0 m.")
+parser.add_argument("--cube_yaw_deg", type=float, default=0.0, help="Initial cube rotation about world z, in degrees [-180,180].")
 parser.add_argument("--screenshot", type=Path, help="Save the viewport after verified task success.")
 parser.add_argument("--record_gif", type=Path, help="New project-local GIF and JSON of real viewport frames after success.")
 parser.add_argument("--gripper_stuck_open", action="store_true", help="Inject a simulated open-gripper fault to check failure detection.")
@@ -34,6 +35,8 @@ if args_cli.max_steps is not None and args_cli.max_steps <= 0:
     parser.error("--max_steps must be positive")
 if not math.isfinite(args_cli.llm_timeout) or args_cli.llm_timeout <= 0:
     parser.error("--llm_timeout must be positive and finite")
+if not math.isfinite(args_cli.cube_yaw_deg) or not -180 <= args_cli.cube_yaw_deg <= 180:
+    parser.error("cube yaw must be finite and inside [-180,180] degrees")
 if args_cli.cube_start == "green_platform" and (args_cli.cube_x is not None or args_cli.cube_y is not None):
     parser.error("--cube_x and --cube_y are table coordinates; omit them for a platform start")
 args_cli.cube_x = 0.5 if args_cli.cube_x is None else args_cli.cube_x
@@ -81,6 +84,8 @@ if args_cli.dry_run:
         preview["language_frontend" if args_cli.language_backend == "guarded" else "language_model"] = language_metadata
     if args_cli.gripper_stuck_open:
         preview["injected_fault"] = {"gripper_stuck_open": True}
+    if args_cli.cube_yaw_deg:
+        preview["initial_cube_yaw_deg"] = args_cli.cube_yaw_deg
     print(json.dumps(preview, ensure_ascii=False, indent=2))
     raise SystemExit(0)
 

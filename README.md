@@ -62,6 +62,8 @@ Current progress:
   errors and a verified model-backed pick from the platform.
 - [Day 16: batch pose validation](docs/day16.md) — final-coordinate checks
   and an explicit offline recheck of the saved placement results.
+- [Day 17: cube rotation check](docs/day17.md) — four actual picks with
+  configured initial yaw and the unchanged grasp controller.
 
 Tested environment: Ubuntu 26.04, RTX 3080 10GB, Isaac Lab develop
 (`VERSION` 3.0.0), and Isaac Sim 6.1. Commands use the existing Isaac Lab

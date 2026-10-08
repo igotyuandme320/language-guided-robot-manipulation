@@ -5,6 +5,7 @@ only after the cube passes the corresponding physical success check.
 """
 
 import json
+import math
 
 import torch
 
@@ -35,6 +36,10 @@ def execute_goal(goal: Goal, args_cli, simulation_app):
         cfg.cube.init_state.pos = (px, py, pz + PLATFORM_HEIGHT / 2 + CUBE_SIZE / 2 + 0.005)
     else:
         cfg.cube.init_state.pos = (args_cli.cube_x, args_cli.cube_y, CUBE_SIZE / 2 + 0.005)
+    yaw_deg = getattr(args_cli, "cube_yaw_deg", 0.0)
+    if yaw_deg:
+        half_yaw = math.radians(yaw_deg) / 2
+        cfg.cube.init_state.rot = (0.0, 0.0, math.sin(half_yaw), math.cos(half_yaw))  # XYZW
     scene = InteractiveScene(cfg)
     sim.reset()
 
@@ -58,6 +63,11 @@ def execute_goal(goal: Goal, args_cli, simulation_app):
         sim.step()
         scene.update(dt)
     initial_cube_position = cube.data.root_pos_w.torch[0].clone()
+    if yaw_deg:
+        print("[SCENE] " + json.dumps({
+            "configured_cube_yaw_deg": yaw_deg,
+            "settled_cube_quaternion_xyzw": cube.data.root_pose_w.torch[0, 3:7].tolist(),
+        }, allow_nan=False), flush=True)
     lift_position = initial_cube_position.clone()
     lift_position[2] += 0.20
     destination = scene.env_origins[0] + torch.tensor(cfg.platform.init_state.pos, device=sim.device)
