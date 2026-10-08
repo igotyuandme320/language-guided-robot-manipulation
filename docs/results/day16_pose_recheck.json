@@ -1,0 +1,258 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-10-08T09:47:00.227648+00:00",
+  "source_report": "docs/results/day5_grid.json",
+  "source_sha256": "e78cbcb83eb9b3e30367d94cbb23e44aeb750833dfde6b4ac8a97fa922029c16",
+  "new_simulation": false,
+  "model_inference": false,
+  "scope": "Recheck the 18 saved Day5 trial traces under stricter final-pose validation; no new physical trials or edited original measurements.",
+  "expected_platform_cube_center_m": [
+    0.5,
+    -0.22,
+    0.04
+  ],
+  "placement_xy_tolerance_m": 0.04,
+  "placement_z_tolerance_m": 0.008,
+  "trials": [
+    {
+      "case_id": "pose01_en",
+      "original_status": "success",
+      "rechecked_status": "success",
+      "returncode": 0,
+      "final_cube_position_m": [
+        0.4997861683368683,
+        -0.21940553188323975,
+        0.039999619126319885
+      ],
+      "horizontal_error_m": 0.0006317565369682841,
+      "height_error_m": 3.8087368011557876e-07
+    },
+    {
+      "case_id": "pose01_zh",
+      "original_status": "success",
+      "rechecked_status": "success",
+      "returncode": 0,
+      "final_cube_position_m": [
+        0.4997861683368683,
+        -0.21940553188323975,
+        0.039999619126319885
+      ],
+      "horizontal_error_m": 0.0006317565369682841,
+      "height_error_m": 3.8087368011557876e-07
+    },
+    {
+      "case_id": "pose02_en",
+      "original_status": "success",
+      "rechecked_status": "success",
+      "returncode": 0,
+      "final_cube_position_m": [
+        0.4996735155582428,
+        -0.21945820748806,
+        0.03999961540102959
+      ],
+      "horizontal_error_m": 0.000632559259440387,
+      "height_error_m": 3.845989704140407e-07
+    },
+    {
+      "case_id": "pose02_zh",
+      "original_status": "success",
+      "rechecked_status": "success",
+      "returncode": 0,
+      "final_cube_position_m": [
+        0.4996735155582428,
+        -0.21945820748806,
+        0.03999961540102959
+      ],
+      "horizontal_error_m": 0.000632559259440387,
+      "height_error_m": 3.845989704140407e-07
+    },
+    {
+      "case_id": "pose03_en",
+      "original_status": "success",
+      "rechecked_status": "success",
+      "returncode": 0,
+      "final_cube_position_m": [
+        0.5031393766403198,
+        -0.21944938600063324,
+        0.039999619126319885
+      ],
+      "horizontal_error_m": 0.003187296890169544,
+      "height_error_m": 3.8087368011557876e-07
+    },
+    {
+      "case_id": "pose03_zh",
+      "original_status": "success",
+      "rechecked_status": "success",
+      "returncode": 0,
+      "final_cube_position_m": [
+        0.5031393766403198,
+        -0.21944938600063324,
+        0.039999619126319885
+      ],
+      "horizontal_error_m": 0.003187296890169544,
+      "height_error_m": 3.8087368011557876e-07
+    },
+    {
+      "case_id": "pose04_en",
+      "original_status": "success",
+      "rechecked_status": "success",
+      "returncode": 0,
+      "final_cube_position_m": [
+        0.502104640007019,
+        -0.21855875849723816,
+        0.039999619126319885
+      ],
+      "horizontal_error_m": 0.0025508207754423536,
+      "height_error_m": 3.8087368011557876e-07
+    },
+    {
+      "case_id": "pose04_zh",
+      "original_status": "success",
+      "rechecked_status": "success",
+      "returncode": 0,
+      "final_cube_position_m": [
+        0.502104640007019,
+        -0.21855875849723816,
+        0.039999619126319885
+      ],
+      "horizontal_error_m": 0.0025508207754423536,
+      "height_error_m": 3.8087368011557876e-07
+    },
+    {
+      "case_id": "pose05_en",
+      "original_status": "success",
+      "rechecked_status": "success",
+      "returncode": 0,
+      "final_cube_position_m": [
+        0.5001770257949829,
+        -0.2194831520318985,
+        0.03999961540102959
+      ],
+      "horizontal_error_m": 0.0005463240377468148,
+      "height_error_m": 3.845989704140407e-07
+    },
+    {
+      "case_id": "pose05_zh",
+      "original_status": "success",
+      "rechecked_status": "success",
+      "returncode": 0,
+      "final_cube_position_m": [
+        0.5001770257949829,
+        -0.2194831520318985,
+        0.03999961540102959
+      ],
+      "horizontal_error_m": 0.0005463240377468148,
+      "height_error_m": 3.845989704140407e-07
+    },
+    {
+      "case_id": "pose06_en",
+      "original_status": "success",
+      "rechecked_status": "success",
+      "returncode": 0,
+      "final_cube_position_m": [
+        0.4999281167984009,
+        -0.21950091421604156,
+        0.03999961540102959
+      ],
+      "horizontal_error_m": 0.0005042358718115429,
+      "height_error_m": 3.845989704140407e-07
+    },
+    {
+      "case_id": "pose06_zh",
+      "original_status": "success",
+      "rechecked_status": "success",
+      "returncode": 0,
+      "final_cube_position_m": [
+        0.4999281167984009,
+        -0.21950091421604156,
+        0.03999961540102959
+      ],
+      "horizontal_error_m": 0.0005042358718115429,
+      "height_error_m": 3.845989704140407e-07
+    },
+    {
+      "case_id": "pose07_en",
+      "original_status": "success",
+      "rechecked_status": "success",
+      "returncode": 0,
+      "final_cube_position_m": [
+        0.49970486760139465,
+        -0.21983179450035095,
+        0.039999619126319885
+      ],
+      "horizontal_error_m": 0.0003397001954941025,
+      "height_error_m": 3.8087368011557876e-07
+    },
+    {
+      "case_id": "pose07_zh",
+      "original_status": "success",
+      "rechecked_status": "success",
+      "returncode": 0,
+      "final_cube_position_m": [
+        0.49970486760139465,
+        -0.21983179450035095,
+        0.039999619126319885
+      ],
+      "horizontal_error_m": 0.0003397001954941025,
+      "height_error_m": 3.8087368011557876e-07
+    },
+    {
+      "case_id": "pose08_en",
+      "original_status": "success",
+      "rechecked_status": "success",
+      "returncode": 0,
+      "final_cube_position_m": [
+        0.4995449185371399,
+        -0.22130683064460754,
+        0.03999961540102959
+      ],
+      "horizontal_error_m": 0.0013838010953617075,
+      "height_error_m": 3.845989704140407e-07
+    },
+    {
+      "case_id": "pose08_zh",
+      "original_status": "success",
+      "rechecked_status": "success",
+      "returncode": 0,
+      "final_cube_position_m": [
+        0.4995449185371399,
+        -0.22130683064460754,
+        0.03999961540102959
+      ],
+      "horizontal_error_m": 0.0013838010953617075,
+      "height_error_m": 3.845989704140407e-07
+    },
+    {
+      "case_id": "pose09_en",
+      "original_status": "success",
+      "rechecked_status": "success",
+      "returncode": 0,
+      "final_cube_position_m": [
+        0.4994771182537079,
+        -0.22225159406661987,
+        0.03999961540102959
+      ],
+      "horizontal_error_m": 0.0023115105799981325,
+      "height_error_m": 3.845989704140407e-07
+    },
+    {
+      "case_id": "pose09_zh",
+      "original_status": "success",
+      "rechecked_status": "success",
+      "returncode": 0,
+      "final_cube_position_m": [
+        0.4994771182537079,
+        -0.22225159406661987,
+        0.03999961540102959
+      ],
+      "horizontal_error_m": 0.0023115105799981325,
+      "height_error_m": 3.845989704140407e-07
+    }
+  ],
+  "summary": {
+    "rechecked": 18,
+    "passed": 18,
+    "maximum_horizontal_error_m": 0.003187296890169544,
+    "maximum_height_error_m": 3.845989704140407e-07
+  }
+}

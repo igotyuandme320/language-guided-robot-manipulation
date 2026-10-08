@@ -14,6 +14,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from planning.symbolic import Goal, WorldState, plan_goal
 
 PROJECT = Path(__file__).resolve().parents[1]
+# This fixed-grid protocol uses the default scene's platform destination.
+# These checks also match the executor's final placement tolerances.
+EXPECTED_PLATFORM_CUBE_CENTER = (0.5, -0.22, 0.04)
+PLACEMENT_XY_TOLERANCE = 0.04
+PLACEMENT_Z_TOLERANCE = 0.008
 INSTRUCTIONS = (
     ("en", "put the red cube on the green platform"),
     ("zh", "把红色方块放到绿色平台上"),
@@ -42,6 +47,10 @@ def summarize_output(output: str, returncode: int | None, expected_goal: dict) -
                 position = candidate[field]
                 if len(position) != 3 or not all(type(value) in (int, float) and math.isfinite(value) for value in position):
                     raise ValueError("Invalid cube coordinates.")
+            final_cube = candidate["final_cube_position_m"]
+            if (math.dist(final_cube[:2], EXPECTED_PLATFORM_CUBE_CENTER[:2]) >= PLACEMENT_XY_TOLERANCE
+                    or abs(final_cube[2] - EXPECTED_PLATFORM_CUBE_CENTER[2]) >= PLACEMENT_Z_TOLERANCE):
+                raise ValueError("Final cube pose is outside the platform placement tolerances.")
             for field in ("physics_dt_s", "cube_rise_m", "stable_hold_s"):
                 if type(candidate[field]) not in (int, float) or not math.isfinite(candidate[field]) or candidate[field] <= 0:
                     raise ValueError("Invalid execution metrics.")
@@ -51,8 +60,8 @@ def summarize_output(output: str, returncode: int | None, expected_goal: dict) -
                 raise ValueError("Physical verification thresholds were not met.")
             result = candidate
             reason = "Verified goal and clean process exit."
-        except (KeyError, TypeError, ValueError, OverflowError):
-            pass
+        except (KeyError, TypeError, ValueError, OverflowError) as error:
+            reason = f"Invalid verified result: {error}"
     if returncode is None:
         status, reason = "timeout", "Simulation process exceeded the wall-clock timeout."
     elif returncode != 0:
@@ -107,7 +116,8 @@ def main() -> int:
         for language, instruction in INSTRUCTIONS
     ][:args.limit]
     protocol = {"cases": cases, "max_steps": args.max_steps, "process_timeout_s": args.process_timeout,
-                "rendering": "disabled"}
+                "rendering": "disabled", "expected_platform_cube_center_m": EXPECTED_PLATFORM_CUBE_CENTER,
+                "placement_xy_tolerance_m": PLACEMENT_XY_TOLERANCE, "placement_z_tolerance_m": PLACEMENT_Z_TOLERANCE}
     if args.dry_run:
         print(json.dumps(protocol, ensure_ascii=False, indent=2))
         return 0

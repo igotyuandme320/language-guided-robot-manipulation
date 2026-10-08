@@ -64,6 +64,19 @@ class EvaluationTests(unittest.TestCase):
                 result[field] = value
                 self.assertEqual(summarize_output(result_output(result), 0, GOAL)["status"], "failure")
 
+    def test_claimed_platform_state_requires_measured_platform_pose(self):
+        for position in ((0.5, 0.0, 0.04), (0.5, -0.22, 0.10), (0.55, -0.22, 0.04)):
+            with self.subTest(position=position):
+                result = {**RESULT, "final_cube_position_m": list(position)}
+                trial = summarize_output(result_output(result), 0, GOAL)
+                self.assertEqual(trial["status"], "failure")
+                self.assertIsNone(trial["result"])
+                self.assertIn("platform placement tolerances", trial["reason"])
+
+    def test_pose_inside_platform_tolerance_remains_valid(self):
+        result = {**RESULT, "final_cube_position_m": [0.52, -0.20, 0.043]}
+        self.assertEqual(summarize_output(result_output(result), 0, GOAL)["status"], "success")
+
     def test_malformed_or_nonfinite_metrics_are_failure(self):
         for output in ('[RESULT] {broken json}', result_output({}),
                        result_output({**RESULT, "cube_rise_m": float("nan")}),
