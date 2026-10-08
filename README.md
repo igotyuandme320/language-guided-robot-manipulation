@@ -10,6 +10,11 @@ Current baseline pipeline:
 natural language → structured goal → task planner → skills → IK/controller → simulation
 ```
 
+![Actual simulated pick and place](docs/images/day8_manipulation.gif)
+
+Sampled Kit viewport recording of a model-translated placement request.
+[Frame metadata and verified physical result](docs/images/day8_manipulation.json).
+
 The default language parser uses explicit templates. An optional local
 Qwen model front end is experimental and can misunderstand requests;
 its initial language check scored 15/24 versus 16/24 for the rules.
@@ -34,8 +39,8 @@ Current progress:
   strict goal validation, and a comparison that retains model errors.
 - [Day 7: request checks](docs/day7.md) — explicit entity/action checks,
   model-conflict rejection, and a second small language comparison.
-
-![Custom manipulation scene](docs/images/day2_scene.png)
+- [Day 8: demo recording](docs/day8.md) — real motion frames and a
+  reproducible GIF recording command, with the execution result retained.
 
 Tested environment: Ubuntu 26.04, RTX 3080 10GB, Isaac Lab develop
 (`VERSION` 3.0.0), and Isaac Sim 6.1. Commands use the existing Isaac Lab

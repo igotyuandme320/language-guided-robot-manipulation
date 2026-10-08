@@ -85,6 +85,14 @@ def execute_goal(goal: Goal, args_cli, simulation_app):
     reached_step = 0
     pick_rise = 0.0
     print(f"[INFO] Starting cube position: {initial_cube_position.tolist()}", flush=True)
+    recorder = None
+    if getattr(args_cli, "record_gif", None):
+        from execution.recording import ViewportRecorder
+        recorder = ViewportRecorder(args_cli.record_gif, dt, {
+            "instruction": args_cli.instruction, "language_backend": args_cli.language_backend,
+            "goal": goal.to_dict(), "language_frontend": args_cli.language_metadata,
+        })
+        recorder.capture(0, "pick:REST")
 
     with torch.inference_mode():
         for step in range(args_cli.max_steps):
@@ -130,6 +138,8 @@ def execute_goal(goal: Goal, args_cli, simulation_app):
             scene.update(dt)
             if active_skill.phase != phase:
                 print(f"[PHASE] {step * dt:.2f}s: {phase.name} -> {active_skill.phase.name}", flush=True)
+            if recorder is not None and (step + 1) % 50 == 0:
+                recorder.capture(step + 1, f"{call.skill}:{active_skill.phase.name}")
             if step % 200 == 0:
                 print(
                     f"[STATE] step={step}, phase={active_skill.phase.name}, "
@@ -188,7 +198,7 @@ def execute_goal(goal: Goal, args_cli, simulation_app):
     if not goal_satisfied(goal, state):
         raise RuntimeError("Executed plan did not satisfy the symbolic goal.")
     final_cube = cube.data.root_pos_w.torch[0]
-    print("[RESULT] " + json.dumps({
+    result = {
         "goal": goal.to_dict(),
         "plan": [call.to_dict() for call in plan],
         "final_state": state.to_dict(),
@@ -198,7 +208,11 @@ def execute_goal(goal: Goal, args_cli, simulation_app):
         "physics_dt_s": dt,
         "cube_rise_m": pick_rise,
         "stable_hold_s": stable_time,
-    }), flush=True)
+    }
+    if recorder is not None:
+        recorder.capture(reached_step, f"{plan[-1].skill}:VERIFIED")
+        recorder.finish(result, simulation_app)
+    print("[RESULT] " + json.dumps(result), flush=True)
     print(
         f"[SUCCESS] task={'pick_place' if goal.action == 'place' else 'pick'}; "
         f"cube_rise={pick_rise:.4f}m; stable_hold={stable_time:.2f}s; "

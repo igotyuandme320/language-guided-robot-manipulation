@@ -3,6 +3,7 @@
 import argparse
 import json
 import math
+import os
 import sys
 import traceback
 from pathlib import Path
@@ -23,6 +24,7 @@ parser.add_argument("--max_steps", type=int, help="Attempt timeout: default 3000
 parser.add_argument("--cube_x", type=float, default=0.5)
 parser.add_argument("--cube_y", type=float, default=0.0)
 parser.add_argument("--screenshot", type=Path, help="Save the viewport after verified task success.")
+parser.add_argument("--record_gif", type=Path, help="New project-local GIF and JSON of real viewport frames after success.")
 parser.add_argument("--keep_open", action="store_true", help="Hold the final arm pose until the app is closed.")
 AppLauncher.add_app_launcher_args(parser)
 args_cli = parser.parse_args()
@@ -34,6 +36,15 @@ if not (math.isfinite(args_cli.cube_x) and math.isfinite(args_cli.cube_y)):
     parser.error("cube positions must be finite")
 if not (0.35 <= args_cli.cube_x <= 0.65 and -0.15 <= args_cli.cube_y <= 0.15):
     parser.error("cube position must be inside the allowed tabletop region: x=[0.35,0.65], y=[-0.15,0.15]")
+if args_cli.record_gif:
+    from execution.recording import validate_recording_path
+    try:
+        args_cli.record_gif = validate_recording_path(args_cli.record_gif)
+    except ValueError as error:
+        parser.error(str(error))
+    streaming = args_cli.livestream if args_cli.livestream >= 0 else os.environ.get("LIVESTREAM", "0")
+    if "kit" not in (args_cli.visualizer or []) and str(streaming) not in ("1", "2"):
+        parser.error("recording requires --viz kit or --livestream 2")
 language_metadata = None
 try:
     if args_cli.language_backend == "llm":
@@ -48,6 +59,7 @@ except ValueError as error:
     parser.error(str(error))
 if args_cli.max_steps is None:
     args_cli.max_steps = 6000 if goal.action == "place" else 3000
+args_cli.language_metadata = language_metadata
 
 if args_cli.dry_run:
     assumed_state = WorldState("table")

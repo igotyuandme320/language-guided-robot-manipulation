@@ -1,0 +1,387 @@
+{
+  "request": {
+    "instruction": "Please relocate the red cube onto the green target.",
+    "language_backend": "guarded",
+    "goal": {
+      "action": "place",
+      "object": "red_cube",
+      "target": "green_platform"
+    },
+    "language_frontend": {
+      "backend": "guarded",
+      "source": "llm",
+      "model": {
+        "model_id": "Qwen/Qwen2.5-1.5B-Instruct",
+        "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+        "device": "cpu",
+        "raw_output": "{\"status\":\"ok\",\"goal\":{\"action\":\"place\",\"object\":\"red_cube\",\"target\":\"green_platform\"}}",
+        "inference_wall_time_s": 10.746645966006326
+      }
+    }
+  },
+  "result": {
+    "goal": {
+      "action": "place",
+      "object": "red_cube",
+      "target": "green_platform"
+    },
+    "plan": [
+      {
+        "skill": "pick",
+        "object": "red_cube",
+        "target": null
+      },
+      {
+        "skill": "place",
+        "object": "red_cube",
+        "target": "green_platform"
+      }
+    ],
+    "final_state": {
+      "cube_location": "green_platform"
+    },
+    "initial_cube_position_m": [
+      0.49999943375587463,
+      1.1288061614322942e-06,
+      0.016999615356326103
+    ],
+    "final_cube_position_m": [
+      0.5001770257949829,
+      -0.2194831520318985,
+      0.03999961540102959
+    ],
+    "steps": 2554,
+    "physics_dt_s": 0.01,
+    "cube_rise_m": 0.19853471405804157,
+    "stable_hold_s": 0.5000000000000002
+  },
+  "source": "actual Kit viewport captures",
+  "frame_size_px": [
+    720,
+    405
+  ],
+  "raw_frames_directory": ".cache/day8/recording_502o0tk4",
+  "frames": [
+    {
+      "file": "frame_0000.png",
+      "requested_step": 0,
+      "phase": "pick:REST"
+    },
+    {
+      "file": "frame_0001.png",
+      "requested_step": 50,
+      "phase": "pick:APPROACH_ABOVE"
+    },
+    {
+      "file": "frame_0002.png",
+      "requested_step": 100,
+      "phase": "pick:APPROACH_ABOVE"
+    },
+    {
+      "file": "frame_0003.png",
+      "requested_step": 150,
+      "phase": "pick:APPROACH_ABOVE"
+    },
+    {
+      "file": "frame_0004.png",
+      "requested_step": 200,
+      "phase": "pick:APPROACH_ABOVE"
+    },
+    {
+      "file": "frame_0005.png",
+      "requested_step": 250,
+      "phase": "pick:APPROACH_ABOVE"
+    },
+    {
+      "file": "frame_0006.png",
+      "requested_step": 300,
+      "phase": "pick:APPROACH_ABOVE"
+    },
+    {
+      "file": "frame_0007.png",
+      "requested_step": 350,
+      "phase": "pick:APPROACH_ABOVE"
+    },
+    {
+      "file": "frame_0008.png",
+      "requested_step": 400,
+      "phase": "pick:APPROACH_ABOVE"
+    },
+    {
+      "file": "frame_0009.png",
+      "requested_step": 450,
+      "phase": "pick:APPROACH_ABOVE"
+    },
+    {
+      "file": "frame_0010.png",
+      "requested_step": 500,
+      "phase": "pick:APPROACH_ABOVE"
+    },
+    {
+      "file": "frame_0011.png",
+      "requested_step": 550,
+      "phase": "pick:APPROACH_ABOVE"
+    },
+    {
+      "file": "frame_0012.png",
+      "requested_step": 600,
+      "phase": "pick:APPROACH_ABOVE"
+    },
+    {
+      "file": "frame_0013.png",
+      "requested_step": 650,
+      "phase": "pick:APPROACH_ABOVE"
+    },
+    {
+      "file": "frame_0014.png",
+      "requested_step": 700,
+      "phase": "pick:APPROACH_ABOVE"
+    },
+    {
+      "file": "frame_0015.png",
+      "requested_step": 750,
+      "phase": "pick:APPROACH_ABOVE"
+    },
+    {
+      "file": "frame_0016.png",
+      "requested_step": 800,
+      "phase": "pick:APPROACH_ABOVE"
+    },
+    {
+      "file": "frame_0017.png",
+      "requested_step": 850,
+      "phase": "pick:APPROACH_ABOVE"
+    },
+    {
+      "file": "frame_0018.png",
+      "requested_step": 900,
+      "phase": "pick:APPROACH_ABOVE"
+    },
+    {
+      "file": "frame_0019.png",
+      "requested_step": 950,
+      "phase": "pick:APPROACH_ABOVE"
+    },
+    {
+      "file": "frame_0020.png",
+      "requested_step": 1000,
+      "phase": "pick:APPROACH_ABOVE"
+    },
+    {
+      "file": "frame_0021.png",
+      "requested_step": 1050,
+      "phase": "pick:APPROACH_ABOVE"
+    },
+    {
+      "file": "frame_0022.png",
+      "requested_step": 1100,
+      "phase": "pick:APPROACH_ABOVE"
+    },
+    {
+      "file": "frame_0023.png",
+      "requested_step": 1150,
+      "phase": "pick:APPROACH_ABOVE"
+    },
+    {
+      "file": "frame_0024.png",
+      "requested_step": 1200,
+      "phase": "pick:APPROACH_ABOVE"
+    },
+    {
+      "file": "frame_0025.png",
+      "requested_step": 1250,
+      "phase": "pick:APPROACH_ABOVE"
+    },
+    {
+      "file": "frame_0026.png",
+      "requested_step": 1300,
+      "phase": "pick:APPROACH_OBJECT"
+    },
+    {
+      "file": "frame_0027.png",
+      "requested_step": 1350,
+      "phase": "pick:APPROACH_OBJECT"
+    },
+    {
+      "file": "frame_0028.png",
+      "requested_step": 1400,
+      "phase": "pick:APPROACH_OBJECT"
+    },
+    {
+      "file": "frame_0029.png",
+      "requested_step": 1450,
+      "phase": "pick:APPROACH_OBJECT"
+    },
+    {
+      "file": "frame_0030.png",
+      "requested_step": 1500,
+      "phase": "pick:LIFT"
+    },
+    {
+      "file": "frame_0031.png",
+      "requested_step": 1550,
+      "phase": "pick:LIFT"
+    },
+    {
+      "file": "frame_0032.png",
+      "requested_step": 1600,
+      "phase": "pick:LIFT"
+    },
+    {
+      "file": "frame_0033.png",
+      "requested_step": 1650,
+      "phase": "pick:LIFT"
+    },
+    {
+      "file": "frame_0034.png",
+      "requested_step": 1700,
+      "phase": "pick:LIFT"
+    },
+    {
+      "file": "frame_0035.png",
+      "requested_step": 1750,
+      "phase": "pick:LIFT"
+    },
+    {
+      "file": "frame_0036.png",
+      "requested_step": 1800,
+      "phase": "pick:LIFT"
+    },
+    {
+      "file": "frame_0037.png",
+      "requested_step": 1850,
+      "phase": "place:TRANSIT"
+    },
+    {
+      "file": "frame_0038.png",
+      "requested_step": 1900,
+      "phase": "place:TRANSIT"
+    },
+    {
+      "file": "frame_0039.png",
+      "requested_step": 1950,
+      "phase": "place:TRANSIT"
+    },
+    {
+      "file": "frame_0040.png",
+      "requested_step": 2000,
+      "phase": "place:TRANSIT"
+    },
+    {
+      "file": "frame_0041.png",
+      "requested_step": 2050,
+      "phase": "place:LOWER"
+    },
+    {
+      "file": "frame_0042.png",
+      "requested_step": 2100,
+      "phase": "place:LOWER"
+    },
+    {
+      "file": "frame_0043.png",
+      "requested_step": 2150,
+      "phase": "place:LOWER"
+    },
+    {
+      "file": "frame_0044.png",
+      "requested_step": 2200,
+      "phase": "place:LOWER"
+    },
+    {
+      "file": "frame_0045.png",
+      "requested_step": 2250,
+      "phase": "place:RELEASE"
+    },
+    {
+      "file": "frame_0046.png",
+      "requested_step": 2300,
+      "phase": "place:RELEASE"
+    },
+    {
+      "file": "frame_0047.png",
+      "requested_step": 2350,
+      "phase": "place:RETRACT"
+    },
+    {
+      "file": "frame_0048.png",
+      "requested_step": 2400,
+      "phase": "place:RETRACT"
+    },
+    {
+      "file": "frame_0049.png",
+      "requested_step": 2450,
+      "phase": "place:RETRACT"
+    },
+    {
+      "file": "frame_0050.png",
+      "requested_step": 2500,
+      "phase": "place:RETRACT"
+    },
+    {
+      "file": "frame_0051.png",
+      "requested_step": 2550,
+      "phase": "place:DONE"
+    },
+    {
+      "file": "frame_0052.png",
+      "requested_step": 2554,
+      "phase": "place:VERIFIED"
+    }
+  ],
+  "frame_durations_ms": [
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    500,
+    40,
+    2000
+  ],
+  "timing_note": "Requested controller steps; capture may lag rendering. Playback uses nominal dt, with a 2 s final hold."
+}

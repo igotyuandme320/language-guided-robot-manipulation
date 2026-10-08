@@ -21,6 +21,23 @@ PLACE_INSTRUCTION = ["--instruction", "把红色方块放到绿色平台上"]
 
 
 class SimulationExitTests(unittest.TestCase):
+    def test_failed_recorded_attempt_does_not_publish_a_clip(self):
+        cache = PROJECT / ".cache" / "simulation_checks"
+        cache.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=cache) as directory:
+            target = Path(directory) / "failed.gif"
+            result = subprocess.run(
+                [sys.executable, str(LANGUAGE_DEMO), *PLACE_INSTRUCTION, "--max_steps", "1",
+                 "--viz", "kit", "--livestream", "2", "--record_gif", str(target)],
+                stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, timeout=45,
+            )
+            self.assertEqual(result.returncode, 1, result.stdout[-3000:])
+            self.assertIn("[RECORD] Raw frames:", result.stdout)
+            self.assertNotIn("[SUCCESS]", result.stdout)
+            self.assertNotIn("[RESULT]", result.stdout)
+            self.assertFalse(target.exists())
+            self.assertFalse(target.with_suffix(".json").exists())
+
     def test_evaluation_step_timeouts_preserve_both_failed_trials(self):
         cache = PROJECT / ".cache" / "simulation_checks"
         cache.mkdir(parents=True, exist_ok=True)

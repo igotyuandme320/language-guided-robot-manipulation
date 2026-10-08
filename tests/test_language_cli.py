@@ -3,12 +3,31 @@ import json
 from pathlib import Path
 import subprocess
 import sys
+import tempfile
 import unittest
 
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts/day4_language.py"
 
 
 class LanguageCliTests(unittest.TestCase):
+    def test_recording_requires_renderer_before_model_inference(self):
+        result = self.run_cli("Please hold the red cube.", "--language_backend", "llm", "--llm_timeout", "0.01",
+                              "--record_gif", str(SCRIPT.parents[1] / ".cache/day8/preview.gif"))
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertIn("recording requires", result.stderr)
+        self.assertNotIn("timed out", result.stderr)
+        self.assertNotIn("[ext:", result.stdout)
+
+    def test_recording_refuses_existing_files_before_app_start(self):
+        with tempfile.TemporaryDirectory(dir=SCRIPT.parents[1]) as directory:
+            gif = Path(directory) / "keep.gif"
+            gif.write_bytes(b"keep existing result")
+            result = self.run_cli("pick up the red cube", "--record_gif", str(gif), "--viz", "kit")
+            self.assertEqual(result.returncode, 2, result.stderr)
+            self.assertIn("must not exist", result.stderr)
+            self.assertEqual(gif.read_bytes(), b"keep existing result")
+            self.assertNotIn("[ext:", result.stdout)
+
     def test_guarded_negation_is_blocked_before_model_or_app(self):
         result = self.run_cli("Do not lift the red cube.", "--language_backend", "guarded", "--llm_timeout", "0.01")
         self.assertEqual(result.returncode, 2, result.stderr)
