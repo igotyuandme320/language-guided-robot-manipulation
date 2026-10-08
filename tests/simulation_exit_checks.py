@@ -21,6 +21,34 @@ PLACE_INSTRUCTION = ["--instruction", "把红色方块放到绿色平台上"]
 
 
 class SimulationExitTests(unittest.TestCase):
+    def test_post_pick_release_is_detected_before_the_step_limit(self):
+        cache = PROJECT / ".cache/day18"
+        cache.mkdir(parents=True, exist_ok=True)
+        directory = Path(tempfile.mkdtemp(prefix="release_check_", dir=cache))
+        print(f"[RELEASE_CHECK] Logs: {directory}", flush=True)
+        result = subprocess.run(
+            [sys.executable, str(LANGUAGE_DEMO), *PLACE_INSTRUCTION, "--release_after_pick", "--max_steps", "6000"],
+            stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, timeout=90,
+        )
+        (directory / "release.log").write_text(result.stdout)
+        self.assertEqual(result.returncode, 1, result.stdout[-3000:])
+        lines = result.stdout.splitlines()
+        failures = [json.loads(line.removeprefix("[FAILURE] ")) for line in lines if line.startswith("[FAILURE] ")]
+        self.assertEqual(len(failures), 1, result.stdout[-3000:])
+        failure = failures[0]
+        self.assertEqual(failure["reason"], "lost_grasp")
+        self.assertEqual(failure["active_skill"], "place")
+        self.assertEqual(failure["last_verified_state"], {"cube_location": "gripper"})
+        self.assertLess(failure["attempted_steps"], 6000)
+        self.assertGreaterEqual(failure["grasp_loss_duration_s"], 0.1 - 1e-9)
+        self.assertGreaterEqual(failure["cube_tcp_distance_m"], 0.05)
+        self.assertTrue(failure["injected_fault"]["release_after_pick"])
+        self.assertIn("[CHECK] Pick verified:", result.stdout)
+        self.assertNotIn("[RESULT]", result.stdout)
+        self.assertNotIn("[SUCCESS]", result.stdout)
+        worlds = [line for line in lines if line.startswith("[WORLD]")]
+        self.assertEqual(worlds, ['[WORLD] {"cube_location": "table"}', '[WORLD] {"cube_location": "gripper"}'])
+
     def test_platform_start_uses_observed_state(self):
         cache = PROJECT / ".cache/day13"
         cache.mkdir(parents=True, exist_ok=True)

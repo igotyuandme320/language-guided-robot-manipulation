@@ -51,6 +51,7 @@ model is pretrained; the project does not train a policy or language model.
 | Platform initial state | Placement needs no manipulation; pick verified at 1933 steps | One additional initial support, with an unchanged table-placement control |
 | New constraint diagnostic | Rules 14/16; raw model 12/16; guarded entry 14/16 with two false acceptances | Four supported and twelve unsupported hand-written requests, fixed before new inference |
 | Cube rotation check | Four verified picks at 0°, 30°, 45°, and 90° | One fixed table position; unchanged grasp pose; 90° is a cube symmetry control |
+| Post-pick release fault | Grasp loss detected at step 1833; no place effect; three normal controls passed | One command fault; simulator cube/TCP proximity monitor; no recovery |
 
 [Grid results](results/day5_grid.json),
 [original language comparison](results/day7_development_language.json),
@@ -73,6 +74,9 @@ start and control runs. The empty-plan result counts zero manipulation
 steps; it is an already-satisfied goal rather than a completed grasp.
 [Day 17 records](results/day17_yaw_pick.json) retain the actual rotated-cube
 picks. They do not establish orientation-aware grasping or placement.
+[Day 18](day18.md) adds a sustained proximity check while placement needs
+a grasp. Its release-fault test detects a later loss after a verified pick;
+it does not identify a new supported world state or replan automatically.
 
 Object positions come directly from the simulator. The project currently
 has no visual grounding, learned skills, collision-aware motion planner,

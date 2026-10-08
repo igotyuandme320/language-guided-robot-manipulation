@@ -27,7 +27,9 @@ parser.add_argument("--cube_y", type=float, help="Table start y coordinate; defa
 parser.add_argument("--cube_yaw_deg", type=float, default=0.0, help="Initial cube rotation about world z, in degrees [-180,180].")
 parser.add_argument("--screenshot", type=Path, help="Save the viewport after verified task success.")
 parser.add_argument("--record_gif", type=Path, help="New project-local GIF and JSON of real viewport frames after success.")
-parser.add_argument("--gripper_stuck_open", action="store_true", help="Inject a simulated open-gripper fault to check failure detection.")
+faults = parser.add_mutually_exclusive_group()
+faults.add_argument("--gripper_stuck_open", action="store_true", help="Inject a simulated open-gripper fault to check failure detection.")
+faults.add_argument("--release_after_pick", action="store_true", help="Inject open fingers during placement after a verified pick.")
 parser.add_argument("--keep_open", action="store_true", help="Hold the final arm pose until the app is closed.")
 AppLauncher.add_app_launcher_args(parser)
 args_cli = parser.parse_args()
@@ -66,6 +68,8 @@ try:
         goal = parse_instruction(args_cli.instruction)
 except ValueError as error:
     parser.error(str(error))
+if args_cli.release_after_pick and (goal.action != "place" or args_cli.cube_start != "table"):
+    parser.error("--release_after_pick requires a table-start placement with pick then place")
 if args_cli.record_gif and args_cli.cube_start == "green_platform" and goal.action == "place":
     parser.error("The placement goal is already satisfied at this start; use --screenshot instead of motion recording")
 if args_cli.max_steps is None:
@@ -84,6 +88,8 @@ if args_cli.dry_run:
         preview["language_frontend" if args_cli.language_backend == "guarded" else "language_model"] = language_metadata
     if args_cli.gripper_stuck_open:
         preview["injected_fault"] = {"gripper_stuck_open": True}
+    if args_cli.release_after_pick:
+        preview["injected_fault"] = {"release_after_pick": True}
     if args_cli.cube_yaw_deg:
         preview["initial_cube_yaw_deg"] = args_cli.cube_yaw_deg
     print(json.dumps(preview, ensure_ascii=False, indent=2))

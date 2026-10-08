@@ -64,6 +64,8 @@ Current progress:
   and an explicit offline recheck of the saved placement results.
 - [Day 17: cube rotation check](docs/day17.md) — four actual picks with
   configured initial yaw and the unchanged grasp controller.
+- [Day 18: grasp-loss monitoring](docs/day18.md) — a sustained separation
+  check during placement, tested with a post-pick release and normal controls.
 
 Tested environment: Ubuntu 26.04, RTX 3080 10GB, Isaac Lab develop
 (`VERSION` 3.0.0), and Isaac Sim 6.1. Commands use the existing Isaac Lab

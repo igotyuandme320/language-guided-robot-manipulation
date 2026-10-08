@@ -10,6 +10,22 @@ SCRIPT = Path(__file__).resolve().parents[1] / "scripts/day4_language.py"
 
 
 class LanguageCliTests(unittest.TestCase):
+    def test_release_after_pick_is_visible_in_placement_preview(self):
+        result = self.run_cli("put the red cube on the green platform", "--release_after_pick", "--dry_run")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        preview = json.loads(result.stdout)
+        self.assertEqual(preview["injected_fault"], {"release_after_pick": True})
+        self.assertEqual([call["skill"] for call in preview["plan"]], ["pick", "place"])
+
+    def test_release_fault_requires_a_pick_then_place_plan(self):
+        for instruction, extra in (("pick up the red cube", []),
+                                   ("put the red cube on the green platform", ["--cube_start", "green_platform"])):
+            with self.subTest(instruction=instruction, extra=extra):
+                result = self.run_cli(instruction, "--release_after_pick", "--dry_run", *extra)
+                self.assertEqual(result.returncode, 2, result.stderr)
+                self.assertIn("requires a table-start placement", result.stderr)
+                self.assertNotIn("[ext:", result.stdout)
+
     def test_rotation_preview_keeps_the_goal_and_reports_scene_setting(self):
         result = self.run_cli("pick up the red cube", "--cube_yaw_deg", "45", "--dry_run")
         self.assertEqual(result.returncode, 0, result.stderr)
