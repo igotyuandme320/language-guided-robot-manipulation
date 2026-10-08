@@ -14,6 +14,8 @@ import unittest
 
 PROJECT = Path(__file__).resolve().parents[1]
 DEMO = PROJECT / "scripts/day3_pick.py"
+LANGUAGE_DEMO = PROJECT / "scripts/day4_language.py"
+PLACE_INSTRUCTION = ["--instruction", "把红色方块放到绿色平台上"]
 
 
 class SimulationExitTests(unittest.TestCase):
@@ -30,12 +32,30 @@ class SimulationExitTests(unittest.TestCase):
         self.assertNotIn("[SUCCESS]", result.stdout)
 
     def test_interrupted_attempt_exits_130(self):
+        self.check_interruption(DEMO, [])
+
+    def test_language_interrupted_attempt_exits_130(self):
+        self.check_interruption(LANGUAGE_DEMO, PLACE_INSTRUCTION)
+
+    def test_language_timeout_does_not_commit_symbolic_effects(self):
+        result = subprocess.run(
+            [sys.executable, str(LANGUAGE_DEMO), *PLACE_INSTRUCTION, "--max_steps", "1"],
+            stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, timeout=45,
+        )
+        self.assertEqual(result.returncode, 1, result.stdout[-3000:])
+        worlds = [line for line in result.stdout.splitlines() if line.startswith("[WORLD]")]
+        self.assertEqual(worlds, ['[WORLD] {"cube_location": "table"}'])
+        self.assertNotIn("[SUCCESS]", result.stdout)
+
+    def check_interruption(self, script, extra_args):
         # Keep scratch output inside our own repository.
         cache = PROJECT / ".cache" / "simulation_checks"
         cache.mkdir(parents=True, exist_ok=True)
-        with tempfile.TemporaryFile(mode="w+", dir=cache) as output:
+        with tempfile.NamedTemporaryFile(mode="w", dir=cache) as output:
+            # A separate reader avoids moving the child stdout file descriptor's offset.
+            log_path = Path(output.name)
             process = subprocess.Popen(
-                [sys.executable, str(DEMO), "--max_steps", "3000"],
+                [sys.executable, str(script), *extra_args, "--max_steps", "3000"],
                 stdout=output,
                 stderr=subprocess.STDOUT,
                 start_new_session=True,
@@ -44,16 +64,14 @@ class SimulationExitTests(unittest.TestCase):
                 deadline = time.monotonic() + 30
                 started = False
                 while time.monotonic() < deadline and process.poll() is None:
-                    output.seek(0)
-                    if "[INFO] Starting cube position:" in output.read():
+                    if "[INFO] Starting cube position:" in log_path.read_text():
                         started = True
                         break
                     time.sleep(0.05)
                 self.assertTrue(started, "Scene did not become ready before interrupt check")
                 os.killpg(process.pid, signal.SIGINT)
                 code = process.wait(timeout=15)
-                output.seek(0)
-                self.assertEqual(code, 130, output.read()[-3000:])
+                self.assertEqual(code, 130, log_path.read_text()[-3000:])
             finally:
                 if process.poll() is None:
                     os.killpg(process.pid, signal.SIGTERM)
